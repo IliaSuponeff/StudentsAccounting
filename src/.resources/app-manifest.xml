@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application>
+    <name>StudentAccounting</name>
+    <version>0.0.2</version>
+    <authors>
+        <author id="0">
+            <name>Ilia</name>
+            <surname>Suponev</surname>
+            <email>suponeff.i@gmail.com</email>
+            <git-hub>https://github.com/ProgKalm</git-hub>
+            <team-positions>
+                <position id="0">Team Leader</position>
+                <position id="1">Programmer</position>
+                <position id="2">Tester</position>
+            </team-positions>
+        </author>
+    </authors>
+    <company>
+        <name>DesktopApplications</name>
+        <email>suponeff.i@gmail.com</email>
+    </company>
+    <license>None</license>
+</Application>
