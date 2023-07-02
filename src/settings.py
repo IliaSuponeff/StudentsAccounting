@@ -3,13 +3,15 @@ Contains settings classes
 1. Standard settings(_StandardSettings)
 2. Settings while the application is running(RuntimeSettings)
 
-version: 1.0.0 - valid version
+version: 1.0.1 - valid version
 
-last-versions:  0.0.1 - create class _StandardSettings
+versions-list:  0.0.1 - create class _StandardSettings
                 0.0.2 - create class RuntimeSettings
                 0.0.3 - description of the _StandardSettings class
                 0.0.4 - description of the RuntimeSettings class
                 0.0.5 - enabling downloading local settings from files for the RuntimeSettings class
+                1.0.0 - first release version, can load images, resources files, stylesheet-files
+                1.0.1 - first release version, can load sql-scripts files
 
 
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
@@ -34,6 +36,8 @@ class _StandardSettings:
         self._RESOURCES_DIR = os.path.join(self._ROOT_DIR, '.resources')
         self._IMAGE_DIR = os.path.join(self._RESOURCES_DIR, 'images')
         self._STYLESHEETS_DIR = os.path.join(self._RESOURCES_DIR, 'styles')
+        self._SQL_SCRIPTS_DIR = os.path.join(self._RESOURCES_DIR, 'sql-scripts')
+        self._check_dirs()
 
         self._STYLESHEETS_DICT = dict()
         self._load_stylesheets_dict()
@@ -125,6 +129,27 @@ class _StandardSettings:
     def get_stylesheet_names(self) -> set[str]:
         return self._STYLESHEETS_DICT.keys()
 
+    def _check_dirs(self):
+        for item in dir(self):
+            if item.startswith('_') and item.isupper() and item.endswith('_DIR'):
+                dir_path = self.__getattribute__(item)
+                if not os.path.exists(dir_path):
+                    os.makedirs(dir_path)
+
+    def get_sql_script_filepath(self, script_name: str):
+        return os.path.join(self._SQL_SCRIPTS_DIR, script_name)
+
+    def get_sql_script_filedata(self, script_name: str):
+        script_path = self.get_sql_script_filepath(script_name)
+        if not os.path.exists(script_path) or not os.path.isfile(script_path):
+            return ''
+
+        data = ''
+        with open(script_path, 'r', encoding=self.charset()) as script_file:
+            data = script_file.read()
+
+        return data
+
 
 class RuntimeSettings(_StandardSettings):
 
@@ -198,7 +223,6 @@ class RuntimeSettings(_StandardSettings):
             attr = str(data_item).upper()
             if hasattr(self, attr) and data[data_item] is not None:
                 self.__setattr__(attr, data[data_item])
-                print(attr, data[data_item])
 
     def _save_to_local_settings_file(self):
         settings_filepath = self.get_resource_filepath('settings.json')
