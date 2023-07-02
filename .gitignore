@@ -1,0 +1,12 @@
+## Pycharm IDE
+
+.idea/
+idea/
+
+## Python3
+__pycache__/
+.venv/
+venv/
+.env/
+env/
+
