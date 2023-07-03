@@ -60,3 +60,9 @@ class StudentState(enum.Enum):
     @staticmethod
     def all():
         return [item.value for item in StudentState]
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+    def __repr__(self) -> str:
+        return str(self.value)

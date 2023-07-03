@@ -1,7 +1,10 @@
 """
 Contains a student's class describing the application's data model
 
-version: 1.0.0
+version: 1.0.1
+
+versions-list:  1.0.0 - start valid version(can initialize Student class and create new Student objects)
+                1.0.1 - add some magic methods(__eq__, __ne__, __str__, __repr__, __hash__)
 
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
@@ -65,6 +68,35 @@ class Student:
     def table(self) -> str:
         return self._TABLE
 
+    def __eq__(self, o: object) -> bool:
+        if o is None:
+            return False
+
+        if o is self:
+            return True
+
+        if not isinstance(o, self.__class__):
+            return False
+
+        # if db tables for students visits is eq than students eq
+        return self.table() == o.table()
+
+    def __ne__(self, o: object) -> bool:
+        return not self.__eq__(o)
+
+    def __str__(self) -> str:
+        return f'Student<name={self.name()} hour-cost={self.hour_cost()} currency={self.currency()}, state={self.state()}>'
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
+    def __hash__(self) -> int:
+        _hash = hash(self.__class__.__name__)
+        _hash = 31 * _hash + hash(self.name())
+        _hash = 31 * _hash + hash(self.currency())
+        _hash = 31 * _hash + hash(self.table())
+        return _hash
+
     @staticmethod
     def create_new_student(name, hour_cost, currency, state):
-        return Student(name, hour_cost, currency, state, f'table_{name}_{str(currency.value).lower()}')
+        return Student(name, hour_cost, currency, state, f'table_{name}_{str(currency).lower()}')

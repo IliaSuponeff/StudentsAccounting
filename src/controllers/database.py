@@ -1,14 +1,18 @@
 """
 Contains class implementing a sqlite-database connection
 
-version: 0.0.2
+version: 0.0.3
 
 versions-list:  0.0.1 - setup standard db functions(execution sql scripts and get their results)
                 0.0.2 - adding external control functions
+                0.0.3 - adding functions to add/remove students to/from db
 
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
+import pprint
 import sqlite3
+import sys
+
 from settings import RuntimeSettings
 from jinja2 import Template
 from models.student import Student, Currency, StudentState
@@ -28,6 +32,11 @@ class DataBase:
 
         # try to initialize db
         self._execute_script('init_db')
+        self._execute_script('get_students')
+        self.students = [Student(*row) for row in self._get_results(self.ALL_RESULTS)]
+
+        if self.settings.debug():
+            print(f"Students: {self.students}", file=sys.stderr)
 
     def close(self):
         self.save()
@@ -35,13 +44,42 @@ class DataBase:
         self._connection.close()
 
     def add_student(self, student: Student):
-        self._execute_script('add_student')
+        if student in self.students:
+            raise AssertionError(f"Student {student} is exists now")
+        else:
+            self.students.append(student)
+
+        self._execute_script(
+            'add_student',
+            name=student.name(),
+            hour_cost=student.hour_cost(),
+            currency=student.currency().value,
+            state=student.state().value,
+            table=student.table()
+        )
+        self._execute_script(
+            'create_student_table.sql',
+            table=student.table()
+        )
         self.save()
+
+    def remove_student(self, student: Student):
+        if not (student in self.students):
+            # nothing to do
+            return
+
+        self.students.remove(student)
+        self._execute_script('remove_student', table=student.table())
+        self._execute_script('drop_student_table', table=student.table())
 
     def _execute_script(self, script_name: str, **kwargs):
         script_data = self.settings.get_sql_script_filedata(f'{script_name}.sql')
         script_template = Template(script_data)
         script = script_template.render(kwargs)
+
+        if self.settings.debug():
+            print(script, file=sys.stderr)
+
         self._cursor.execute(script)
 
     def _get_results(self, count: int = 0):

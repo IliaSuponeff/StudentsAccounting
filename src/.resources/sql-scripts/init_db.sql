@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS "STUDENTS" (
-	"name"	TEXT UNIQUE,
+	"name"	TEXT,
 	"hour_cost"	REAL,
 	"currency"	TEXT,
 	"state"	REAL,
-	"table"	TEXT
+	"table"	TEXT UNIQUE
 )

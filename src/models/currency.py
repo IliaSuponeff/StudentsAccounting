@@ -62,3 +62,9 @@ class Currency(enum.Enum):
     @staticmethod
     def all():
         return [item.value for item in Currency]
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+    def __repr__(self) -> str:
+        return str(self.value)
