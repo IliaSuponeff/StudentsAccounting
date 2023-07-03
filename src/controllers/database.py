@@ -16,6 +16,7 @@ import sys
 from settings import RuntimeSettings
 from jinja2 import Template
 from models.student import Student, Currency, StudentState
+from models.student_visit import Visit
 
 
 class DataBase:
@@ -31,9 +32,8 @@ class DataBase:
         self._cursor = self._connection.cursor()
 
         # try to initialize db
-        self._execute_script('init_db')
-        self._execute_script('get_students')
-        self.students = [Student(*row) for row in self._get_results(self.ALL_RESULTS)]
+        self._execute_script('.init_db')
+        self.students = self.get_students()
 
         if self.settings.debug():
             print(f"Students: {self.students}", file=sys.stderr)
@@ -58,7 +58,7 @@ class DataBase:
             table=student.table()
         )
         self._execute_script(
-            'create_student_table.sql',
+            'add_student_table.sql',
             table=student.table()
         )
         self.save()
@@ -70,7 +70,38 @@ class DataBase:
 
         self.students.remove(student)
         self._execute_script('remove_student', table=student.table())
-        self._execute_script('drop_student_table', table=student.table())
+        self._execute_script('remove_student_table', table=student.table())
+
+    def add_student_visit(self, student: Student, visit: Visit):
+        self._execute_script(
+            'add_student_visit',
+            table=student.table(),
+            date=visit.date(),
+            timespan=visit.timespan(),
+            is_special=visit.is_special(),
+            special_sum=visit.special_sum()
+        )
+
+    def remove_student_visit(self, student: Student, visit: Visit):
+        self._execute_script(
+            'remove_student_visit',
+            table=student.table(),
+            date=visit.date(),
+            timespan=visit.timespan(),
+            is_special=visit.is_special(),
+            special_sum=visit.special_sum()
+        )
+
+    def get_students(self):
+        self._execute_script('get_students')
+        self.students = [Student(*row) for row in self._get_results(self.ALL_RESULTS)]
+
+    def get_student_visits(self, student: Student):
+        self._execute_script(
+            'get_student_visits',
+            table=student.table()
+        )
+        return [Visit(*row) for row in self._get_results(self.ALL_RESULTS)]
 
     def _execute_script(self, script_name: str, **kwargs):
         script_data = self.settings.get_sql_script_filedata(f'{script_name}.sql')
@@ -96,3 +127,5 @@ class DataBase:
 
     def save(self):
         self._connection.commit()
+
+
