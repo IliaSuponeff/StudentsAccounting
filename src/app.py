@@ -14,6 +14,7 @@ import sys
 from settings import RuntimeSettings
 from PySide6.QtWidgets import QApplication
 from controllers.database import DataBase
+from controllers.main_window import MainWindowHandler
 
 
 class Application(QApplication):
@@ -22,6 +23,7 @@ class Application(QApplication):
         super().__init__()
         self.settings = RuntimeSettings(*sys.argv[1:])
         self.db = DataBase(self.settings)
+        self.main_window = MainWindowHandler(self.settings, self.db)
 
     def exec(self) -> int:
         self.run()
@@ -31,7 +33,7 @@ class Application(QApplication):
         return exit_code
 
     def run(self):
-        pass
+        self.main_window.show()
 
 
 if __name__ == '__main__':
