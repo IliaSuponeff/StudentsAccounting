@@ -22,7 +22,7 @@ def create_init(save_path: str | os.PathLike):
         file.write(
             f'"""\nPackage contains files which implementing visual of {os.path.basename(save_path).upper()} objects\n'
             f'@author: Ilia Suponev[https://github.com/ProgKalm?tab=repositories]\n'
-            f'@version: 1.0\n"""\n'
+            f'@version: 1.0.0\n"""\n'
         )
         file.write("\n\n# Uncomment the text below and create the correct imports\n")
         file.write("# from . import <imports>")
