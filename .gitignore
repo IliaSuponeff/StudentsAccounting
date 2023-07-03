@@ -10,3 +10,8 @@ venv/
 .env/
 env/
 
+## DataBases(sqlite)
+*.db
+*.db3
+*.sqlite
+*.sqlite3
