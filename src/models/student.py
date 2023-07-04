@@ -1,10 +1,11 @@
 """
 Contains a student's class describing the application's data model
 
-version: 1.0.1
+version: 1.1.1
 
 versions-list:  1.0.0 - start valid version(can initialize Student class and create new Student objects)
                 1.0.1 - add some magic methods(__eq__, __ne__, __str__, __repr__, __hash__)
+                1.1.1 - on line 34 from self._TABLE = str(name) to self._TABLE = str(table)
 
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
@@ -30,7 +31,7 @@ class Student:
         assert table is not None, "Student table name is None"
         assert isinstance(table, str), f"Student table name is {type(name)}, not str"
         assert len(table) > 0, 'Student table name is empty'
-        self._TABLE = str(name)
+        self._TABLE = str(table)
 
     def name(self) -> str:
         return self._NAME
