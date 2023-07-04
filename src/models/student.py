@@ -68,8 +68,8 @@ class Student:
         if not isinstance(o, self.__class__):
             return False
 
-        # if db tables for students visits is eq than students eq
-        return self.table() == o.table()
+        # if db tables for students visits is eq or student's names is eq than students eq
+        return self.table() == o.table() or self.name() == o.name()
 
     def __ne__(self, o: object) -> bool:
         return not self.__eq__(o)

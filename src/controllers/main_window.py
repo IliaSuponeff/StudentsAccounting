@@ -7,10 +7,11 @@ author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
 import math
 
-from PySide6.QtWidgets import QMainWindow, QHeaderView
+from PySide6.QtWidgets import QMainWindow, QHeaderView, QDialog
 from views.windows.ui_main_window import Ui_MainWindow
 from controllers.database import DataBase, Student, Visit, Currency
 from settings import RuntimeSettings
+from controllers.add_student_dialog import AddStudentDialog
 
 
 class MainWindowHandler(QMainWindow):
@@ -36,7 +37,7 @@ class MainWindowHandler(QMainWindow):
         self._ui.next_student_btn.clicked.connect(self._next_student)
         self._ui.prev_student_btn.clicked.connect(self._prev_student)
         self._ui.del_student_btn.clicked.connect(self._delete_student)
-        self._ui.add_student_btn.clicked.connect(self._add_student)
+        self._ui.add_student_btn.clicked.connect(lambda: self._call_dialog(AddStudentDialog))
 
     def setIcons(self):
         self._ui.add_student_btn.setIcon(
@@ -130,5 +131,9 @@ class MainWindowHandler(QMainWindow):
         )
         self.load_current_student()
 
-    def _add_student(self):
-        pass
+    def _call_dialog(self, _dialog_class_link, *args):
+        dialog: QDialog = _dialog_class_link(self.settings, self.database, *args)
+        dialog.show()
+        dialog.exec()
+        self._load_students_info()
+        return dialog

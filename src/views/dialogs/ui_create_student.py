@@ -27,13 +27,14 @@ class Ui_CreaterStudent(object):
         CreaterStudent.resize(500, 200)
         CreaterStudent.setMinimumSize(QSize(500, 200))
         CreaterStudent.setMaximumSize(QSize(500, 200))
+        CreaterStudent.setModal(True)
         self.verticalLayout = QVBoxLayout(CreaterStudent)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.info_lbl_4 = QLabel(CreaterStudent)
-        self.info_lbl_4.setObjectName(u"info_lbl_4")
-        self.info_lbl_4.setAlignment(Qt.AlignCenter)
+        self.dialog_title_lbl = QLabel(CreaterStudent)
+        self.dialog_title_lbl.setObjectName(u"dialog_title_lbl")
+        self.dialog_title_lbl.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout.addWidget(self.info_lbl_4)
+        self.verticalLayout.addWidget(self.dialog_title_lbl)
 
         self.hLayout_1 = QHBoxLayout()
         self.hLayout_1.setObjectName(u"hLayout_1")
@@ -50,6 +51,8 @@ class Ui_CreaterStudent(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.name_le.sizePolicy().hasHeightForWidth())
         self.name_le.setSizePolicy(sizePolicy)
+        self.name_le.setAlignment(Qt.AlignCenter)
+        self.name_le.setCursorMoveStyle(Qt.LogicalMoveStyle)
 
         self.hLayout_1.addWidget(self.name_le)
 
@@ -155,7 +158,7 @@ class Ui_CreaterStudent(object):
 
     def retranslateUi(self, CreaterStudent):
         CreaterStudent.setWindowTitle(QCoreApplication.translate("CreaterStudent", u"StudentCreater", None))
-        self.info_lbl_4.setText(QCoreApplication.translate("CreaterStudent", u"Creating Student", None))
+        self.dialog_title_lbl.setText(QCoreApplication.translate("CreaterStudent", u"Creating Student", None))
         self.info_lbl_1.setText(QCoreApplication.translate("CreaterStudent", u"Name", None))
         self.info_lbl_2.setText(QCoreApplication.translate("CreaterStudent", u"Hour cost", None))
         self.info_lbl_3.setText(QCoreApplication.translate("CreaterStudent", u"Currency", None))
