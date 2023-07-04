@@ -70,15 +70,45 @@ class Ui_MainWindow(object):
 
         self.vLayout_1.addLayout(self.hLayout_2)
 
-        self.unactive_student_choose_box = QComboBox(self.centralwidget)
-        self.unactive_student_choose_box.setObjectName(u"unactive_student_choose_box")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.line_2 = QFrame(self.centralwidget)
+        self.line_2.setObjectName(u"line_2")
+        self.line_2.setFrameShape(QFrame.HLine)
+        self.line_2.setFrameShadow(QFrame.Sunken)
+
+        self.vLayout_1.addWidget(self.line_2)
+
+        self.hLayout_6 = QHBoxLayout()
+        self.hLayout_6.setObjectName(u"hLayout_6")
+        self.info_lbl_7 = QLabel(self.centralwidget)
+        self.info_lbl_7.setObjectName(u"info_lbl_7")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.unactive_student_choose_box.sizePolicy().hasHeightForWidth())
-        self.unactive_student_choose_box.setSizePolicy(sizePolicy2)
+        sizePolicy2.setHeightForWidth(self.info_lbl_7.sizePolicy().hasHeightForWidth())
+        self.info_lbl_7.setSizePolicy(sizePolicy2)
+        self.info_lbl_7.setAlignment(Qt.AlignCenter)
 
-        self.vLayout_1.addWidget(self.unactive_student_choose_box)
+        self.hLayout_6.addWidget(self.info_lbl_7)
+
+        self.unactive_student_choose_box = QComboBox(self.centralwidget)
+        self.unactive_student_choose_box.setObjectName(u"unactive_student_choose_box")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.unactive_student_choose_box.sizePolicy().hasHeightForWidth())
+        self.unactive_student_choose_box.setSizePolicy(sizePolicy3)
+
+        self.hLayout_6.addWidget(self.unactive_student_choose_box)
+
+
+        self.vLayout_1.addLayout(self.hLayout_6)
+
+        self.line_3 = QFrame(self.centralwidget)
+        self.line_3.setObjectName(u"line_3")
+        self.line_3.setFrameShape(QFrame.HLine)
+        self.line_3.setFrameShadow(QFrame.Sunken)
+
+        self.vLayout_1.addWidget(self.line_3)
 
         self.hLayout_1 = QHBoxLayout()
         self.hLayout_1.setObjectName(u"hLayout_1")
@@ -92,11 +122,11 @@ class Ui_MainWindow(object):
 
         self.active_student_choose_box = QComboBox(self.centralwidget)
         self.active_student_choose_box.setObjectName(u"active_student_choose_box")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.active_student_choose_box.sizePolicy().hasHeightForWidth())
-        self.active_student_choose_box.setSizePolicy(sizePolicy3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.active_student_choose_box.sizePolicy().hasHeightForWidth())
+        self.active_student_choose_box.setSizePolicy(sizePolicy4)
 
         self.hLayout_1.addWidget(self.active_student_choose_box)
 
@@ -121,22 +151,22 @@ class Ui_MainWindow(object):
         self.hLayout_3.setObjectName(u"hLayout_3")
         self.student_summary_result_lbl = QLabel(self.centralwidget)
         self.student_summary_result_lbl.setObjectName(u"student_summary_result_lbl")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.student_summary_result_lbl.sizePolicy().hasHeightForWidth())
-        self.student_summary_result_lbl.setSizePolicy(sizePolicy4)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.student_summary_result_lbl.sizePolicy().hasHeightForWidth())
+        self.student_summary_result_lbl.setSizePolicy(sizePolicy5)
         self.student_summary_result_lbl.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.hLayout_3.addWidget(self.student_summary_result_lbl)
 
         self.student_currency_lbl = QLabel(self.centralwidget)
         self.student_currency_lbl.setObjectName(u"student_currency_lbl")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.student_currency_lbl.sizePolicy().hasHeightForWidth())
-        self.student_currency_lbl.setSizePolicy(sizePolicy5)
+        sizePolicy6 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.student_currency_lbl.sizePolicy().hasHeightForWidth())
+        self.student_currency_lbl.setSizePolicy(sizePolicy6)
         self.student_currency_lbl.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.hLayout_3.addWidget(self.student_currency_lbl)
@@ -189,36 +219,33 @@ class Ui_MainWindow(object):
         self.gLayout_1.setObjectName(u"gLayout_1")
         self.choose_from_date_btn = QPushButton(self.filter_frame)
         self.choose_from_date_btn.setObjectName(u"choose_from_date_btn")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.choose_from_date_btn.sizePolicy().hasHeightForWidth())
-        self.choose_from_date_btn.setSizePolicy(sizePolicy6)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.choose_from_date_btn.sizePolicy().hasHeightForWidth())
+        self.choose_from_date_btn.setSizePolicy(sizePolicy7)
 
         self.gLayout_1.addWidget(self.choose_from_date_btn, 0, 2, 1, 1)
 
         self.info_lbl_4 = QLabel(self.filter_frame)
         self.info_lbl_4.setObjectName(u"info_lbl_4")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.info_lbl_4.sizePolicy().hasHeightForWidth())
-        self.info_lbl_4.setSizePolicy(sizePolicy7)
+        sizePolicy2.setHeightForWidth(self.info_lbl_4.sizePolicy().hasHeightForWidth())
+        self.info_lbl_4.setSizePolicy(sizePolicy2)
         self.info_lbl_4.setAlignment(Qt.AlignCenter)
 
         self.gLayout_1.addWidget(self.info_lbl_4, 0, 0, 1, 1)
 
         self.from_date_filter_de = QDateEdit(self.filter_frame)
         self.from_date_filter_de.setObjectName(u"from_date_filter_de")
-        sizePolicy3.setHeightForWidth(self.from_date_filter_de.sizePolicy().hasHeightForWidth())
-        self.from_date_filter_de.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.from_date_filter_de.sizePolicy().hasHeightForWidth())
+        self.from_date_filter_de.setSizePolicy(sizePolicy4)
 
         self.gLayout_1.addWidget(self.from_date_filter_de, 0, 1, 1, 1)
 
         self.to_date_filter_de = QDateEdit(self.filter_frame)
         self.to_date_filter_de.setObjectName(u"to_date_filter_de")
-        sizePolicy3.setHeightForWidth(self.to_date_filter_de.sizePolicy().hasHeightForWidth())
-        self.to_date_filter_de.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.to_date_filter_de.sizePolicy().hasHeightForWidth())
+        self.to_date_filter_de.setSizePolicy(sizePolicy4)
 
         self.gLayout_1.addWidget(self.to_date_filter_de, 1, 1, 1, 1)
 
@@ -288,26 +315,26 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addLayout(self.hLayout_5)
 
-        self.tableWidget = QTableWidget(self.centralwidget)
-        if (self.tableWidget.columnCount() < 3):
-            self.tableWidget.setColumnCount(3)
+        self.student_table = QTableWidget(self.centralwidget)
+        if (self.student_table.columnCount() < 3):
+            self.student_table.setColumnCount(3)
         __qtablewidgetitem = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        self.student_table.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        self.student_table.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         __qtablewidgetitem2 = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        self.tableWidget.setObjectName(u"tableWidget")
+        self.student_table.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        self.student_table.setObjectName(u"student_table")
         sizePolicy9 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy9.setHorizontalStretch(3)
         sizePolicy9.setVerticalStretch(0)
-        sizePolicy9.setHeightForWidth(self.tableWidget.sizePolicy().hasHeightForWidth())
-        self.tableWidget.setSizePolicy(sizePolicy9)
-        self.tableWidget.horizontalHeader().setVisible(True)
-        self.tableWidget.horizontalHeader().setCascadingSectionResizes(False)
-        self.tableWidget.verticalHeader().setVisible(False)
+        sizePolicy9.setHeightForWidth(self.student_table.sizePolicy().hasHeightForWidth())
+        self.student_table.setSizePolicy(sizePolicy9)
+        self.student_table.horizontalHeader().setVisible(True)
+        self.student_table.horizontalHeader().setCascadingSectionResizes(False)
+        self.student_table.verticalHeader().setVisible(False)
 
-        self.verticalLayout_2.addWidget(self.tableWidget)
+        self.verticalLayout_2.addWidget(self.student_table)
 
 
         self.horizontalLayout.addLayout(self.verticalLayout_2)
@@ -324,6 +351,7 @@ class Ui_MainWindow(object):
         self.add_student_btn.setText("")
         self.edit_student_btn.setText("")
         self.del_student_btn.setText("")
+        self.info_lbl_7.setText(QCoreApplication.translate("MainWindow", u"Hidden", None))
         self.prev_active_student_btn.setText("")
         self.next_active_student_btn.setText("")
         self.student_name_lbl.setText(QCoreApplication.translate("MainWindow", u"StudentName", None))
@@ -342,11 +370,11 @@ class Ui_MainWindow(object):
         self.add_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Add visit", None))
         self.edit_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Edit visit", None))
         self.del_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Delete visit", None))
-        ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
+        ___qtablewidgetitem = self.student_table.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Date", None));
-        ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
+        ___qtablewidgetitem1 = self.student_table.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Timespan", None));
-        ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)
+        ___qtablewidgetitem2 = self.student_table.horizontalHeaderItem(2)
         ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Summary", None));
     # retranslateUi
 

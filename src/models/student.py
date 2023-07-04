@@ -9,26 +9,23 @@ versions-list:  1.0.0 - start valid version(can initialize Student class and cre
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
 from models.currency import Currency
-from models.student_state import StudentState
 
 
 class Student:
     _NAME: str = None
     _HOUR_COST: float = 0
     _CURRENCY: Currency = None  # unchanged attribute
-    _STATE: str = None
     _TABLE: str = None  # unchanged attribute
 
-    def __init__(self, name, hour_cost, currency, state, table):
+    def __init__(self, name, hour_cost, currency, table):
         # set changed attributes
         self.set_name(name)
         self.set_hour_cost(hour_cost)
-        self.set_currency(currency)
 
         # set unchanged attributes
-        assert StudentState.is_student_state(state), \
-            f"Student state is invalid. Find {state} need one of {StudentState.all()}"
-        self._STATE = StudentState.get_student_state(state)
+        assert Currency.is_currency(currency), \
+            f"Student currency is invalid. Find {currency} need one of {Currency.all()}"
+        self._CURRENCY = Currency.get_currency(currency)
 
         assert table is not None, "Student table name is None"
         assert isinstance(table, str), f"Student table name is {type(name)}, not str"
@@ -57,14 +54,6 @@ class Student:
     def currency(self) -> Currency:
         return self._CURRENCY
 
-    def set_currency(self, currency):
-        assert Currency.is_currency(currency), \
-            f"Student currency is invalid. Find {currency} need one of {Currency.all()}"
-        self._CURRENCY = Currency.get_currency(currency)
-
-    def state(self) -> StudentState:
-        return self._STATE
-
     def table(self) -> str:
         return self._TABLE
 
@@ -85,7 +74,7 @@ class Student:
         return not self.__eq__(o)
 
     def __str__(self) -> str:
-        return f'Student<name={self.name()} hour-cost={self.hour_cost()} currency={self.currency()}, state={self.state()}>'
+        return f'Student<name={self.name()} hour-cost={self.hour_cost()} currency={self.currency()}>'
 
     def __repr__(self) -> str:
         return self.__str__()
@@ -98,5 +87,5 @@ class Student:
         return _hash
 
     @staticmethod
-    def create_new_student(name, hour_cost, currency, state):
-        return Student(name, hour_cost, currency, state, f'table_{name}_{str(currency).lower()}')
+    def create_new_student(name, hour_cost, currency):
+        return Student(name, hour_cost, currency, f'table_{name}_{str(currency).lower()}')

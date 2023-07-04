@@ -15,7 +15,7 @@ import sys
 
 from settings import RuntimeSettings
 from jinja2 import Template
-from models.student import Student, Currency, StudentState
+from models.student import Student, Currency
 from models.student_visit import Visit
 
 
@@ -54,7 +54,6 @@ class DataBase:
             name=student.name(),
             hour_cost=student.hour_cost(),
             currency=student.currency().value,
-            state=student.state().value,
             table=student.table()
         )
         self._execute_script(
@@ -92,11 +91,11 @@ class DataBase:
             special_sum=visit.special_sum()
         )
 
-    def get_students(self):
+    def get_students(self) -> list[Student]:
         self._execute_script('get_students')
-        self.students = [Student(*row) for row in self._get_results(self.ALL_RESULTS)]
+        return [Student(*row) for row in self._get_results(self.ALL_RESULTS)]
 
-    def get_student_visits(self, student: Student):
+    def get_student_visits(self, student: Student) -> list[Visit]:
         self._execute_script(
             'get_student_visits',
             table=student.table()
@@ -127,5 +126,3 @@ class DataBase:
 
     def save(self):
         self._connection.commit()
-
-
