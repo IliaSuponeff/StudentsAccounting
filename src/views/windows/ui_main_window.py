@@ -25,7 +25,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1164, 730)
+        MainWindow.resize(960, 640)
+        MainWindow.setMinimumSize(QSize(960, 640))
+        MainWindow.setMaximumSize(QSize(16777215, 16777215))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
