@@ -18,8 +18,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QComboBox, QDateEdit, QFrame,
     QGridLayout, QHBoxLayout, QHeaderView, QLabel,
     QListWidget, QListWidgetItem, QMainWindow, QPushButton,
-    QRadioButton, QSizePolicy, QTableWidget, QTableWidgetItem,
-    QVBoxLayout, QWidget)
+    QRadioButton, QSizePolicy, QTableView, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -280,26 +280,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addLayout(self.hLayout_5)
 
-        self.student_table = QTableWidget(self.centralwidget)
-        if (self.student_table.columnCount() < 3):
-            self.student_table.setColumnCount(3)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.student_table.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.student_table.setHorizontalHeaderItem(1, __qtablewidgetitem1)
-        __qtablewidgetitem2 = QTableWidgetItem()
-        self.student_table.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        self.student_table.setObjectName(u"student_table")
-        sizePolicy8 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy8.setHorizontalStretch(3)
-        sizePolicy8.setVerticalStretch(0)
-        sizePolicy8.setHeightForWidth(self.student_table.sizePolicy().hasHeightForWidth())
-        self.student_table.setSizePolicy(sizePolicy8)
-        self.student_table.horizontalHeader().setVisible(True)
-        self.student_table.horizontalHeader().setCascadingSectionResizes(False)
-        self.student_table.verticalHeader().setVisible(False)
+        self.student_visits_table_view = QTableView(self.centralwidget)
+        self.student_visits_table_view.setObjectName(u"student_visits_table_view")
 
-        self.verticalLayout_2.addWidget(self.student_table)
+        self.verticalLayout_2.addWidget(self.student_visits_table_view)
 
 
         self.horizontalLayout.addLayout(self.verticalLayout_2)
@@ -334,11 +318,5 @@ class Ui_MainWindow(object):
         self.add_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Add visit", None))
         self.edit_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Edit visit", None))
         self.del_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Delete visit", None))
-        ___qtablewidgetitem = self.student_table.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Date", None));
-        ___qtablewidgetitem1 = self.student_table.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Timespan", None));
-        ___qtablewidgetitem2 = self.student_table.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Summary", None));
     # retranslateUi
 

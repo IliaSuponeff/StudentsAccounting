@@ -45,7 +45,7 @@ class DataBase:
 
     def add_student(self, student: Student):
         if student in self.students:
-            raise AssertionError(f"Student {student} is exists now")
+            raise AssertionError(f"Student {student.name()} is exists now")
         else:
             self.students.append(student)
 
@@ -57,7 +57,7 @@ class DataBase:
             table=student.table()
         )
         self._execute_script(
-            'add_student_table.sql',
+            'add_student_table',
             table=student.table()
         )
         self.save()

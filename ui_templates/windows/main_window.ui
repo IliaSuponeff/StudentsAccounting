@@ -387,38 +387,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="student_table">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>3</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <attribute name="horizontalHeaderVisible">
-         <bool>true</bool>
-        </attribute>
-        <attribute name="horizontalHeaderCascadingSectionResizes">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Date</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Timespan</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Summary</string>
-         </property>
-        </column>
-       </widget>
+       <widget class="QTableView" name="student_visits_table_view"/>
       </item>
      </layout>
     </item>

@@ -72,7 +72,7 @@ class Visit:
 
     def set_specialised(self, is_special):
         is_special = bool(is_special)
-        self._SPECIAL_SUM = 1 if is_special else 0
+        self._IS_SPECIAL = 1 if is_special else 0
 
     def set_special_sum(self, special_sum):
         assert self._is_number(special_sum), \

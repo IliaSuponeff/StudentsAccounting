@@ -29,7 +29,7 @@ class AddStudentDialog(QDialog):
         self._ui.done_btn.setText('Add')
 
     def setHandlers(self):
-        self._ui.done_btn.clicked.connect(lambda: self._create_student())
+        self._ui.done_btn.clicked.connect(self._create_student)
         self._ui.currency_box.addItems([str(currency) for currency in Currency.all()])
 
     def _create_student(self):
@@ -39,6 +39,8 @@ class AddStudentDialog(QDialog):
         try:
             student: Student = Student.create_new_student(name, hour_cost, currency)
             self.db.add_student(student)
+            self.close()
+            del student
         except Exception as ex:
             exception(
                 icon=self.windowIcon(),

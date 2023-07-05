@@ -6,8 +6,10 @@ version: 0.0.1
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
 import math
+import pprint
 
 from PySide6.QtWidgets import QMainWindow, QHeaderView, QDialog
+from PySide6.QtGui import QStandardItemModel, QStandardItem
 from views.windows.ui_main_window import Ui_MainWindow
 from controllers.database import DataBase, Student, Visit, Currency
 from settings import RuntimeSettings
@@ -22,6 +24,7 @@ class MainWindowHandler(QMainWindow):
         self.database = database
         self.students = self.database.students
         self._current_student_index = 0
+        self._table_modal = QStandardItemModel()
         self._ui = Ui_MainWindow()
         self.setUi()
         self.setHandlers()
@@ -29,7 +32,8 @@ class MainWindowHandler(QMainWindow):
     def setUi(self):
         self._ui.setupUi(self)
         self.setIcons()
-        self._ui.student_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self._ui.student_visits_table_view.setModel(self.build_table_modal())
+        self._ui.student_visits_table_view.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self._load_students_info()
 
     def setHandlers(self):
@@ -38,6 +42,7 @@ class MainWindowHandler(QMainWindow):
         self._ui.prev_student_btn.clicked.connect(self._prev_student)
         self._ui.del_student_btn.clicked.connect(self._delete_student)
         self._ui.add_student_btn.clicked.connect(lambda: self._call_dialog(AddStudentDialog))
+        self._ui.del_visit_btn.clicked.connect(self._delete_visit)
 
     def setIcons(self):
         self._ui.add_student_btn.setIcon(
@@ -75,6 +80,8 @@ class MainWindowHandler(QMainWindow):
         self._ui.student_currency_lbl.setText('' if student is None else student.currency().value)
         self._ui.student_choose_box.setCurrentIndex(self._current_student_index)
 
+        self._load_current_student_visits()
+
     def get_current_student(self):
         if 0 <= self._current_student_index < len(self.students):
             return self.students[self._current_student_index]
@@ -82,9 +89,11 @@ class MainWindowHandler(QMainWindow):
         return None
 
     def get_student_summary_result(self, student: Student) -> int:
-        summary_result = 0
-        return 0
+        if student is None:
+            return 0
+
         student_visits: list[Visit] = self.database.get_student_visits(student)
+        summary_result = 0
         for visit in student_visits:
             if bool(visit.is_special()):
                 summary_result += abs(visit.special_sum())
@@ -120,7 +129,7 @@ class MainWindowHandler(QMainWindow):
 
         self.database.remove_student(student)
         self._load_students_info()
-        while not (0 <= self._current_student_index < len(self.students)):
+        while not (0 <= self._current_student_index < len(self.students)) and len(self.students) > 0:
             self._prev_student()
 
     def _load_students_info(self):
@@ -136,4 +145,40 @@ class MainWindowHandler(QMainWindow):
         dialog.show()
         dialog.exec()
         self._load_students_info()
-        return dialog
+        del dialog
+
+    def _load_current_student_visits(self):
+        student = self.get_current_student()
+        if student is None:
+            # len(self.students) == 0
+            return
+        visits: list[Visit] = self.database.get_student_visits(student)
+        if self.settings.debug():
+            pprint.pprint(visits)
+
+        self._table_modal.clear()
+        self.build_table_modal()
+
+        for visit in visits:
+            self._table_modal.appendRow(
+                [
+                    QStandardItem(str(visit.date())),
+                    QStandardItem(str(visit.timespan())),
+                    QStandardItem(
+                        str(
+                            visit.special_sum() if visit.is_special() else visit.timespan() * student.hour_cost()
+                        )
+                    )
+                ]
+
+            )
+
+    def build_table_modal(self):
+        self._table_modal.setHorizontalHeaderLabels(
+            ['Date', 'Timespan', 'Summary']
+        )
+        return self._table_modal
+
+    def _delete_visit(self):
+        indexes = self._ui.student_visits_table_view.selectedIndexes()
+        print(indexes)
