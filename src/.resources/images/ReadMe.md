@@ -16,6 +16,7 @@
     * edit.png
     * next_student.png
     * prev_student.png
+    * reload.png
     * remove_student.png
     * remove_visit.png
 

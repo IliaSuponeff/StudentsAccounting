@@ -134,21 +134,21 @@ class Ui_CreaterStudent(object):
 
         self.verticalLayout.addWidget(self.hLine_2)
 
-        self.hLayout_ = QHBoxLayout()
-        self.hLayout_.setObjectName(u"hLayout_")
+        self.hLayout_5 = QHBoxLayout()
+        self.hLayout_5.setObjectName(u"hLayout_5")
         self.hSpacer_1 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.hLayout_.addItem(self.hSpacer_1)
+        self.hLayout_5.addItem(self.hSpacer_1)
 
         self.done_btn = QPushButton(CreaterStudent)
         self.done_btn.setObjectName(u"done_btn")
         sizePolicy1.setHeightForWidth(self.done_btn.sizePolicy().hasHeightForWidth())
         self.done_btn.setSizePolicy(sizePolicy1)
 
-        self.hLayout_.addWidget(self.done_btn)
+        self.hLayout_5.addWidget(self.done_btn)
 
 
-        self.verticalLayout.addLayout(self.hLayout_)
+        self.verticalLayout.addLayout(self.hLayout_5)
 
 
         self.retranslateUi(CreaterStudent)

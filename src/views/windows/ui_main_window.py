@@ -15,11 +15,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QDateEdit, QFrame,
-    QGridLayout, QHBoxLayout, QHeaderView, QLabel,
-    QListWidget, QListWidgetItem, QMainWindow, QPushButton,
-    QRadioButton, QSizePolicy, QTableView, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QDateEdit,
+    QFrame, QGridLayout, QHBoxLayout, QHeaderView,
+    QLabel, QListWidget, QListWidgetItem, QMainWindow,
+    QPushButton, QRadioButton, QSizePolicy, QTableView,
+    QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -92,6 +92,17 @@ class Ui_MainWindow(object):
 
         self.hLayout_1.addWidget(self.student_choose_box)
 
+        self.reload_student_btn = QPushButton(self.centralwidget)
+        self.reload_student_btn.setObjectName(u"reload_student_btn")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.reload_student_btn.sizePolicy().hasHeightForWidth())
+        self.reload_student_btn.setSizePolicy(sizePolicy3)
+        self.reload_student_btn.setFlat(True)
+
+        self.hLayout_1.addWidget(self.reload_student_btn)
+
         self.next_student_btn = QPushButton(self.centralwidget)
         self.next_student_btn.setObjectName(u"next_student_btn")
         sizePolicy1.setHeightForWidth(self.next_student_btn.sizePolicy().hasHeightForWidth())
@@ -113,22 +124,22 @@ class Ui_MainWindow(object):
         self.hLayout_3.setObjectName(u"hLayout_3")
         self.student_summary_result_lbl = QLabel(self.centralwidget)
         self.student_summary_result_lbl.setObjectName(u"student_summary_result_lbl")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.student_summary_result_lbl.sizePolicy().hasHeightForWidth())
-        self.student_summary_result_lbl.setSizePolicy(sizePolicy3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.student_summary_result_lbl.sizePolicy().hasHeightForWidth())
+        self.student_summary_result_lbl.setSizePolicy(sizePolicy4)
         self.student_summary_result_lbl.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.hLayout_3.addWidget(self.student_summary_result_lbl)
 
         self.student_currency_lbl = QLabel(self.centralwidget)
         self.student_currency_lbl.setObjectName(u"student_currency_lbl")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.student_currency_lbl.sizePolicy().hasHeightForWidth())
-        self.student_currency_lbl.setSizePolicy(sizePolicy4)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.student_currency_lbl.sizePolicy().hasHeightForWidth())
+        self.student_currency_lbl.setSizePolicy(sizePolicy5)
         self.student_currency_lbl.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.hLayout_3.addWidget(self.student_currency_lbl)
@@ -179,16 +190,6 @@ class Ui_MainWindow(object):
 
         self.gLayout_1 = QGridLayout()
         self.gLayout_1.setObjectName(u"gLayout_1")
-        self.choose_from_date_btn = QPushButton(self.filter_frame)
-        self.choose_from_date_btn.setObjectName(u"choose_from_date_btn")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.choose_from_date_btn.sizePolicy().hasHeightForWidth())
-        self.choose_from_date_btn.setSizePolicy(sizePolicy5)
-
-        self.gLayout_1.addWidget(self.choose_from_date_btn, 0, 2, 1, 1)
-
         self.info_lbl_4 = QLabel(self.filter_frame)
         self.info_lbl_4.setObjectName(u"info_lbl_4")
         sizePolicy6 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
@@ -204,6 +205,9 @@ class Ui_MainWindow(object):
         self.from_date_filter_de.setObjectName(u"from_date_filter_de")
         sizePolicy2.setHeightForWidth(self.from_date_filter_de.sizePolicy().hasHeightForWidth())
         self.from_date_filter_de.setSizePolicy(sizePolicy2)
+        self.from_date_filter_de.setAlignment(Qt.AlignCenter)
+        self.from_date_filter_de.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.from_date_filter_de.setCalendarPopup(True)
 
         self.gLayout_1.addWidget(self.from_date_filter_de, 0, 1, 1, 1)
 
@@ -211,13 +215,11 @@ class Ui_MainWindow(object):
         self.to_date_filter_de.setObjectName(u"to_date_filter_de")
         sizePolicy2.setHeightForWidth(self.to_date_filter_de.sizePolicy().hasHeightForWidth())
         self.to_date_filter_de.setSizePolicy(sizePolicy2)
+        self.to_date_filter_de.setAlignment(Qt.AlignCenter)
+        self.to_date_filter_de.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.to_date_filter_de.setCalendarPopup(True)
 
         self.gLayout_1.addWidget(self.to_date_filter_de, 1, 1, 1, 1)
-
-        self.choose_to_date_btn = QPushButton(self.filter_frame)
-        self.choose_to_date_btn.setObjectName(u"choose_to_date_btn")
-
-        self.gLayout_1.addWidget(self.choose_to_date_btn, 1, 2, 1, 1)
 
         self.info_lbl_5 = QLabel(self.filter_frame)
         self.info_lbl_5.setObjectName(u"info_lbl_5")
@@ -301,6 +303,7 @@ class Ui_MainWindow(object):
         self.edit_student_btn.setText("")
         self.del_student_btn.setText("")
         self.prev_student_btn.setText("")
+        self.reload_student_btn.setText("")
         self.next_student_btn.setText("")
         self.student_name_lbl.setText(QCoreApplication.translate("MainWindow", u"StudentName", None))
         self.student_summary_result_lbl.setText(QCoreApplication.translate("MainWindow", u"0", None))
@@ -310,9 +313,7 @@ class Ui_MainWindow(object):
         self.this_month_filter_rbtn.setText(QCoreApplication.translate("MainWindow", u"This month", None))
         self.custom_period_rbtn.setText(QCoreApplication.translate("MainWindow", u"Custom", None))
         self.info_lbl_3.setText(QCoreApplication.translate("MainWindow", u"Custom Period", None))
-        self.choose_from_date_btn.setText(QCoreApplication.translate("MainWindow", u"Choose", None))
         self.info_lbl_4.setText(QCoreApplication.translate("MainWindow", u"From", None))
-        self.choose_to_date_btn.setText(QCoreApplication.translate("MainWindow", u"Choose", None))
         self.info_lbl_5.setText(QCoreApplication.translate("MainWindow", u"To", None))
         self.info_lbl_6.setText(QCoreApplication.translate("MainWindow", u"Results for all", None))
         self.add_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Add visit", None))

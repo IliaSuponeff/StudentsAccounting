@@ -128,6 +128,22 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="reload_student_btn">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="next_student_btn">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -256,19 +272,6 @@
          </item>
          <item>
           <layout class="QGridLayout" name="gLayout_1">
-           <item row="0" column="2">
-            <widget class="QPushButton" name="choose_from_date_btn">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Choose</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="info_lbl_4">
              <property name="sizePolicy">
@@ -293,6 +296,15 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="buttonSymbols">
+              <enum>QAbstractSpinBox::NoButtons</enum>
+             </property>
+             <property name="calendarPopup">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item row="1" column="1">
@@ -303,12 +315,14 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QPushButton" name="choose_to_date_btn">
-             <property name="text">
-              <string>Choose</string>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="buttonSymbols">
+              <enum>QAbstractSpinBox::NoButtons</enum>
+             </property>
+             <property name="calendarPopup">
+              <bool>true</bool>
              </property>
             </widget>
            </item>

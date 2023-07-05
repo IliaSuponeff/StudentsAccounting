@@ -48,7 +48,7 @@ class Student:
     def set_hour_cost(self, hour_cost):
         assert isinstance(hour_cost, (int, float,)), \
             f"Student {self._NAME} hour cost is {type(hour_cost)} not float or int"
-        assert hour_cost >= 0, f"Student {self._NAME} hour cost is low than zero"
+        assert hour_cost > 0, f"Student {self._NAME} hour cost must be more than zero"
 
         self._HOUR_COST = float(hour_cost)
 

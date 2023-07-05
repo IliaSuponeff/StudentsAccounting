@@ -58,6 +58,7 @@ class Visit:
 
     def set_timespan(self, timespan):
         assert self._is_number(timespan), f"Invalid visit timespan: {timespan} with type {type(timespan)}"
+        assert timespan > 0, f'Invalid timespan, it must be more than zero'
         self._TIMESPAN = float(timespan)
 
     @staticmethod
@@ -68,7 +69,7 @@ class Visit:
         if not isinstance(timespan, (int, float,)):
             return False
 
-        return timespan >= 0
+        return True
 
     def set_specialised(self, is_special):
         is_special = bool(is_special)
@@ -77,6 +78,9 @@ class Visit:
     def set_special_sum(self, special_sum):
         assert self._is_number(special_sum), \
             f"Invalid visit special sum value: {special_sum} with type {type(special_sum)}"
+
+        if bool(self._IS_SPECIAL) and special_sum > 0:
+            raise AttributeError(f'Invalid special sum, it must be more than zero')
 
         self._SPECIAL_SUM = float(special_sum) if self._IS_SPECIAL else 0
 

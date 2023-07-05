@@ -5,15 +5,14 @@ version: 0.0.1
 
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
-import math
-import pprint
-
 from PySide6.QtWidgets import QMainWindow, QHeaderView, QDialog
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from views.windows.ui_main_window import Ui_MainWindow
-from controllers.database import DataBase, Student, Visit, Currency
-from settings import RuntimeSettings
+from controllers.handler_manager import HandlerManager, DataBase, RuntimeSettings
+
 from controllers.add_student_dialog import AddStudentDialog
+from controllers.add_student_visit_dialog import AddStudentVisitDialog
+from controllers.user_exception_mgs_dialogs import exception, warning
 
 
 class MainWindowHandler(QMainWindow):
@@ -21,9 +20,8 @@ class MainWindowHandler(QMainWindow):
     def __init__(self, settings: RuntimeSettings, database: DataBase):
         super().__init__()
         self.settings = settings
-        self.database = database
-        self.students = self.database.students
-        self._current_student_index = 0
+        self.db = database
+        self._handler_manager = HandlerManager(settings, database)
         self._table_modal = QStandardItemModel()
         self._ui = Ui_MainWindow()
         self.setUi()
@@ -32,17 +30,20 @@ class MainWindowHandler(QMainWindow):
     def setUi(self):
         self._ui.setupUi(self)
         self.setIcons()
-        self._ui.student_visits_table_view.setModel(self.build_table_modal())
-        self._ui.student_visits_table_view.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        self._load_students_info()
+        self._ui.student_visits_table_view.setModel(self._table_modal)
+        self._reload_students()
 
     def setHandlers(self):
-        self._ui.student_choose_box.currentIndexChanged.connect(self._move_to_student)
-        self._ui.next_student_btn.clicked.connect(self._next_student)
-        self._ui.prev_student_btn.clicked.connect(self._prev_student)
-        self._ui.del_student_btn.clicked.connect(self._delete_student)
-        self._ui.add_student_btn.clicked.connect(lambda: self._call_dialog(AddStudentDialog))
-        self._ui.del_visit_btn.clicked.connect(self._delete_visit)
+        self._ui.del_student_btn.clicked.connect(lambda: self._delete_student())
+        self._ui.next_student_btn.clicked.connect(lambda: self._next_student())
+        self._ui.prev_student_btn.clicked.connect(lambda: self._prev_student())
+        self._ui.reload_student_btn.clicked.connect(lambda: self._get_box_student())
+        self._ui.add_student_btn.clicked.connect(
+            lambda: self._call_dialog(AddStudentDialog)
+        )
+        self._ui.add_visit_btn.clicked.connect(
+            lambda: self._call_dialog(AddStudentVisitDialog, self._handler_manager.get_current_student())
+        )
 
     def setIcons(self):
         self._ui.add_student_btn.setIcon(
@@ -63,6 +64,9 @@ class MainWindowHandler(QMainWindow):
         self._ui.prev_student_btn.setIcon(
             self.settings.load_image('prev_student.png')
         )
+        self._ui.reload_student_btn.setIcon(
+            self.settings.load_image('reload.png')
+        )
         self._ui.del_student_btn.setIcon(
             self.settings.load_image('remove_student.png')
         )
@@ -70,115 +74,79 @@ class MainWindowHandler(QMainWindow):
             self.settings.load_image('remove_visit.png')
         )
 
-    def load_current_student(self):
-        student = self.get_current_student()
-
-        self._ui.student_name_lbl.setText('-' if student is None else student.name())
-        self._ui.student_summary_result_lbl.setText(
-            '' if student is None else str(self.get_student_summary_result(student))
-        )
-        self._ui.student_currency_lbl.setText('' if student is None else student.currency().value)
-        self._ui.student_choose_box.setCurrentIndex(self._current_student_index)
-
-        self._load_current_student_visits()
-
-    def get_current_student(self):
-        if 0 <= self._current_student_index < len(self.students):
-            return self.students[self._current_student_index]
-
-        return None
-
-    def get_student_summary_result(self, student: Student) -> int:
-        if student is None:
-            return 0
-
-        student_visits: list[Visit] = self.database.get_student_visits(student)
-        summary_result = 0
-        for visit in student_visits:
-            if bool(visit.is_special()):
-                summary_result += abs(visit.special_sum())
-            else:
-                summary_result += visit.timespan() * student.hour_cost()
-
-        return summary_result
-
-    def _next_student(self):
-        if len(self.students) == 0:
-            return
-
-        self._move_to_student((self._current_student_index + 1) % len(self.students))
-
-    def _prev_student(self):
-        if len(self.students) == 0:
-            return
-
-        self._move_to_student((self._current_student_index - 1) % len(self.students))
-
-    def _move_to_student(self, index):
-        if not (0 <= index < len(self.students)):
-            # unchanged current student index
-            return
-
-        self._current_student_index = index
-        self.load_current_student()
-
-    def _delete_student(self):
-        student = self.get_current_student()
-        if student is None:
-            return
-
-        self.database.remove_student(student)
-        self._load_students_info()
-        while not (0 <= self._current_student_index < len(self.students)) and len(self.students) > 0:
-            self._prev_student()
-
-    def _load_students_info(self):
-        self.students = self.database.students
+    def _reload_students(self):
         self._ui.student_choose_box.clear()
+        self._rebuild_table_modal()
         self._ui.student_choose_box.addItems(
-            [student.name() for student in self.students]
+            [student.name() for student in self.db.students]
         )
-        self.load_current_student()
+        self._load_current_student()
 
-    def _call_dialog(self, _dialog_class_link, *args):
-        dialog: QDialog = _dialog_class_link(self.settings, self.database, *args)
-        dialog.show()
-        dialog.exec()
-        self._load_students_info()
-        del dialog
-
-    def _load_current_student_visits(self):
-        student = self.get_current_student()
-        if student is None:
-            # len(self.students) == 0
-            return
-        visits: list[Visit] = self.database.get_student_visits(student)
-        if self.settings.debug():
-            pprint.pprint(visits)
-
+    def _rebuild_table_modal(self):
         self._table_modal.clear()
-        self.build_table_modal()
-
-        for visit in visits:
-            self._table_modal.appendRow(
-                [
-                    QStandardItem(str(visit.date())),
-                    QStandardItem(str(visit.timespan())),
-                    QStandardItem(
-                        str(
-                            visit.special_sum() if visit.is_special() else visit.timespan() * student.hour_cost()
-                        )
-                    )
-                ]
-
-            )
-
-    def build_table_modal(self):
         self._table_modal.setHorizontalHeaderLabels(
             ['Date', 'Timespan', 'Summary']
         )
-        return self._table_modal
+        self._ui.student_visits_table_view.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
-    def _delete_visit(self):
-        indexes = self._ui.student_visits_table_view.selectedIndexes()
-        print(indexes)
+    def _load_current_student(self):
+        student = self._handler_manager.get_current_student()
+        if student is not None:
+            self._ui.student_choose_box.setCurrentText(
+                student.name()
+            )
+
+        self._ui.student_name_lbl.setText(
+            student.name() if student is not None else '-'
+        )
+        self._ui.student_summary_result_lbl.setText(str(
+            self._handler_manager.get_current_student_summary_result()
+        ) if student is not None else '')
+        self._ui.student_currency_lbl.setText(
+            student.currency().value if student is not None else ''
+        )
+        self._load_current_student_visits()
+
+    def _load_current_student_visits(self):
+        self._rebuild_table_modal()
+        visits = self._handler_manager.get_current_student_visits()
+        for visit in visits:
+            self._table_modal.appendRow(
+                [
+                    QStandardItem(str(visit.date().strftime('%d.%m.%Y'))),
+                    QStandardItem(str(visit.timespan())),
+                    QStandardItem(
+                        str(
+                            visit.special_sum()
+                            if visit.is_special() else
+                            self._handler_manager.get_current_student().hour_cost() * visit.timespan()
+                        )
+                    )
+                ]
+            )
+
+    def _delete_student(self):
+        self._handler_manager.delete_current_student()
+        self._reload_students()
+
+    def _next_student(self):
+        self._handler_manager.next_student()
+        self._reload_students()
+
+    def _prev_student(self):
+        self._handler_manager.prev_student()
+        self._reload_students()
+
+    def _get_box_student(self):
+        self._handler_manager.set_current_index(self._ui.student_choose_box.currentIndex())
+        self._reload_students()
+
+    def _call_dialog(self, _dialog_class_link, *args):
+        try:
+            dialog: QDialog = _dialog_class_link(self.settings, self.db, *args)
+            dialog.show()
+            dialog.exec()
+            del dialog
+            self._reload_students()
+        except Exception as ex:
+            exception(self.windowIcon(), '\n'.join([str(item) for item in ex.args]))

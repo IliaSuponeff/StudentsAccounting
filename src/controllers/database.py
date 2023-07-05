@@ -75,7 +75,7 @@ class DataBase:
         self._execute_script(
             'add_student_visit',
             table=student.table(),
-            date=visit.date(),
+            date=visit.date().strftime('%d.%m.%Y'),
             timespan=visit.timespan(),
             is_special=visit.is_special(),
             special_sum=visit.special_sum()
