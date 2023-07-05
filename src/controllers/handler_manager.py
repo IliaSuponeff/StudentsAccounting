@@ -79,3 +79,10 @@ class HandlerManager:
             return
 
         self._current_student_index = index
+
+    def delete_current_student_visit(self, visit_rowid: int):
+        student = self.get_current_student()
+        if student is None:
+            return
+
+        self._db.remove_student_visit_by_rowid(student, visit_rowid)

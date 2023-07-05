@@ -91,6 +91,13 @@ class DataBase:
             special_sum=visit.special_sum()
         )
 
+    def remove_student_visit_by_rowid(self, student: Student, rowid: int):
+        self._execute_script(
+            'remove_student_visit_by_rowid',
+            table=student.table(),
+            rowid=int(rowid)
+        )
+
     def get_students(self) -> list[Student]:
         self._execute_script('get_students')
         return [Student(*row) for row in self._get_results(self.ALL_RESULTS)]

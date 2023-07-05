@@ -97,6 +97,12 @@
       <layout class="QHBoxLayout" name="hLayout_3">
        <item>
         <widget class="QLabel" name="info_lbl_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
           <string>Timespan</string>
          </property>
@@ -129,10 +135,26 @@
           <number>1</number>
          </property>
          <property name="maximum">
-          <double>999999.000000000000000</double>
+          <double>24.000000000000000</double>
          </property>
          <property name="value">
-          <double>0.000000000000000</double>
+          <double>1.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="info_lbl_4">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>hour</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -147,17 +169,17 @@
      </item>
      <item>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="1" column="2">
-        <widget class="QLabel" name="currency_lbl">
+       <item row="0" column="2">
+        <widget class="QRadioButton" name="unspecial_rbtn">
          <property name="text">
-          <string>Currency</string>
+          <string>Unspecial</string>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <widget class="QLabel" name="info_lbl_3">
          <property name="text">
           <string>Special Sum</string>
@@ -170,29 +192,13 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QDoubleSpinBox" name="sp_sum_spinbox">
+       <item row="2" column="2">
+        <widget class="QLabel" name="currency_lbl">
+         <property name="text">
+          <string>Currency</string>
+         </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
-         </property>
-         <property name="buttonSymbols">
-          <enum>QAbstractSpinBox::NoButtons</enum>
-         </property>
-         <property name="decimals">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <double>9999999.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QRadioButton" name="unspecial_rbtn">
-         <property name="text">
-          <string>Unspecial</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -206,6 +212,22 @@
            <width>20</width>
            <height>20</height>
           </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QDoubleSpinBox" name="sp_sum_spinbox">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="decimals">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <double>9999999.000000000000000</double>
          </property>
         </widget>
        </item>

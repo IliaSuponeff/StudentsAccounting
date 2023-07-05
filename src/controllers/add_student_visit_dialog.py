@@ -54,6 +54,7 @@ class AddStudentVisitDialog(QDialog):
             print(visit)
             self.db.add_student_visit(self._student, visit)
             del visit
+            self.close()
         except Exception as ex:
             exception(
                 icon=self.windowIcon(),
