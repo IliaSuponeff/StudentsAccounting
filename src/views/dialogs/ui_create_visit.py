@@ -49,20 +49,14 @@ class Ui_CreatorVisit(object):
 
         self.hLayout_1.addWidget(self.info_lbl_1)
 
-        self.choose_date_edit = QDateEdit(CreatorVisit)
-        self.choose_date_edit.setObjectName(u"choose_date_edit")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.choose_date_edit.sizePolicy().hasHeightForWidth())
-        self.choose_date_edit.setSizePolicy(sizePolicy1)
-        self.choose_date_edit.setAlignment(Qt.AlignCenter)
-        self.choose_date_edit.setReadOnly(False)
-        self.choose_date_edit.setButtonSymbols(QAbstractSpinBox.NoButtons)
-        self.choose_date_edit.setCalendarPopup(True)
-        self.choose_date_edit.setTimeSpec(Qt.LocalTime)
+        self.visit_date_edit = QDateEdit(CreatorVisit)
+        self.visit_date_edit.setObjectName(u"visit_date_edit")
+        self.visit_date_edit.setAlignment(Qt.AlignCenter)
+        self.visit_date_edit.setReadOnly(False)
+        self.visit_date_edit.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.visit_date_edit.setCalendarPopup(True)
 
-        self.hLayout_1.addWidget(self.choose_date_edit)
+        self.hLayout_1.addWidget(self.visit_date_edit)
 
 
         self.verticalLayout.addLayout(self.hLayout_1)
@@ -80,22 +74,22 @@ class Ui_CreatorVisit(object):
         self.hLayout_3.setObjectName(u"hLayout_3")
         self.info_lbl_2 = QLabel(CreatorVisit)
         self.info_lbl_2.setObjectName(u"info_lbl_2")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.info_lbl_2.sizePolicy().hasHeightForWidth())
-        self.info_lbl_2.setSizePolicy(sizePolicy2)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.info_lbl_2.sizePolicy().hasHeightForWidth())
+        self.info_lbl_2.setSizePolicy(sizePolicy1)
         self.info_lbl_2.setAlignment(Qt.AlignCenter)
 
         self.hLayout_3.addWidget(self.info_lbl_2)
 
         self.timespan_spinbox = QDoubleSpinBox(CreatorVisit)
         self.timespan_spinbox.setObjectName(u"timespan_spinbox")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.timespan_spinbox.sizePolicy().hasHeightForWidth())
-        self.timespan_spinbox.setSizePolicy(sizePolicy3)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.timespan_spinbox.sizePolicy().hasHeightForWidth())
+        self.timespan_spinbox.setSizePolicy(sizePolicy2)
         self.timespan_spinbox.setWrapping(False)
         self.timespan_spinbox.setFrame(True)
         self.timespan_spinbox.setAlignment(Qt.AlignCenter)
@@ -108,11 +102,11 @@ class Ui_CreatorVisit(object):
 
         self.info_lbl_4 = QLabel(CreatorVisit)
         self.info_lbl_4.setObjectName(u"info_lbl_4")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Minimum)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.info_lbl_4.sizePolicy().hasHeightForWidth())
-        self.info_lbl_4.setSizePolicy(sizePolicy4)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Minimum)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.info_lbl_4.sizePolicy().hasHeightForWidth())
+        self.info_lbl_4.setSizePolicy(sizePolicy3)
         self.info_lbl_4.setAlignment(Qt.AlignCenter)
 
         self.hLayout_3.addWidget(self.info_lbl_4)
@@ -163,6 +157,11 @@ class Ui_CreatorVisit(object):
 
         self.gridLayout.addWidget(self.sp_sum_spinbox, 2, 1, 1, 1)
 
+        self.info_lbl_5 = QLabel(CreatorVisit)
+        self.info_lbl_5.setObjectName(u"info_lbl_5")
+
+        self.gridLayout.addWidget(self.info_lbl_5, 0, 0, 1, 1)
+
 
         self.hLayout_4.addLayout(self.gridLayout)
 
@@ -184,8 +183,11 @@ class Ui_CreatorVisit(object):
 
         self.done_btn = QPushButton(CreatorVisit)
         self.done_btn.setObjectName(u"done_btn")
-        sizePolicy1.setHeightForWidth(self.done_btn.sizePolicy().hasHeightForWidth())
-        self.done_btn.setSizePolicy(sizePolicy1)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.done_btn.sizePolicy().hasHeightForWidth())
+        self.done_btn.setSizePolicy(sizePolicy4)
 
         self.hLayout_2.addWidget(self.done_btn)
 
@@ -208,6 +210,7 @@ class Ui_CreatorVisit(object):
         self.info_lbl_3.setText(QCoreApplication.translate("CreatorVisit", u"Special Sum", None))
         self.currency_lbl.setText(QCoreApplication.translate("CreatorVisit", u"Currency", None))
         self.special_rbtn.setText(QCoreApplication.translate("CreatorVisit", u"Special", None))
+        self.info_lbl_5.setText("")
         self.done_btn.setText(QCoreApplication.translate("CreatorVisit", u"Create", None))
     # retranslateUi
 

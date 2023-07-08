@@ -7,10 +7,10 @@ author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
 from PySide6.QtWidgets import QMainWindow, QHeaderView, QDialog
 from PySide6.QtGui import QStandardItemModel, QStandardItem
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QDate
 from views.windows.ui_main_window import Ui_MainWindow
 from controllers.handler_manager import HandlerManager, DataBase, RuntimeSettings
-
+from controllers.filter_manager import FilterType, FilterManager
 from controllers.add_student_dialog import AddStudentDialog
 from controllers.add_student_visit_dialog import AddStudentVisitDialog
 from controllers.user_exception_mgs_dialogs import exception, warning
@@ -22,8 +22,13 @@ class MainWindowHandler(QMainWindow):
         super().__init__()
         self.settings = settings
         self.db = database
+        self._dialogs = {
+            "AddStudentVisitDialog": AddStudentVisitDialog(self.settings, self.db),
+            "AddStudentDialog": AddStudentDialog(self.settings, self.db),
+        }
         self._handler_manager = HandlerManager(settings, database)
         self._table_modal = QStandardItemModel()
+        self._filter_manager = FilterManager()
         self._ui = Ui_MainWindow()
         self.setUi()
         self.setHandlers()
@@ -32,6 +37,13 @@ class MainWindowHandler(QMainWindow):
         self._ui.setupUi(self)
         self.setIcons()
         self._ui.student_visits_table_view.setModel(self._table_modal)
+        custom_date = self._filter_manager.get_custom_period()
+        self._ui.from_date_filter_de.setDate(
+            QDate(custom_date[0].year, custom_date[0].month, custom_date[0].day)
+        )
+        self._ui.to_date_filter_de.setDate(
+            QDate(custom_date[1].year, custom_date[1].month, custom_date[1].day)
+        )
         self._reload_students()
 
     def setHandlers(self):
@@ -40,12 +52,24 @@ class MainWindowHandler(QMainWindow):
         self._ui.prev_student_btn.clicked.connect(lambda: self._prev_student())
         self._ui.reload_student_btn.clicked.connect(lambda: self._get_box_student())
         self._ui.add_student_btn.clicked.connect(
-            lambda: self._call_dialog(AddStudentDialog)
+            lambda: self._call_dialog('AddStudentDialog')
         )
         self._ui.add_visit_btn.clicked.connect(
-            lambda: self._call_dialog(AddStudentVisitDialog, self._handler_manager.get_current_student())
+            lambda: self._call_dialog('AddStudentVisitDialog', self._handler_manager.get_current_student())
         )
         self._ui.del_visit_btn.clicked.connect(lambda: self._delete_student_visit())
+        self._ui.all_days_filter_rbtn.clicked.connect(
+            lambda: self._set_filter_type(FilterType.ALL_DAYS)
+        )
+        self._ui.this_year_filter_rbtn.clicked.connect(
+            lambda: self._set_filter_type(FilterType.THIS_YEAR)
+        )
+        self._ui.this_month_filter_rbtn.clicked.connect(
+            lambda: self._set_filter_type(FilterType.THIS_MONTH)
+        )
+        self._ui.custom_period_rbtn.clicked.connect(
+            lambda: self._set_filter_type(FilterType.CUSTOM_PERIOD)
+        )
 
     def setIcons(self):
         self._ui.add_student_btn.setIcon(
@@ -112,7 +136,10 @@ class MainWindowHandler(QMainWindow):
 
     def _load_current_student_visits(self):
         self._rebuild_table_modal()
-        visits = self._handler_manager.get_current_student_visits()
+        self._set_custom_filter()
+        visits = self._filter_manager.filtrate(
+            self._handler_manager.get_current_student_visits()
+        )
         for visit in visits:
             row = [
                 QStandardItem(str(visit.date().strftime('%d.%m.%Y'))),
@@ -147,12 +174,18 @@ class MainWindowHandler(QMainWindow):
         self._handler_manager.set_current_index(self._ui.student_choose_box.currentIndex())
         self._reload_students()
 
-    def _call_dialog(self, _dialog_class_link, *args):
+    def _call_dialog(self, _dialog_class_name: str, *args):
+        if not (_dialog_class_name in self._dialogs.keys()):
+            return
+
+        if self._dialogs[_dialog_class_name] is None:
+            return
+
         try:
-            dialog: QDialog = _dialog_class_link(self.settings, self.db, *args)
+            dialog = self._dialogs[_dialog_class_name]
+            dialog.call(*args)
             dialog.show()
             dialog.exec()
-            del dialog
             self._reload_students()
         except Exception as ex:
             exception(self.windowIcon(), '\n'.join([str(item) for item in ex.args]))
@@ -162,9 +195,28 @@ class MainWindowHandler(QMainWindow):
         if len(indexes) == 0:
             return
 
-        self._handler_manager.delete_current_student_visit(indexes[0] + 1)
+        self._handler_manager.delete_current_student_visit(indexes[0])
         self._reload_students()
 
     def _get_selected_rows(self) -> frozenset[int]:
         indexes = self._ui.student_visits_table_view.selectedIndexes()
         return frozenset([index.row() for index in indexes])
+
+    def _set_custom_filter(self):
+        if not (self._filter_manager.fiter_type() == FilterType.CUSTOM_PERIOD):
+            return
+
+        from_date = self._ui.from_date_filter_de.date()
+        to_date = self._ui.to_date_filter_de.date()
+
+        try:
+            self._filter_manager.set_custom_period(from_date, to_date)
+        except Exception as ex:
+            exception(
+                self.windowIcon(),
+                msg='\n'.join([str(arg) for arg in ex.args])
+            )
+
+    def _set_filter_type(self, filter_type: FilterType):
+        self._filter_manager.update_filter_type(filter_type)
+        self._reload_students()

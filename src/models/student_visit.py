@@ -79,7 +79,7 @@ class Visit:
         assert self._is_number(special_sum), \
             f"Invalid visit special sum value: {special_sum} with type {type(special_sum)}"
 
-        if bool(self._IS_SPECIAL) and special_sum > 0:
+        if bool(self._IS_SPECIAL) and special_sum <= 0:
             raise AttributeError(f'Invalid special sum, it must be more than zero')
 
         self._SPECIAL_SUM = float(special_sum) if self._IS_SPECIAL else 0

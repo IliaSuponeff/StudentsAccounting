@@ -233,25 +233,35 @@
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="hLayout_4">
-           <item>
+          <layout class="QGridLayout" name="gLayout_2">
+           <item row="0" column="0">
             <widget class="QRadioButton" name="this_year_filter_rbtn">
              <property name="text">
               <string>This year</string>
              </property>
              <property name="checked">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
             </widget>
            </item>
-           <item>
+           <item row="0" column="1">
             <widget class="QRadioButton" name="this_month_filter_rbtn">
              <property name="text">
               <string>This month</string>
              </property>
             </widget>
            </item>
-           <item>
+           <item row="1" column="0">
+            <widget class="QRadioButton" name="all_days_filter_rbtn">
+             <property name="text">
+              <string>All</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
             <widget class="QRadioButton" name="custom_period_rbtn">
              <property name="text">
               <string>Custom</string>

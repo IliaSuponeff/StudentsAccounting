@@ -7,6 +7,7 @@ author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
 import datetime
 
+import PySide6.QtGui
 from PySide6.QtWidgets import QDialog
 from PySide6.QtCore import QDate
 from views.dialogs.ui_create_visit import Ui_CreatorVisit
@@ -17,22 +18,20 @@ from controllers.user_exception_mgs_dialogs import exception, warning
 
 class AddStudentVisitDialog(QDialog):
 
-    def __init__(self, settings: RuntimeSettings, database: DataBase, student: Student):
+    def __init__(self, settings: RuntimeSettings, database: DataBase):
         super().__init__()
-        assert student is not None, "Not have chosen student to add him visit"
         self.settings = settings
         self.db = database
-        self._student = student
+        self._student = None
+        self._IS_ADD_VISIT = False
         self._ui = Ui_CreatorVisit()
-        self.setUi()
-        self.setHandlers()
+        self._ui.setupUi(self)
 
     def setUi(self):
-        self._ui.setupUi(self)
         self.setWindowTitle(f'Add visit for {self._student.name()} student')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
         date_now = datetime.date.today()
-        self._ui.choose_date_edit.setDate(
+        self._ui.visit_date_edit.setDate(
             QDate(date_now.year, date_now.month, date_now.day)
         )
         self._ui.currency_lbl.setText(self._student.currency().value)
@@ -40,21 +39,36 @@ class AddStudentVisitDialog(QDialog):
     def setHandlers(self):
         self._ui.done_btn.clicked.connect(lambda: self.add_visit())
 
+    def call(self, student, *args):
+        assert student is not None, "Not have chosen student to add him visit"
+        self._student = student
+        self._IS_ADD_VISIT = False
+        self.setUi()
+        self.setHandlers()
+
     def add_visit(self):
-        date = self._ui.choose_date_edit.date()
+        if self._IS_ADD_VISIT:
+            return
+
+        date = self._ui.visit_date_edit.date()
         date = datetime.datetime.strptime(
-            f'{date.day()}.{date.month()}.{date.year()}',
-            '%d.%m.%Y'
+            f'{date.day()}.{date.month()}.{date.year()}', '%d.%m.%Y'
         ).date()
         timespan = self._ui.timespan_spinbox.value()
         is_special = self._ui.special_rbtn.isChecked()
         special_sum = self._ui.sp_sum_spinbox.value() if is_special else 0
         try:
             visit = Visit(date, timespan, is_special, special_sum)
-            print(visit)
+            if visit in self.db.get_student_visits(self._student):
+                raise AssertionError(
+                    f"Visit {visit.date().strftime('%d.%m.%Y')} with timespan {visit.timespan()}"
+                    f"{f' and sum={visit.special_sum()}' if visit.is_special() else ''} is exists now."
+                )
+
             self.db.add_student_visit(self._student, visit)
-            del visit
             self.close()
+            self._IS_ADD_VISIT = True
+            return
         except Exception as ex:
             exception(
                 icon=self.windowIcon(),

@@ -72,6 +72,12 @@ class DataBase:
         self._execute_script('remove_student_table', table=student.table())
 
     def add_student_visit(self, student: Student, visit: Visit):
+        if visit in self.get_student_visits(student):
+            raise AssertionError(
+                f"Visit {visit.date().strftime('%d.%m.%Y')} with timespan {visit.timespan()}"
+                f"{f' and sum={visit.special_sum()}' if visit.is_special() else ''} is exists now."
+            )
+
         self._execute_script(
             'add_student_visit',
             table=student.table(),
@@ -85,7 +91,7 @@ class DataBase:
         self._execute_script(
             'remove_student_visit',
             table=student.table(),
-            date=visit.date(),
+            date=visit.date().strftime('%d.%m.%Y'),
             timespan=visit.timespan(),
             is_special=visit.is_special(),
             special_sum=visit.special_sum()

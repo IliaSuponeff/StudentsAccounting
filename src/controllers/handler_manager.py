@@ -80,9 +80,16 @@ class HandlerManager:
 
         self._current_student_index = index
 
-    def delete_current_student_visit(self, visit_rowid: int):
+    def delete_current_student_visit(self, visit_index: int):
         student = self.get_current_student()
         if student is None:
             return
 
-        self._db.remove_student_visit_by_rowid(student, visit_rowid)
+        visits = self._db.get_student_visits(student)
+        if not (0 <= visit_index < len(visits)):
+            raise AssertionError(
+                f"Invalid vist index to delete it. Index = {visit_index}, expected from {0} to {len(visits) - 1}"
+            )
+
+        visit = visits[visit_index]
+        self._db.remove_student_visit(student, visit)

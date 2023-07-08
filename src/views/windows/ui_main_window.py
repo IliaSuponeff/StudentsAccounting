@@ -161,26 +161,32 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.info_lbl_2)
 
-        self.hLayout_4 = QHBoxLayout()
-        self.hLayout_4.setObjectName(u"hLayout_4")
+        self.gLayout_2 = QGridLayout()
+        self.gLayout_2.setObjectName(u"gLayout_2")
         self.this_year_filter_rbtn = QRadioButton(self.filter_frame)
         self.this_year_filter_rbtn.setObjectName(u"this_year_filter_rbtn")
-        self.this_year_filter_rbtn.setChecked(True)
+        self.this_year_filter_rbtn.setChecked(False)
 
-        self.hLayout_4.addWidget(self.this_year_filter_rbtn)
+        self.gLayout_2.addWidget(self.this_year_filter_rbtn, 0, 0, 1, 1)
 
         self.this_month_filter_rbtn = QRadioButton(self.filter_frame)
         self.this_month_filter_rbtn.setObjectName(u"this_month_filter_rbtn")
 
-        self.hLayout_4.addWidget(self.this_month_filter_rbtn)
+        self.gLayout_2.addWidget(self.this_month_filter_rbtn, 0, 1, 1, 1)
+
+        self.all_days_filter_rbtn = QRadioButton(self.filter_frame)
+        self.all_days_filter_rbtn.setObjectName(u"all_days_filter_rbtn")
+        self.all_days_filter_rbtn.setChecked(True)
+
+        self.gLayout_2.addWidget(self.all_days_filter_rbtn, 1, 0, 1, 1)
 
         self.custom_period_rbtn = QRadioButton(self.filter_frame)
         self.custom_period_rbtn.setObjectName(u"custom_period_rbtn")
 
-        self.hLayout_4.addWidget(self.custom_period_rbtn)
+        self.gLayout_2.addWidget(self.custom_period_rbtn, 1, 1, 1, 1)
 
 
-        self.verticalLayout.addLayout(self.hLayout_4)
+        self.verticalLayout.addLayout(self.gLayout_2)
 
         self.info_lbl_3 = QLabel(self.filter_frame)
         self.info_lbl_3.setObjectName(u"info_lbl_3")
@@ -311,6 +317,7 @@ class Ui_MainWindow(object):
         self.info_lbl_2.setText(QCoreApplication.translate("MainWindow", u"Filter", None))
         self.this_year_filter_rbtn.setText(QCoreApplication.translate("MainWindow", u"This year", None))
         self.this_month_filter_rbtn.setText(QCoreApplication.translate("MainWindow", u"This month", None))
+        self.all_days_filter_rbtn.setText(QCoreApplication.translate("MainWindow", u"All", None))
         self.custom_period_rbtn.setText(QCoreApplication.translate("MainWindow", u"Custom", None))
         self.info_lbl_3.setText(QCoreApplication.translate("MainWindow", u"Custom Period", None))
         self.info_lbl_4.setText(QCoreApplication.translate("MainWindow", u"From", None))
