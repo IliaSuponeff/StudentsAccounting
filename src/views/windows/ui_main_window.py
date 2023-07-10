@@ -15,11 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QDateEdit,
-    QFrame, QGridLayout, QHBoxLayout, QHeaderView,
-    QLabel, QListWidget, QListWidgetItem, QMainWindow,
-    QPushButton, QRadioButton, QSizePolicy, QTableView,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
+    QHBoxLayout, QHeaderView, QLabel, QListWidget,
+    QListWidgetItem, QMainWindow, QPushButton, QRadioButton,
+    QSizePolicy, QTableView, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -207,31 +206,44 @@ class Ui_MainWindow(object):
 
         self.gLayout_1.addWidget(self.info_lbl_4, 0, 0, 1, 1)
 
-        self.from_date_filter_de = QDateEdit(self.filter_frame)
-        self.from_date_filter_de.setObjectName(u"from_date_filter_de")
-        sizePolicy2.setHeightForWidth(self.from_date_filter_de.sizePolicy().hasHeightForWidth())
-        self.from_date_filter_de.setSizePolicy(sizePolicy2)
-        self.from_date_filter_de.setAlignment(Qt.AlignCenter)
-        self.from_date_filter_de.setButtonSymbols(QAbstractSpinBox.NoButtons)
-        self.from_date_filter_de.setCalendarPopup(True)
-
-        self.gLayout_1.addWidget(self.from_date_filter_de, 0, 1, 1, 1)
-
-        self.to_date_filter_de = QDateEdit(self.filter_frame)
-        self.to_date_filter_de.setObjectName(u"to_date_filter_de")
-        sizePolicy2.setHeightForWidth(self.to_date_filter_de.sizePolicy().hasHeightForWidth())
-        self.to_date_filter_de.setSizePolicy(sizePolicy2)
-        self.to_date_filter_de.setAlignment(Qt.AlignCenter)
-        self.to_date_filter_de.setButtonSymbols(QAbstractSpinBox.NoButtons)
-        self.to_date_filter_de.setCalendarPopup(True)
-
-        self.gLayout_1.addWidget(self.to_date_filter_de, 1, 1, 1, 1)
-
         self.info_lbl_5 = QLabel(self.filter_frame)
         self.info_lbl_5.setObjectName(u"info_lbl_5")
         self.info_lbl_5.setAlignment(Qt.AlignCenter)
 
         self.gLayout_1.addWidget(self.info_lbl_5, 1, 0, 1, 1)
+
+        self.choose_from_date_btn = QPushButton(self.filter_frame)
+        self.choose_from_date_btn.setObjectName(u"choose_from_date_btn")
+        sizePolicy7 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.choose_from_date_btn.sizePolicy().hasHeightForWidth())
+        self.choose_from_date_btn.setSizePolicy(sizePolicy7)
+
+        self.gLayout_1.addWidget(self.choose_from_date_btn, 0, 2, 1, 1)
+
+        self.choose_to_date_btn = QPushButton(self.filter_frame)
+        self.choose_to_date_btn.setObjectName(u"choose_to_date_btn")
+        sizePolicy7.setHeightForWidth(self.choose_to_date_btn.sizePolicy().hasHeightForWidth())
+        self.choose_to_date_btn.setSizePolicy(sizePolicy7)
+
+        self.gLayout_1.addWidget(self.choose_to_date_btn, 1, 2, 1, 1)
+
+        self.from_date_lbl = QLabel(self.filter_frame)
+        self.from_date_lbl.setObjectName(u"from_date_lbl")
+        sizePolicy4.setHeightForWidth(self.from_date_lbl.sizePolicy().hasHeightForWidth())
+        self.from_date_lbl.setSizePolicy(sizePolicy4)
+        self.from_date_lbl.setAlignment(Qt.AlignCenter)
+
+        self.gLayout_1.addWidget(self.from_date_lbl, 0, 1, 1, 1)
+
+        self.to_date_lbl = QLabel(self.filter_frame)
+        self.to_date_lbl.setObjectName(u"to_date_lbl")
+        sizePolicy4.setHeightForWidth(self.to_date_lbl.sizePolicy().hasHeightForWidth())
+        self.to_date_lbl.setSizePolicy(sizePolicy4)
+        self.to_date_lbl.setAlignment(Qt.AlignCenter)
+
+        self.gLayout_1.addWidget(self.to_date_lbl, 1, 1, 1, 1)
 
 
         self.verticalLayout.addLayout(self.gLayout_1)
@@ -246,15 +258,15 @@ class Ui_MainWindow(object):
 
         self.vLayout_1.addWidget(self.info_lbl_6)
 
-        self.results_all_students = QListWidget(self.centralwidget)
-        self.results_all_students.setObjectName(u"results_all_students")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
-        sizePolicy7.setHorizontalStretch(1)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.results_all_students.sizePolicy().hasHeightForWidth())
-        self.results_all_students.setSizePolicy(sizePolicy7)
+        self.results_all_students_list = QListWidget(self.centralwidget)
+        self.results_all_students_list.setObjectName(u"results_all_students_list")
+        sizePolicy8 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
+        sizePolicy8.setHorizontalStretch(1)
+        sizePolicy8.setVerticalStretch(0)
+        sizePolicy8.setHeightForWidth(self.results_all_students_list.sizePolicy().hasHeightForWidth())
+        self.results_all_students_list.setSizePolicy(sizePolicy8)
 
-        self.vLayout_1.addWidget(self.results_all_students)
+        self.vLayout_1.addWidget(self.results_all_students_list)
 
 
         self.horizontalLayout.addLayout(self.vLayout_1)
@@ -322,6 +334,10 @@ class Ui_MainWindow(object):
         self.info_lbl_3.setText(QCoreApplication.translate("MainWindow", u"Custom Period", None))
         self.info_lbl_4.setText(QCoreApplication.translate("MainWindow", u"From", None))
         self.info_lbl_5.setText(QCoreApplication.translate("MainWindow", u"To", None))
+        self.choose_from_date_btn.setText(QCoreApplication.translate("MainWindow", u"Choose", None))
+        self.choose_to_date_btn.setText(QCoreApplication.translate("MainWindow", u"Choose", None))
+        self.from_date_lbl.setText("")
+        self.to_date_lbl.setText("")
         self.info_lbl_6.setText(QCoreApplication.translate("MainWindow", u"Results for all", None))
         self.add_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Add visit", None))
         self.edit_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Edit visit", None))

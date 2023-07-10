@@ -5,7 +5,10 @@ version: 0.0.1
 
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
-from PySide6.QtWidgets import QMainWindow, QHeaderView, QDialog
+import datetime
+import sys
+
+from PySide6.QtWidgets import QMainWindow, QHeaderView, QListWidgetItem, QLabel
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtCore import Qt, QDate
 from views.windows.ui_main_window import Ui_MainWindow
@@ -13,18 +16,21 @@ from controllers.handler_manager import HandlerManager, DataBase, RuntimeSetting
 from controllers.filter_manager import FilterType, FilterManager
 from controllers.add_student_dialog import AddStudentDialog
 from controllers.add_student_visit_dialog import AddStudentVisitDialog
-from controllers.user_exception_mgs_dialogs import exception, warning
+from controllers.user_exception_mgs_dialogs import exception
+from controllers.datechoose_dialog import DateChooseDialog
 
 
 class MainWindowHandler(QMainWindow):
 
     def __init__(self, settings: RuntimeSettings, database: DataBase):
         super().__init__()
+
         self.settings = settings
         self.db = database
         self._dialogs = {
             "AddStudentVisitDialog": AddStudentVisitDialog(self.settings, self.db),
             "AddStudentDialog": AddStudentDialog(self.settings, self.db),
+            "DateChooseDialog": DateChooseDialog(self.settings, self.db)
         }
         self._handler_manager = HandlerManager(settings, database)
         self._table_modal = QStandardItemModel()
@@ -37,13 +43,7 @@ class MainWindowHandler(QMainWindow):
         self._ui.setupUi(self)
         self.setIcons()
         self._ui.student_visits_table_view.setModel(self._table_modal)
-        custom_date = self._filter_manager.get_custom_period()
-        self._ui.from_date_filter_de.setDate(
-            QDate(custom_date[0].year, custom_date[0].month, custom_date[0].day)
-        )
-        self._ui.to_date_filter_de.setDate(
-            QDate(custom_date[1].year, custom_date[1].month, custom_date[1].day)
-        )
+        self._load_custom_period_view()
         self._reload_students()
 
     def setHandlers(self):
@@ -69,6 +69,12 @@ class MainWindowHandler(QMainWindow):
         )
         self._ui.custom_period_rbtn.clicked.connect(
             lambda: self._set_filter_type(FilterType.CUSTOM_PERIOD)
+        )
+        self._ui.choose_from_date_btn.clicked.connect(
+            lambda: self._change_date('from')
+        )
+        self._ui.choose_to_date_btn.clicked.connect(
+            lambda: self._change_date('to')
         )
 
     def setIcons(self):
@@ -106,7 +112,9 @@ class MainWindowHandler(QMainWindow):
         self._ui.student_choose_box.addItems(
             [student.name() for student in self.db.students]
         )
+        self._load_custom_period_view()
         self._load_current_student()
+        self._load_summary_students_results()
 
     def _rebuild_table_modal(self):
         self._table_modal.clear()
@@ -126,20 +134,21 @@ class MainWindowHandler(QMainWindow):
         self._ui.student_name_lbl.setText(
             student.name() if student is not None else '-'
         )
-        self._ui.student_summary_result_lbl.setText(str(
-            self._handler_manager.get_current_student_summary_result()
-        ) if student is not None else '')
+        self._ui.student_summary_result_lbl.setText('')
         self._ui.student_currency_lbl.setText(
             student.currency().value if student is not None else ''
         )
-        self._load_current_student_visits()
+        if student is not None:
+            self._load_current_student_visits()
 
     def _load_current_student_visits(self):
+        student = self._handler_manager.get_current_student()
         self._rebuild_table_modal()
         self._set_custom_filter()
         visits = self._filter_manager.filtrate(
             self._handler_manager.get_current_student_visits()
         )
+        summary = 0
         for visit in visits:
             row = [
                 QStandardItem(str(visit.date().strftime('%d.%m.%Y'))),
@@ -157,6 +166,13 @@ class MainWindowHandler(QMainWindow):
                     Qt.AlignmentFlag.AlignCenter
                 )
             self._table_modal.appendRow(row)
+
+            if visit.is_special():
+                summary += visit.special_sum()
+            else:
+                summary += visit.timespan() * student.hour_cost()
+
+        self._ui.student_summary_result_lbl.setText(str(summary))
 
     def _delete_student(self):
         self._handler_manager.delete_current_student()
@@ -206,9 +222,12 @@ class MainWindowHandler(QMainWindow):
         if not (self._filter_manager.fiter_type() == FilterType.CUSTOM_PERIOD):
             return
 
-        from_date = self._ui.from_date_filter_de.date()
-        to_date = self._ui.to_date_filter_de.date()
-
+        from_date = self._get_date_from_label(
+            self._ui.from_date_lbl
+        )
+        to_date = self._get_date_from_label(
+            self._ui.to_date_lbl
+        )
         try:
             self._filter_manager.set_custom_period(from_date, to_date)
         except Exception as ex:
@@ -220,3 +239,79 @@ class MainWindowHandler(QMainWindow):
     def _set_filter_type(self, filter_type: FilterType):
         self._filter_manager.update_filter_type(filter_type)
         self._reload_students()
+
+    def _load_summary_students_results(self):
+        currencies = self._get_all_currencies_results()
+        self._ui.results_all_students_list.clear()
+
+        for currency in currencies:
+            if currencies[currency] == 0:
+                continue
+
+            list_item = QListWidgetItem(
+                f'{currencies[currency]} {currency}'
+            )
+            list_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            self._ui.results_all_students_list.addItem(list_item)
+
+    def _get_all_currencies_results(self) -> dict[str, int]:
+        currencies = {}
+        for student in self._handler_manager.get_students():
+            visits_summary_result = 0
+            visits = self._filter_manager.filtrate(
+                self._handler_manager.get_student_visits(student)
+            )
+            for visit in visits:
+                if visit.is_special():
+                    visits_summary_result += visit.special_sum()
+                else:
+                    visits_summary_result += visit.timespan() * student.hour_cost()
+
+            currency = student.currency().value
+            if currency in currencies.keys():
+                currencies[currency] += visits_summary_result
+            else:
+                currencies[currency] = visits_summary_result
+
+        return currencies
+
+    def _load_custom_period_view(self):
+        custom_period = self._filter_manager.get_custom_period()
+        self._ui.from_date_lbl.setText(
+            custom_period[0].strftime('%d.%m.%Y')
+        )
+        self._ui.to_date_lbl.setText(
+            custom_period[1].strftime('%d.%m.%Y')
+        )
+
+    def _change_date(self, _change_type):
+        date: QDate = self._get_qdate_by_type(_change_type)
+        self._call_dialog('DateChooseDialog', date)
+        choose_date_dialog: DateChooseDialog = self._dialogs['DateChooseDialog']
+        new_date = choose_date_dialog.get_date()
+        if new_date == date:
+            return
+
+        new_date = datetime.datetime.strptime(
+            f'{new_date.day()}.{new_date.month()}.{new_date.year()}',
+            '%d.%m.%Y'
+        ).date()
+        custom_period = list(self._filter_manager.get_custom_period())
+        _index = 0 if _change_type == 'from' else 1
+        custom_period[_index] = new_date
+        custom_period.sort()
+        self._filter_manager.set_custom_period(*custom_period)
+        self._reload_students()
+
+    @staticmethod
+    def _get_date_from_label(lbl: QLabel) -> datetime.date:
+        return datetime.datetime.strptime(
+            lbl.text(),
+            '%d.%m.%Y'
+        ).date()
+
+    def _get_qdate_by_type(self, _change_type) -> QDate:
+        date = self._get_date_from_label(
+            self._ui.from_date_lbl if _change_type == 'from' else self._ui.to_date_lbl
+        )
+        return QDate(date.year, date.month, date.day)

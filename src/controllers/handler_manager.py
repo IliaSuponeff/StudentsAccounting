@@ -18,6 +18,7 @@ class HandlerManager:
         self._db = database
         self._current_student_index = 0
 
+
     def get_current_student(self) -> typing.Optional[Student]:
         if self._is_valid_index():
             return self._db.students[self._current_student_index]
@@ -26,21 +27,6 @@ class HandlerManager:
 
     def _is_valid_index(self) -> bool:
         return 0 <= self._current_student_index < len(self._db.students)
-
-    def get_current_student_summary_result(self) -> 0:
-        student = self.get_current_student()
-        if student is None:
-            return 0
-
-        visits: list[Visit] = self.get_current_student_visits()
-        summary = 0
-        for visit in visits:
-            if visit.is_special():
-                summary += visit.special_sum()
-            else:
-                summary += visit.timespan() * student.hour_cost()
-
-        return summary
 
     def get_current_student_visits(self) -> list[Visit]:
         student: Student = self.get_current_student()
@@ -93,3 +79,12 @@ class HandlerManager:
 
         visit = visits[visit_index]
         self._db.remove_student_visit(student, visit)
+
+    def get_students(self) -> tuple[Student]:
+        return tuple(self._db.get_students())
+
+    def get_student_visits(self, student: Student) -> list[Visit]:
+        if student is None or not isinstance(student, Student):
+            return []
+
+        return self._db.get_student_visits(student)
