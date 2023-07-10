@@ -84,12 +84,13 @@ class MainWindowHandler(QMainWindow):
         self._ui.add_visit_btn.setIcon(
             self.settings.load_image('add_visit.png')
         )
-        self._ui.edit_student_btn.setIcon(
-            self.settings.load_image('edit.png')
-        )
-        self._ui.edit_visit_btn.setIcon(
-            self.settings.load_image('edit.png')
-        )
+
+        # self._ui.edit_student_btn.setIcon(
+        #     self.settings.load_image('edit.png')
+        # )
+        # self._ui.edit_visit_btn.setIcon(
+        #     self.settings.load_image('edit.png')
+        # )
         self._ui.next_student_btn.setIcon(
             self.settings.load_image('next_student.png')
         )

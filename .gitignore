@@ -15,3 +15,6 @@ env/
 *.db3
 *.sqlite
 *.sqlite3
+
+## dev files
+*.release

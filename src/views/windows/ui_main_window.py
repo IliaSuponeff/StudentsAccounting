@@ -47,18 +47,6 @@ class Ui_MainWindow(object):
 
         self.hLayout_2.addWidget(self.add_student_btn)
 
-        self.edit_student_btn = QPushButton(self.centralwidget)
-        self.edit_student_btn.setObjectName(u"edit_student_btn")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.edit_student_btn.sizePolicy().hasHeightForWidth())
-        self.edit_student_btn.setSizePolicy(sizePolicy1)
-        self.edit_student_btn.setIconSize(QSize(30, 30))
-        self.edit_student_btn.setFlat(True)
-
-        self.hLayout_2.addWidget(self.edit_student_btn)
-
         self.del_student_btn = QPushButton(self.centralwidget)
         self.del_student_btn.setObjectName(u"del_student_btn")
         sizePolicy.setHeightForWidth(self.del_student_btn.sizePolicy().hasHeightForWidth())
@@ -75,6 +63,9 @@ class Ui_MainWindow(object):
         self.hLayout_1.setObjectName(u"hLayout_1")
         self.prev_student_btn = QPushButton(self.centralwidget)
         self.prev_student_btn.setObjectName(u"prev_student_btn")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.prev_student_btn.sizePolicy().hasHeightForWidth())
         self.prev_student_btn.setSizePolicy(sizePolicy1)
         self.prev_student_btn.setFlat(True)
@@ -287,11 +278,6 @@ class Ui_MainWindow(object):
 
         self.hLayout_5.addWidget(self.add_visit_btn)
 
-        self.edit_visit_btn = QPushButton(self.centralwidget)
-        self.edit_visit_btn.setObjectName(u"edit_visit_btn")
-
-        self.hLayout_5.addWidget(self.edit_visit_btn)
-
         self.del_visit_btn = QPushButton(self.centralwidget)
         self.del_visit_btn.setObjectName(u"del_visit_btn")
 
@@ -318,7 +304,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"StudentAccounting", None))
         self.add_student_btn.setText("")
-        self.edit_student_btn.setText("")
         self.del_student_btn.setText("")
         self.prev_student_btn.setText("")
         self.reload_student_btn.setText("")
@@ -340,7 +325,6 @@ class Ui_MainWindow(object):
         self.to_date_lbl.setText("")
         self.info_lbl_6.setText(QCoreApplication.translate("MainWindow", u"Results for all", None))
         self.add_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Add visit", None))
-        self.edit_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Edit visit", None))
         self.del_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Delete visit", None))
     # retranslateUi
 
