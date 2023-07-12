@@ -34,9 +34,15 @@ class AddStudentVisitDialog(QDialog):
         self._ui.visit_date_edit.setDate(
             QDate(date_now.year, date_now.month, date_now.day)
         )
+        self._ui.timespan_spinbox.setValue(1.0)
         self._ui.currency_lbl.setText(self._student.currency().value)
+        self._ui.unspecial_rbtn.setChecked(True)
+        self._ui.special_sum_frame.hide()
+        self._ui.sp_sum_spinbox.setValue(0.0)
 
     def setHandlers(self):
+        self._ui.unspecial_rbtn.clicked.connect(lambda: self._ui.special_sum_frame.hide())
+        self._ui.special_rbtn.clicked.connect(lambda: self._ui.special_sum_frame.show())
         self._ui.done_btn.clicked.connect(lambda: self.add_visit())
 
     def call(self, student, *args):
@@ -60,6 +66,7 @@ class AddStudentVisitDialog(QDialog):
         try:
             visit = Visit(date, timespan, is_special, special_sum)
             if visit in self.db.get_student_visits(self._student):
+
                 raise AssertionError(
                     f"Visit {visit.date().strftime('%d.%m.%Y')} with timespan {visit.timespan()}"
                     f"{f' and sum={visit.special_sum()}' if visit.is_special() else ''} is exists now."
@@ -74,3 +81,4 @@ class AddStudentVisitDialog(QDialog):
                 icon=self.windowIcon(),
                 msg='\n'.join([str(arg) for arg in ex.args]).strip()
             )
+            self._IS_ADD_VISIT = False

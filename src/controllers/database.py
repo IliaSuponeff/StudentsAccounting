@@ -62,6 +62,33 @@ class DataBase:
         )
         self.save()
 
+    def edit_student(self, old_student: Student, new_student: Student):
+        print("Old students list:", self.students)
+
+        print(f"Old student: {old_student}")
+        print(f"New student: {new_student}")
+        # change students list
+        index = self.students.index(old_student)
+        self.students[index] = new_student
+
+        # reload STUDETS DB table
+        self._execute_script(
+            'edit_student',
+            name=new_student.name(),
+            hour_cost=new_student.hour_cost(),
+            currency=new_student.currency().value,
+            table=new_student.table(),
+            rowid=index + 1
+        )
+        visits = self.get_student_visits(old_student)
+        self._execute_script('remove_student_table', table=old_student.table())
+        self._execute_script('add_student_table', table=new_student.table())
+
+        for visit in visits:
+            self.add_student_visit(new_student, visit)
+
+        print("New students list: ", self.students)
+
     def remove_student(self, student: Student):
         if not (student in self.students):
             # nothing to do
