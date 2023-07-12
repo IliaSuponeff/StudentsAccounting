@@ -16,22 +16,27 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QDateEdit, QDialog,
-    QDoubleSpinBox, QFrame, QGridLayout, QHBoxLayout,
-    QLabel, QPushButton, QRadioButton, QSizePolicy,
-    QSpacerItem, QVBoxLayout, QWidget)
+    QDoubleSpinBox, QFrame, QHBoxLayout, QLabel,
+    QPushButton, QRadioButton, QSizePolicy, QSpacerItem,
+    QVBoxLayout, QWidget)
 
 class Ui_CreatorVisit(object):
     def setupUi(self, CreatorVisit):
         if not CreatorVisit.objectName():
             CreatorVisit.setObjectName(u"CreatorVisit")
-        CreatorVisit.resize(600, 200)
-        CreatorVisit.setMinimumSize(QSize(600, 200))
-        CreatorVisit.setMaximumSize(QSize(600, 200))
+        CreatorVisit.resize(500, 240)
+        CreatorVisit.setMinimumSize(QSize(500, 240))
+        CreatorVisit.setMaximumSize(QSize(500, 240))
         CreatorVisit.setModal(True)
         self.verticalLayout = QVBoxLayout(CreatorVisit)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.dialog_title_lbl = QLabel(CreatorVisit)
         self.dialog_title_lbl.setObjectName(u"dialog_title_lbl")
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.dialog_title_lbl.sizePolicy().hasHeightForWidth())
+        self.dialog_title_lbl.setSizePolicy(sizePolicy)
         self.dialog_title_lbl.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.dialog_title_lbl)
@@ -40,11 +45,11 @@ class Ui_CreatorVisit(object):
         self.hLayout_1.setObjectName(u"hLayout_1")
         self.info_lbl_1 = QLabel(CreatorVisit)
         self.info_lbl_1.setObjectName(u"info_lbl_1")
-        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.info_lbl_1.sizePolicy().hasHeightForWidth())
-        self.info_lbl_1.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.info_lbl_1.sizePolicy().hasHeightForWidth())
+        self.info_lbl_1.setSizePolicy(sizePolicy1)
         self.info_lbl_1.setAlignment(Qt.AlignCenter)
 
         self.hLayout_1.addWidget(self.info_lbl_1)
@@ -74,22 +79,22 @@ class Ui_CreatorVisit(object):
         self.hLayout_3.setObjectName(u"hLayout_3")
         self.info_lbl_2 = QLabel(CreatorVisit)
         self.info_lbl_2.setObjectName(u"info_lbl_2")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.info_lbl_2.sizePolicy().hasHeightForWidth())
-        self.info_lbl_2.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.info_lbl_2.sizePolicy().hasHeightForWidth())
+        self.info_lbl_2.setSizePolicy(sizePolicy2)
         self.info_lbl_2.setAlignment(Qt.AlignCenter)
 
         self.hLayout_3.addWidget(self.info_lbl_2)
 
         self.timespan_spinbox = QDoubleSpinBox(CreatorVisit)
         self.timespan_spinbox.setObjectName(u"timespan_spinbox")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.timespan_spinbox.sizePolicy().hasHeightForWidth())
-        self.timespan_spinbox.setSizePolicy(sizePolicy2)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.timespan_spinbox.sizePolicy().hasHeightForWidth())
+        self.timespan_spinbox.setSizePolicy(sizePolicy3)
         self.timespan_spinbox.setWrapping(False)
         self.timespan_spinbox.setFrame(True)
         self.timespan_spinbox.setAlignment(Qt.AlignCenter)
@@ -102,11 +107,11 @@ class Ui_CreatorVisit(object):
 
         self.info_lbl_4 = QLabel(CreatorVisit)
         self.info_lbl_4.setObjectName(u"info_lbl_4")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Minimum)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.info_lbl_4.sizePolicy().hasHeightForWidth())
-        self.info_lbl_4.setSizePolicy(sizePolicy3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Minimum)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.info_lbl_4.sizePolicy().hasHeightForWidth())
+        self.info_lbl_4.setSizePolicy(sizePolicy4)
         self.info_lbl_4.setAlignment(Qt.AlignCenter)
 
         self.hLayout_3.addWidget(self.info_lbl_4)
@@ -121,49 +126,69 @@ class Ui_CreatorVisit(object):
 
         self.hLayout_4.addWidget(self.vLine_1)
 
-        self.gridLayout = QGridLayout()
-        self.gridLayout.setObjectName(u"gridLayout")
+        self.vLayout_2 = QVBoxLayout()
+        self.vLayout_2.setObjectName(u"vLayout_2")
+        self.hLayout_5 = QHBoxLayout()
+        self.hLayout_5.setObjectName(u"hLayout_5")
+        self.info_lbl_5 = QLabel(CreatorVisit)
+        self.info_lbl_5.setObjectName(u"info_lbl_5")
+        self.info_lbl_5.setAlignment(Qt.AlignCenter)
+        self.info_lbl_5.setWordWrap(True)
+
+        self.hLayout_5.addWidget(self.info_lbl_5)
+
+        self.vLayout_1 = QVBoxLayout()
+        self.vLayout_1.setObjectName(u"vLayout_1")
         self.unspecial_rbtn = QRadioButton(CreatorVisit)
         self.unspecial_rbtn.setObjectName(u"unspecial_rbtn")
         self.unspecial_rbtn.setChecked(True)
 
-        self.gridLayout.addWidget(self.unspecial_rbtn, 0, 2, 1, 1)
-
-        self.info_lbl_3 = QLabel(CreatorVisit)
-        self.info_lbl_3.setObjectName(u"info_lbl_3")
-        self.info_lbl_3.setAlignment(Qt.AlignCenter)
-        self.info_lbl_3.setWordWrap(True)
-
-        self.gridLayout.addWidget(self.info_lbl_3, 2, 0, 1, 1)
-
-        self.currency_lbl = QLabel(CreatorVisit)
-        self.currency_lbl.setObjectName(u"currency_lbl")
-        self.currency_lbl.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.currency_lbl, 2, 2, 1, 1)
+        self.vLayout_1.addWidget(self.unspecial_rbtn)
 
         self.special_rbtn = QRadioButton(CreatorVisit)
         self.special_rbtn.setObjectName(u"special_rbtn")
         self.special_rbtn.setIconSize(QSize(20, 20))
+        self.special_rbtn.setChecked(False)
 
-        self.gridLayout.addWidget(self.special_rbtn, 0, 1, 1, 1)
+        self.vLayout_1.addWidget(self.special_rbtn)
 
-        self.sp_sum_spinbox = QDoubleSpinBox(CreatorVisit)
+
+        self.hLayout_5.addLayout(self.vLayout_1)
+
+
+        self.vLayout_2.addLayout(self.hLayout_5)
+
+        self.special_sum_frame = QFrame(CreatorVisit)
+        self.special_sum_frame.setObjectName(u"special_sum_frame")
+        self.horizontalLayout = QHBoxLayout(self.special_sum_frame)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.info_lbl_3 = QLabel(self.special_sum_frame)
+        self.info_lbl_3.setObjectName(u"info_lbl_3")
+        self.info_lbl_3.setAlignment(Qt.AlignCenter)
+        self.info_lbl_3.setWordWrap(True)
+
+        self.horizontalLayout.addWidget(self.info_lbl_3)
+
+        self.sp_sum_spinbox = QDoubleSpinBox(self.special_sum_frame)
         self.sp_sum_spinbox.setObjectName(u"sp_sum_spinbox")
         self.sp_sum_spinbox.setAlignment(Qt.AlignCenter)
         self.sp_sum_spinbox.setButtonSymbols(QAbstractSpinBox.NoButtons)
         self.sp_sum_spinbox.setDecimals(1)
         self.sp_sum_spinbox.setMaximum(9999999.000000000000000)
 
-        self.gridLayout.addWidget(self.sp_sum_spinbox, 2, 1, 1, 1)
+        self.horizontalLayout.addWidget(self.sp_sum_spinbox)
 
-        self.info_lbl_5 = QLabel(CreatorVisit)
-        self.info_lbl_5.setObjectName(u"info_lbl_5")
+        self.currency_lbl = QLabel(self.special_sum_frame)
+        self.currency_lbl.setObjectName(u"currency_lbl")
+        self.currency_lbl.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.info_lbl_5, 0, 0, 1, 1)
+        self.horizontalLayout.addWidget(self.currency_lbl)
 
 
-        self.hLayout_4.addLayout(self.gridLayout)
+        self.vLayout_2.addWidget(self.special_sum_frame)
+
+
+        self.hLayout_4.addLayout(self.vLayout_2)
 
 
         self.verticalLayout.addLayout(self.hLayout_4)
@@ -183,11 +208,8 @@ class Ui_CreatorVisit(object):
 
         self.done_btn = QPushButton(CreatorVisit)
         self.done_btn.setObjectName(u"done_btn")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.done_btn.sizePolicy().hasHeightForWidth())
-        self.done_btn.setSizePolicy(sizePolicy4)
+        sizePolicy3.setHeightForWidth(self.done_btn.sizePolicy().hasHeightForWidth())
+        self.done_btn.setSizePolicy(sizePolicy3)
 
         self.hLayout_2.addWidget(self.done_btn)
 
@@ -206,11 +228,11 @@ class Ui_CreatorVisit(object):
         self.info_lbl_1.setText(QCoreApplication.translate("CreatorVisit", u"Date", None))
         self.info_lbl_2.setText(QCoreApplication.translate("CreatorVisit", u"Timespan", None))
         self.info_lbl_4.setText(QCoreApplication.translate("CreatorVisit", u"hour", None))
+        self.info_lbl_5.setText(QCoreApplication.translate("CreatorVisit", u"Lesson cost", None))
         self.unspecial_rbtn.setText(QCoreApplication.translate("CreatorVisit", u"Unspecial", None))
+        self.special_rbtn.setText(QCoreApplication.translate("CreatorVisit", u"Special", None))
         self.info_lbl_3.setText(QCoreApplication.translate("CreatorVisit", u"Special Sum", None))
         self.currency_lbl.setText(QCoreApplication.translate("CreatorVisit", u"Currency", None))
-        self.special_rbtn.setText(QCoreApplication.translate("CreatorVisit", u"Special", None))
-        self.info_lbl_5.setText("")
         self.done_btn.setText(QCoreApplication.translate("CreatorVisit", u"Create", None))
     # retranslateUi
 

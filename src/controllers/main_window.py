@@ -6,9 +6,9 @@ version: 0.0.1
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
 import datetime
-import sys
+import pprint
 
-from PySide6.QtWidgets import QMainWindow, QHeaderView, QListWidgetItem, QLabel
+from PySide6.QtWidgets import QMainWindow, QHeaderView, QLabel
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtCore import Qt, QDate
 from views.windows.ui_main_window import Ui_MainWindow
@@ -33,7 +33,8 @@ class MainWindowHandler(QMainWindow):
             "DateChooseDialog": DateChooseDialog(self.settings, self.db)
         }
         self._handler_manager = HandlerManager(settings, database)
-        self._table_modal = QStandardItemModel()
+        self._visits_table_modal = QStandardItemModel()
+        self._all_result_table_model = QStandardItemModel()
         self._filter_manager = FilterManager()
         self._ui = Ui_MainWindow()
         self.setUi()
@@ -42,7 +43,8 @@ class MainWindowHandler(QMainWindow):
     def setUi(self):
         self._ui.setupUi(self)
         self.setIcons()
-        self._ui.student_visits_table_view.setModel(self._table_modal)
+        self._ui.student_visits_table_view.setModel(self._visits_table_modal)
+        self._ui.all_results_table_view.setModel(self._all_result_table_model)
         self._load_custom_period_view()
         self._reload_students()
 
@@ -109,21 +111,29 @@ class MainWindowHandler(QMainWindow):
 
     def _reload_students(self):
         self._ui.student_choose_box.clear()
-        self._rebuild_table_modal()
+        self._rebuild_tables_modals()
         self._ui.student_choose_box.addItems(
             [student.name() for student in self.db.students]
         )
         self._load_custom_period_view()
+        self._load_filter_period_now()
         self._load_current_student()
         self._load_summary_students_results()
 
-    def _rebuild_table_modal(self):
-        self._table_modal.clear()
-        self._table_modal.setHorizontalHeaderLabels(
+    def _rebuild_tables_modals(self):
+        # visits table rebuild
+        self._visits_table_modal.clear()
+        self._visits_table_modal.setHorizontalHeaderLabels(
             ['Date', 'Timespan', 'Summary']
         )
         self._ui.student_visits_table_view.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self._ui.student_visits_table_view.verticalHeader().hide()
+
+        # all results table rebuild
+        self._all_result_table_model.clear()
+        self._ui.all_results_table_view.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self._ui.all_results_table_view.horizontalHeader().hide()
+        self._ui.all_results_table_view.verticalHeader().hide()
 
     def _load_current_student(self):
         student = self._handler_manager.get_current_student()
@@ -133,23 +143,22 @@ class MainWindowHandler(QMainWindow):
             )
 
         self._ui.student_name_lbl.setText(
-            student.name() if student is not None else '-'
+            student.name() if student is not None else 'Not found student'
         )
-        self._ui.student_summary_result_lbl.setText('')
-        self._ui.student_currency_lbl.setText(
-            student.currency().value if student is not None else ''
-        )
+        self._ui.student_summary_result_lbl.setText('No info')
+        self._ui.summary_timespan_result_lbl.setText('No info')
         if student is not None:
             self._load_current_student_visits()
 
     def _load_current_student_visits(self):
         student = self._handler_manager.get_current_student()
-        self._rebuild_table_modal()
+        self._rebuild_tables_modals()
         self._set_custom_filter()
         visits = self._filter_manager.filtrate(
             self._handler_manager.get_current_student_visits()
         )
         summary = 0
+        sum_timespan = 0
         for visit in visits:
             row = [
                 QStandardItem(str(visit.date().strftime('%d.%m.%Y'))),
@@ -166,14 +175,23 @@ class MainWindowHandler(QMainWindow):
                 item.setTextAlignment(
                     Qt.AlignmentFlag.AlignCenter
                 )
-            self._table_modal.appendRow(row)
+                item.setEditable(False)
+
+            self._visits_table_modal.appendRow(row)
 
             if visit.is_special():
                 summary += visit.special_sum()
             else:
                 summary += visit.timespan() * student.hour_cost()
 
-        self._ui.student_summary_result_lbl.setText(str(summary))
+            sum_timespan += visit.timespan()
+
+        self._ui.student_summary_result_lbl.setText(
+            f'{summary} {student.currency().value}'
+        )
+        self._ui.summary_timespan_result_lbl.setText(
+            f'{round(sum_timespan, 1)} hour'
+        )
 
     def _delete_student(self):
         self._handler_manager.delete_current_student()
@@ -243,22 +261,25 @@ class MainWindowHandler(QMainWindow):
 
     def _load_summary_students_results(self):
         currencies = self._get_all_currencies_results()
-        self._ui.results_all_students_list.clear()
-
         for currency in currencies:
-            if currencies[currency] == 0:
-                continue
+            row = currencies[currency]
+            row = [
+                QStandardItem(f'{row[0]} {currency}'),
+                QStandardItem(f'{round(row[1], 1)} hour')
+            ]
+            for item in row:
+                item.setTextAlignment(
+                    Qt.AlignmentFlag.AlignCenter
+                )
+                item.setEditable(False)
 
-            list_item = QListWidgetItem(
-                f'{currencies[currency]} {currency}'
-            )
-            list_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            self._ui.results_all_students_list.addItem(list_item)
+            self._all_result_table_model.appendRow(row)
 
-    def _get_all_currencies_results(self) -> dict[str, int]:
+    def _get_all_currencies_results(self) -> dict[str, list]:
         currencies = {}
         for student in self._handler_manager.get_students():
             visits_summary_result = 0
+            visits_timespan_summary_result = 0
             visits = self._filter_manager.filtrate(
                 self._handler_manager.get_student_visits(student)
             )
@@ -268,11 +289,14 @@ class MainWindowHandler(QMainWindow):
                 else:
                     visits_summary_result += visit.timespan() * student.hour_cost()
 
+                visits_timespan_summary_result += visit.timespan()
+
             currency = student.currency().value
             if currency in currencies.keys():
-                currencies[currency] += visits_summary_result
+                currencies[currency][0] += visits_summary_result
+                currencies[currency][1] += visits_timespan_summary_result
             else:
-                currencies[currency] = visits_summary_result
+                currencies[currency] = [visits_summary_result, visits_timespan_summary_result]
 
         return currencies
 
@@ -283,6 +307,18 @@ class MainWindowHandler(QMainWindow):
         )
         self._ui.to_date_lbl.setText(
             custom_period[1].strftime('%d.%m.%Y')
+        )
+
+    def _load_filter_period_now(self):
+        period = self._filter_manager.get_period_now()
+        if len(period) == 0:
+            self._ui.period_info_lbl.setText("All days")
+            return
+
+        from_date = period[0].strftime('%d.%m.%Y')
+        to_date = period[1].strftime('%d.%m.%Y')
+        self._ui.period_info_lbl.setText(
+            f'{from_date} - {to_date}'
         )
 
     def _change_date(self, _change_type):

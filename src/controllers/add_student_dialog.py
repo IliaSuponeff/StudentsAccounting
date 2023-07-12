@@ -33,13 +33,14 @@ class AddStudentDialog(QDialog):
         self._ui.done_btn.setText('Add')
         self._ui.name_le.setText('')
         self._ui.hour_cost_spin_box.setValue(1.0)
+        self._ui.currency_box.clear()
+        self._ui.currency_box.addItems([str(currency) for currency in Currency.all()])
 
     def setHandlers(self):
         self._ui.done_btn.clicked.connect(self._create_student)
-        self._ui.currency_box.addItems([str(currency) for currency in Currency.all()])
 
     def _create_student(self):
-        if self._CREATE_STUDENT :
+        if self._CREATE_STUDENT:
             return
 
         name = self._ui.name_le.text()

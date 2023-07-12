@@ -110,3 +110,15 @@ class FilterManager:
             f'{date.day()}.{date.month()}.{date.year()}',
             '%d.%m.%Y'
         ).date()
+
+    def get_period_now(self):
+        if self._filter_type == FilterType.ALL_DAYS:
+            return ()
+
+        if self._filter_type == FilterType.CUSTOM_PERIOD:
+            return self.get_custom_period()
+
+        if self._filter_type == FilterType.THIS_MONTH:
+            return self._get_this_month_period()
+
+        return self._get_this_year_period()
