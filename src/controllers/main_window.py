@@ -19,6 +19,8 @@ from controllers.add_student_visit_dialog import AddStudentVisitDialog
 from controllers.user_exception_mgs_dialogs import exception
 from controllers.datechoose_dialog import DateChooseDialog
 from controllers.edit_student_dialog import EditStudentDialog
+from controllers.edit_student_visit_dialog import EditStudentVisitDialog
+from models.student_visit import Visit
 
 
 class MainWindowHandler(QMainWindow):
@@ -32,6 +34,7 @@ class MainWindowHandler(QMainWindow):
             "AddStudentVisitDialog": AddStudentVisitDialog(self.settings, self.db),
             "AddStudentDialog": AddStudentDialog(self.settings, self.db),
             "EditStudentDialog": EditStudentDialog(self.settings, self.db),
+            "EditStudentVisitDialog": EditStudentVisitDialog(self.settings, self.db),
             "DateChooseDialog": DateChooseDialog(self.settings, self.db)
         }
         self._handler_manager = HandlerManager(settings, database)
@@ -63,6 +66,13 @@ class MainWindowHandler(QMainWindow):
         )
         self._ui.edit_student_btn.clicked.connect(
             lambda: self._call_dialog('EditStudentDialog', self._handler_manager.get_current_student())
+        )
+        self._ui.edit_visit_btn.clicked.connect(
+            lambda: self._call_dialog(
+                'EditStudentVisitDialog',
+                self._handler_manager.get_current_student(),
+                self._get_selected_visit()
+            )
         )
         self._ui.del_visit_btn.clicked.connect(lambda: self._delete_student_visit())
         self._ui.all_days_filter_rbtn.clicked.connect(
@@ -240,7 +250,7 @@ class MainWindowHandler(QMainWindow):
 
     def _get_selected_rows(self) -> frozenset[int]:
         indexes = self._ui.student_visits_table_view.selectedIndexes()
-        return frozenset([index.row() for index in indexes])
+        return frozenset([int(index.row()) for index in indexes])
 
     def _set_custom_filter(self):
         if not (self._filter_manager.fiter_type() == FilterType.CUSTOM_PERIOD):
@@ -360,3 +370,11 @@ class MainWindowHandler(QMainWindow):
             self._ui.from_date_lbl if _change_type == 'from' else self._ui.to_date_lbl
         )
         return QDate(date.year, date.month, date.day)
+
+    def _get_selected_visit(self) -> Visit:
+        selected_row = tuple(self._get_selected_rows())
+        if len(selected_row) == 0:
+            return None
+
+        visits = self._handler_manager.get_current_student_visits()
+        return visits[selected_row[0]]

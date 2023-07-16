@@ -18,14 +18,14 @@ class AddStudentDialog(QDialog):
         super().__init__()
         self.settings = settings
         self.db = database
-        self._CREATE_STUDENT = False
+        self._IS_CREATE_STUDENT = False
         self._ui = Ui_CreaterStudent()
         self._ui.setupUi(self)
 
     def call(self, *args):
         self.setUi()
         self.setHandlers()
-        self._CREATE_STUDENT = False
+        self._IS_CREATE_STUDENT = False
 
     def setUi(self):
         self.setWindowTitle('Add student')
@@ -40,7 +40,7 @@ class AddStudentDialog(QDialog):
         self._ui.done_btn.clicked.connect(self._create_student)
 
     def _create_student(self):
-        if self._CREATE_STUDENT:
+        if self._IS_CREATE_STUDENT:
             return
 
         name = self._ui.name_le.text()
@@ -53,9 +53,10 @@ class AddStudentDialog(QDialog):
 
             self.db.add_student(student)
             self.close()
-            self._CREATE_STUDENT = True
+            self._IS_CREATE_STUDENT = True
         except AssertionError as ex:
             exception(
                 icon=self.windowIcon(),
                 msg='\n'.join(ex.args).strip()
             )
+            self._IS_CREATE_STUDENT = False
