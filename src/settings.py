@@ -44,9 +44,9 @@ class _StandardSettings:
 
         self.TITLE = 'StudentAccounting'
         self.VERSION = '0.0.1'
-        self.STYLESHEET = None
+        self.STYLESHEET = ''
         if len(self._STYLESHEETS_DICT.keys()) > 0:
-            self.STYLESHEET = random.choice(self._STYLESHEETS_DICT.keys())
+            self.STYLESHEET = random.choice(tuple(self._STYLESHEETS_DICT.keys()))
 
     def debug(self) -> bool:
         return self.__DEBUG__
@@ -84,7 +84,7 @@ class _StandardSettings:
 
     def load_pixmap(self, pixmap_filename: str, default_size=QSize(50, 50), default_color=QColor(0, 0, 0, 255)):
         pixmap_filepath = self.get_image_filepath(pixmap_filename)
-        if not os.path.join(pixmap_filepath):
+        if not os.path.exists(pixmap_filepath):
             pixmap = QPixmap(default_size)
             pixmap.fill(default_color)
             return pixmap
@@ -120,7 +120,7 @@ class _StandardSettings:
     def _load_stylesheets_dict(self):
         for child in os.listdir(self._STYLESHEETS_DIR):
             child_path = os.path.join(self._STYLESHEETS_DIR, child)
-            if os.path.isfile(child_path) and child_path.endswith('.css') and len(child.replace('.css', '')) > 0:
+            if os.path.isfile(child_path) and child_path.endswith('.qss') and len(child.replace('.qss', '')) > 0:
                 name = child.strip('.').lower().replace('_', '-')
                 name = ' '.join(name.split('.')[:-1])
                 name = '-'.join(name.strip().split())

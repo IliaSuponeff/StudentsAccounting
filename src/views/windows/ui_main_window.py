@@ -24,11 +24,12 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(800, 600)
-        MainWindow.setMinimumSize(QSize(800, 600))
+        MainWindow.resize(1000, 740)
+        MainWindow.setMinimumSize(QSize(1000, 740))
         MainWindow.setMaximumSize(QSize(16777215, 16777215))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.centralwidget.setStyleSheet(u"")
         self.horizontalLayout_2 = QHBoxLayout(self.centralwidget)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.vLine_2 = QFrame(self.centralwidget)
@@ -102,6 +103,8 @@ class Ui_MainWindow(object):
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.student_choose_box.sizePolicy().hasHeightForWidth())
         self.student_choose_box.setSizePolicy(sizePolicy3)
+        self.student_choose_box.setInsertPolicy(QComboBox.InsertAtBottom)
+        self.student_choose_box.setFrame(True)
 
         self.hLayout_1.addWidget(self.student_choose_box)
 
@@ -272,6 +275,7 @@ class Ui_MainWindow(object):
         sizePolicy8.setVerticalStretch(0)
         sizePolicy8.setHeightForWidth(self.choose_from_date_btn.sizePolicy().hasHeightForWidth())
         self.choose_from_date_btn.setSizePolicy(sizePolicy8)
+        self.choose_from_date_btn.setFlat(False)
 
         self.gLayout_1.addWidget(self.choose_from_date_btn, 0, 2, 1, 1)
 
@@ -279,6 +283,7 @@ class Ui_MainWindow(object):
         self.choose_to_date_btn.setObjectName(u"choose_to_date_btn")
         sizePolicy8.setHeightForWidth(self.choose_to_date_btn.sizePolicy().hasHeightForWidth())
         self.choose_to_date_btn.setSizePolicy(sizePolicy8)
+        self.choose_to_date_btn.setFlat(False)
 
         self.gLayout_1.addWidget(self.choose_to_date_btn, 1, 2, 1, 1)
 
@@ -358,16 +363,19 @@ class Ui_MainWindow(object):
         self.hLayout_5.setObjectName(u"hLayout_5")
         self.add_visit_btn = QPushButton(self.visits_info_frame)
         self.add_visit_btn.setObjectName(u"add_visit_btn")
+        self.add_visit_btn.setFlat(False)
 
         self.hLayout_5.addWidget(self.add_visit_btn)
 
         self.edit_visit_btn = QPushButton(self.visits_info_frame)
         self.edit_visit_btn.setObjectName(u"edit_visit_btn")
+        self.edit_visit_btn.setFlat(False)
 
         self.hLayout_5.addWidget(self.edit_visit_btn)
 
         self.del_visit_btn = QPushButton(self.visits_info_frame)
         self.del_visit_btn.setObjectName(u"del_visit_btn")
+        self.del_visit_btn.setFlat(False)
 
         self.hLayout_5.addWidget(self.del_visit_btn)
 

@@ -20,10 +20,11 @@ class DateChooseDialog(QDialog):
         self.db = database
         self._ui = Ui_DateChoose()
         self._ui.setupUi(self)
+        self.setHandlers()
 
     def call(self, date: QDate, *args):
         self._ui.calendar.setSelectedDate(date)
-        self.setHandlers()
+        self.setStyleSheet(self.settings.get_stylesheet(self.settings.STYLESHEET))
 
     def setHandlers(self):
         self._ui.done_btn.clicked.connect(self.close)

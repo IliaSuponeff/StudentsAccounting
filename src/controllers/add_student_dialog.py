@@ -18,14 +18,12 @@ class AddStudentDialog(QDialog):
         super().__init__()
         self.settings = settings
         self.db = database
-        self._CREATE_STUDENT = False
         self._ui = Ui_CreaterStudent()
         self._ui.setupUi(self)
+        self.setHandlers()
 
     def call(self, *args):
         self.setUi()
-        self.setHandlers()
-        self._CREATE_STUDENT = False
 
     def setUi(self):
         self.setWindowTitle('Add student')
@@ -35,14 +33,12 @@ class AddStudentDialog(QDialog):
         self._ui.hour_cost_spin_box.setValue(1.0)
         self._ui.currency_box.clear()
         self._ui.currency_box.addItems([str(currency) for currency in Currency.all()])
+        self.setStyleSheet(self.settings.get_stylesheet(self.settings.STYLESHEET))
 
     def setHandlers(self):
-        self._ui.done_btn.clicked.connect(self._create_student)
+        self._ui.done_btn.clicked.connect(lambda: self._create_student())
 
     def _create_student(self):
-        if self._CREATE_STUDENT:
-            return
-
         name = self._ui.name_le.text()
         hour_cost = self._ui.hour_cost_spin_box.value()
         currency = self._ui.currency_box.currentText()
@@ -53,7 +49,6 @@ class AddStudentDialog(QDialog):
 
             self.db.add_student(student)
             self.close()
-            self._CREATE_STUDENT = True
         except AssertionError as ex:
             exception(
                 icon=self.windowIcon(),

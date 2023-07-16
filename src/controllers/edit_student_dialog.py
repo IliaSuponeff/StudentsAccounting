@@ -19,17 +19,14 @@ class EditStudentDialog(QDialog):
         self.settings = settings
         self.db = database
         self._old_student: Student = None
-        self._EDIT_STUDENT = False
         self._ui = Ui_CreaterStudent()
         self._ui.setupUi(self)
+        self.setHandlers()
 
     def call(self, student: Student, *args):
         assert student is not None, "Not have chosen student to edit him."
         self._old_student = student
         self.setUi()
-        self.setHandlers()
-        self._old_student = student
-        self._EDIT_STUDENT = False
 
     def setUi(self):
         self.setWindowTitle(f'Edit student {self._old_student.name()}')
@@ -40,14 +37,12 @@ class EditStudentDialog(QDialog):
         self._ui.currency_box.clear()
         self._ui.currency_box.addItems([str(currency) for currency in Currency.all()])
         self._ui.currency_box.setCurrentText(self._old_student.currency().value)
+        self.setStyleSheet(self.settings.get_stylesheet(self.settings.STYLESHEET))
 
     def setHandlers(self):
         self._ui.done_btn.clicked.connect(self._edit_student)
 
     def _edit_student(self):
-        if self._EDIT_STUDENT:
-            return
-
         name = self._ui.name_le.text()
         hour_cost = self._ui.hour_cost_spin_box.value()
         currency = self._ui.currency_box.currentText()
@@ -55,17 +50,14 @@ class EditStudentDialog(QDialog):
             student: Student = Student.create_new_student(name, hour_cost, currency)
             if student == self._old_student:
                 self.close()
-                return
 
             if student in self.db.students:  # and student != self._old_student
                 raise AssertionError(f"Student {student.name()} is exists now")
 
             self.db.edit_student(self._old_student, student)
             self.close()
-            self._EDIT_STUDENT = True
         except AssertionError as ex:
             exception(
                 icon=self.windowIcon(),
                 msg='\n'.join(ex.args).strip()
             )
-            self._EDIT_STUDENT = False

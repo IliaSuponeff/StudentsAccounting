@@ -16,42 +16,48 @@ from controllers.database import DataBase, Student, Visit, Currency
 from controllers.user_exception_mgs_dialogs import exception, warning
 
 
-class AddStudentVisitDialog(QDialog):
+class EditStudentVisitDialog(QDialog):
 
     def __init__(self, settings: RuntimeSettings, database: DataBase):
         super().__init__()
         self.settings = settings
         self.db = database
         self._student = None
+        self._old_visit: Visit = None
         self._ui = Ui_CreatorVisit()
         self._ui.setupUi(self)
         self.setHandlers()
 
     def setUi(self):
-        self.setWindowTitle(f'Add visit for {self._student.name()} student')
+        self.setWindowTitle(f'Edit visit for {self._student.name()} student')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
-        date_now = datetime.date.today()
+        date_now = self._old_visit.date()
         self._ui.visit_date_edit.setDate(
             QDate(date_now.year, date_now.month, date_now.day)
         )
-        self._ui.timespan_spinbox.setValue(1.0)
+        self._ui.timespan_spinbox.setValue(self._old_visit.timespan())
         self._ui.currency_lbl.setText(self._student.currency().value)
-        self._ui.unspecial_rbtn.setChecked(True)
-        self._ui.special_sum_frame.hide()
-        self._ui.sp_sum_spinbox.setValue(0.0)
-        self.setStyleSheet(self.settings.get_stylesheet(self.settings.STYLESHEET))
+        self._ui.unspecial_rbtn.setChecked(not self._old_visit.is_special())
+        self._ui.special_rbtn.setChecked(self._old_visit.is_special())
+        if not self._old_visit.is_special():
+            self._ui.special_sum_frame.hide()
+
+        self._ui.sp_sum_spinbox.setValue(self._old_visit.special_sum())
 
     def setHandlers(self):
         self._ui.unspecial_rbtn.clicked.connect(lambda: self._ui.special_sum_frame.hide())
         self._ui.special_rbtn.clicked.connect(lambda: self._ui.special_sum_frame.show())
-        self._ui.done_btn.clicked.connect(lambda: self._add_visit())
+        self._ui.done_btn.clicked.connect(lambda: self._edit_visit())
 
-    def call(self, student, *args):
-        assert student is not None, "Not have chosen student to add him visit"
+    def call(self, student: Student, visit: Visit, *args):
+        assert student is not None, "Not have chosen student to edit him visit"
+        assert visit is not None, "Not have chosen visit to edit it"
         self._student = student
+        self._old_visit = visit
         self.setUi()
+        self.setStyleSheet(self.settings.get_stylesheet(self.settings.STYLESHEET))
 
-    def _add_visit(self):
+    def _edit_visit(self):
         date = self._ui.visit_date_edit.date()
         date = datetime.datetime.strptime(
             f'{date.day()}.{date.month()}.{date.year()}', '%d.%m.%Y'
@@ -61,13 +67,16 @@ class AddStudentVisitDialog(QDialog):
         special_sum = self._ui.sp_sum_spinbox.value() if is_special else 0
         try:
             visit = Visit(date, timespan, is_special, special_sum)
+            if visit == self._old_visit:
+                self.close()
+
             if visit in self.db.get_student_visits(self._student):
                 raise AssertionError(
                     f"Visit {visit.date().strftime('%d.%m.%Y')} with timespan {visit.timespan()}"
                     f"{f' and sum={visit.special_sum()}' if visit.is_special() else ''} is exists now."
                 )
 
-            self.db.add_student_visit(self._student, visit)
+            self.db.edit_student_visit(self._student, self._old_visit, visit)
             self.close()
         except Exception as ex:
             exception(

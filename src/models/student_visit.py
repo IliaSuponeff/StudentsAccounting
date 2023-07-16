@@ -123,3 +123,18 @@ class Visit:
         _hash = 31 * _hash + hash(self.is_special())
         _hash = 31 * _hash + hash(self.special_sum())
         return _hash
+
+    def __lt__(self, other):
+        if other is None:
+            return True
+
+        if not isinstance(other, self.__class__):
+            return False
+
+        if other is self:
+            return False
+
+        if self.date() < other.date():
+            return True
+
+        return False

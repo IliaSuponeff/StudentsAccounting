@@ -8,7 +8,7 @@ author: Ilia Suponev GitHub: https://github.com/ProgKalm
 import datetime
 import pprint
 
-from PySide6.QtWidgets import QMainWindow, QHeaderView, QLabel
+from PySide6.QtWidgets import QMainWindow, QHeaderView, QLabel, QDialog
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtCore import Qt, QDate
 from views.windows.ui_main_window import Ui_MainWindow
@@ -19,6 +19,8 @@ from controllers.add_student_visit_dialog import AddStudentVisitDialog
 from controllers.user_exception_mgs_dialogs import exception
 from controllers.datechoose_dialog import DateChooseDialog
 from controllers.edit_student_dialog import EditStudentDialog
+from controllers.edit_student_visit_dialog import EditStudentVisitDialog
+from models.student_visit import Visit
 
 
 class MainWindowHandler(QMainWindow):
@@ -32,6 +34,7 @@ class MainWindowHandler(QMainWindow):
             "AddStudentVisitDialog": AddStudentVisitDialog(self.settings, self.db),
             "AddStudentDialog": AddStudentDialog(self.settings, self.db),
             "EditStudentDialog": EditStudentDialog(self.settings, self.db),
+            "EditStudentVisitDialog": EditStudentVisitDialog(self.settings, self.db),
             "DateChooseDialog": DateChooseDialog(self.settings, self.db)
         }
         self._handler_manager = HandlerManager(settings, database)
@@ -39,14 +42,27 @@ class MainWindowHandler(QMainWindow):
         self._all_result_table_model = QStandardItemModel()
         self._filter_manager = FilterManager()
         self._ui = Ui_MainWindow()
+        self._setWindowSettings()
         self.setUi()
         self.setHandlers()
+
+    def _setWindowSettings(self):
+        self.setWindowIcon(self.settings.load_image('icon.png'))
+        self.setWindowTitle(self.settings.TITLE)
+
+        for dialog_name in self._dialogs:
+            dialog: QDialog = self._dialogs[dialog_name]
+            dialog.setWindowIcon(self.windowIcon())
+
+        self.setStyleSheet(self.settings.get_stylesheet(self.settings.STYLESHEET))
 
     def setUi(self):
         self._ui.setupUi(self)
         self.setIcons()
+        self.setStyleSheet(self.settings.get_stylesheet(self.settings.STYLESHEET))
         self._ui.student_visits_table_view.setModel(self._visits_table_modal)
         self._ui.all_results_table_view.setModel(self._all_result_table_model)
+        self._ui.student_choose_box.setEditable(True)
         self._load_custom_period_view()
         self._reload_students()
 
@@ -63,6 +79,13 @@ class MainWindowHandler(QMainWindow):
         )
         self._ui.edit_student_btn.clicked.connect(
             lambda: self._call_dialog('EditStudentDialog', self._handler_manager.get_current_student())
+        )
+        self._ui.edit_visit_btn.clicked.connect(
+            lambda: self._call_dialog(
+                'EditStudentVisitDialog',
+                self._handler_manager.get_current_student(),
+                self._get_selected_visit()
+            )
         )
         self._ui.del_visit_btn.clicked.connect(lambda: self._delete_student_visit())
         self._ui.all_days_filter_rbtn.clicked.connect(
@@ -116,10 +139,15 @@ class MainWindowHandler(QMainWindow):
 
     def _reload_students(self):
         self._ui.student_choose_box.clear()
-        self._rebuild_tables_modals()
         self._ui.student_choose_box.addItems(
             [student.name() for student in self.db.students]
         )
+        if self._ui.student_choose_box.lineEdit() is not None:
+            # self._ui.student_choose_box.lineEdit().setReadOnly(False)
+            self._ui.student_choose_box.lineEdit().setAlignment(Qt.AlignmentFlag.AlignCenter)
+            self._ui.student_choose_box.lineEdit().setReadOnly(True)
+
+        self._rebuild_tables_modals()
         self._load_custom_period_view()
         self._load_filter_period_now()
         self._load_current_student()
@@ -240,7 +268,7 @@ class MainWindowHandler(QMainWindow):
 
     def _get_selected_rows(self) -> frozenset[int]:
         indexes = self._ui.student_visits_table_view.selectedIndexes()
-        return frozenset([index.row() for index in indexes])
+        return frozenset([int(index.row()) for index in indexes])
 
     def _set_custom_filter(self):
         if not (self._filter_manager.fiter_type() == FilterType.CUSTOM_PERIOD):
@@ -360,3 +388,11 @@ class MainWindowHandler(QMainWindow):
             self._ui.from_date_lbl if _change_type == 'from' else self._ui.to_date_lbl
         )
         return QDate(date.year, date.month, date.day)
+
+    def _get_selected_visit(self) -> Visit:
+        selected_row = tuple(self._get_selected_rows())
+        if len(selected_row) == 0:
+            return None
+
+        visits = self._handler_manager.get_current_student_visits()
+        return visits[selected_row[0]]

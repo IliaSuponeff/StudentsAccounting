@@ -63,10 +63,6 @@ class DataBase:
         self.save()
 
     def edit_student(self, old_student: Student, new_student: Student):
-        print("Old students list:", self.students)
-
-        print(f"Old student: {old_student}")
-        print(f"New student: {new_student}")
         # change students list
         index = self.students.index(old_student)
         self.students[index] = new_student
@@ -113,6 +109,22 @@ class DataBase:
             is_special=visit.is_special(),
             special_sum=visit.special_sum()
         )
+        self._sort_student_visits(student)
+
+    def edit_student_visit(self, student: Student, old_visit, new_visit: Visit):
+        visits = self.get_student_visits(student)
+        index = visits.index(old_visit)
+        visits[index] = new_visit
+        self._execute_script(
+            'edit_student_visit',
+            table=student.table(),
+            date=new_visit.date().strftime('%d.%m.%Y'),
+            timespan=new_visit.timespan(),
+            is_special=new_visit.is_special(),
+            special_sum=new_visit.special_sum(),
+            rowid=index + 1
+        )
+        self._sort_student_visits(student)
 
     def remove_student_visit(self, student: Student, visit: Visit):
         self._execute_script(
@@ -130,6 +142,22 @@ class DataBase:
             table=student.table(),
             rowid=int(rowid)
         )
+
+    def _sort_student_visits(self, student: Student):
+        visits = self.get_student_visits(student)
+        visits.sort()
+        self._execute_script('remove_student_table', table=student.table())
+        self._execute_script('add_student_table', table=student.table())
+
+        for visit in visits:
+            self._execute_script(
+                'add_student_visit',
+                table=student.table(),
+                date=visit.date().strftime('%d.%m.%Y'),
+                timespan=visit.timespan(),
+                is_special=visit.is_special(),
+                special_sum=visit.special_sum()
+            )
 
     def get_students(self) -> list[Student]:
         self._execute_script('get_students')
