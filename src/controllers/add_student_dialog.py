@@ -28,6 +28,9 @@ class AddStudentDialog(QDialog):
     def setUi(self):
         self.setWindowTitle('Добавление студента')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
+        self._ui.img_lbl.setPixmap(
+            self.settings.load_pixmap('add_student.png')
+        )
         self._ui.done_btn.setText('Добавить')
         self._ui.name_le.setText('')
         self._ui.hour_cost_spin_box.setValue(1.0)

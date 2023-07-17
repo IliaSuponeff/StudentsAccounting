@@ -111,7 +111,7 @@ class MainWindowHandler(QMainWindow):
 
     def setIcons(self):
         self._ui.add_student_btn.setIcon(
-            self.settings.load_image('add_student.png')
+            self.settings.load_image('add_people.png')
         )
         self._ui.add_visit_btn.setIcon(
             self.settings.load_image('add_visit.png')
@@ -138,6 +138,18 @@ class MainWindowHandler(QMainWindow):
         self._ui.del_visit_btn.setIcon(
             self.settings.load_image('remove_visit.png')
         )
+        self._ui.img_lbl_1.setPixmap(
+            self.settings.load_pixmap('filter.png')
+        )
+        self._ui.img_lbl_2.setPixmap(
+            self.settings.load_pixmap('student_info.png')
+        )
+        self._ui.img_lbl_3.setPixmap(
+            self.settings.load_pixmap('all_results.png')
+        )
+
+
+
 
     def _reload_students(self):
         self._ui.student_choose_box.clear()
@@ -342,10 +354,10 @@ class MainWindowHandler(QMainWindow):
     def _load_custom_period_view(self):
         custom_period = self._filter_manager.get_custom_period()
         self._ui.from_date_lbl.setText(
-            custom_period[0].strftime('%d.%m.%Y')
+            f"С {custom_period[0].strftime('%d.%m.%Y')}"
         )
         self._ui.to_date_lbl.setText(
-            custom_period[1].strftime('%d.%m.%Y')
+            f"До {custom_period[1].strftime('%d.%m.%Y')}"
         )
 
     def _load_filter_period_now(self):
@@ -381,8 +393,9 @@ class MainWindowHandler(QMainWindow):
 
     @staticmethod
     def _get_date_from_label(lbl: QLabel) -> datetime.date:
+        text = lbl.text().split()[1]
         return datetime.datetime.strptime(
-            lbl.text(),
+            text,
             '%d.%m.%Y'
         ).date()
 

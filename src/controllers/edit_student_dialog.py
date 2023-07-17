@@ -31,6 +31,9 @@ class EditStudentDialog(QDialog):
     def setUi(self):
         self.setWindowTitle(f'Изменить студента {self._old_student.name()}')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
+        self._ui.img_lbl.setPixmap(
+            self.settings.load_pixmap('edit_student.png')
+        )
         self._ui.done_btn.setText('Изменить')
         self._ui.name_le.setText(f'{self._old_student.name()}')
         self._ui.hour_cost_spin_box.setValue(self._old_student.hour_cost())

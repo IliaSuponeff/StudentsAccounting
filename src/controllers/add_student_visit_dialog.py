@@ -30,6 +30,9 @@ class AddStudentVisitDialog(QDialog):
     def setUi(self):
         self.setWindowTitle(f'Добавить посещения студенту {self._student.name()}')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
+        self._ui.img_lbl.setPixmap(
+            self.settings.load_pixmap('create_visit.png')
+        )
         date_now = datetime.date.today()
         self._ui.visit_date_edit.setDate(
             QDate(date_now.year, date_now.month, date_now.day)
