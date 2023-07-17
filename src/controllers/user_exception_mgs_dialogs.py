@@ -10,7 +10,7 @@ from PySide6.QtCore import QSize
 from PySide6.QtGui import QIcon
 
 
-def _create_message_box(icon, inline_icon, title, msg, buttons):
+def _create_message_box(icon, inline_icon, stylesheet, title, msg, buttons):
     box = QMessageBox(
         inline_icon,
         str(title), str(msg),
@@ -20,18 +20,19 @@ def _create_message_box(icon, inline_icon, title, msg, buttons):
     if icon is not None and isinstance(icon, QIcon):
         box.setWindowIcon(icon)
 
+    box.setStyleSheet(stylesheet)
     box.show()
     box.exec()
     return box
 
 
-def exception(icon: QIcon, msg: str) -> QMessageBox:
+def exception(icon: QIcon, stylesheet, msg: str) -> QMessageBox:
     return _create_message_box(
-        icon, QMessageBox.Icon.Critical, 'Ошибка', msg, QMessageBox.StandardButton.Ok
+        icon, QMessageBox.Icon.Critical, stylesheet, 'Ошибка', msg, QMessageBox.StandardButton.Ok
     )
 
 
-def warning(icon: QIcon, msg: str) -> QMessageBox:
+def warning(icon: QIcon, stylesheet, msg: str) -> QMessageBox:
     return _create_message_box(
-        icon, QMessageBox.Icon.Warning, 'Предупреждение', msg, QMessageBox.StandardButton.Ok
+        icon, QMessageBox.Icon.Warning, stylesheet, 'Предупреждение', msg, QMessageBox.StandardButton.Ok
     )

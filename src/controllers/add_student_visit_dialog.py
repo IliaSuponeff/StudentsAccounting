@@ -72,5 +72,6 @@ class AddStudentVisitDialog(QDialog):
         except Exception as ex:
             exception(
                 icon=self.windowIcon(),
-                msg='\n'.join([str(arg) for arg in ex.args]).strip()
+                msg='\n'.join([str(arg) for arg in ex.args]).strip(),
+                stylesheet=self.styleSheet()
             )

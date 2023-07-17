@@ -258,7 +258,7 @@ class MainWindowHandler(QMainWindow):
             dialog.exec()
             self._reload_students()
         except Exception as ex:
-            exception(self.windowIcon(), '\n'.join([str(item) for item in ex.args]))
+            exception(self.windowIcon(), self.styleSheet(), '\n'.join([str(item) for item in ex.args]))
 
     def _delete_student_visit(self):
         indexes = tuple(self._get_selected_rows())
@@ -287,7 +287,8 @@ class MainWindowHandler(QMainWindow):
         except Exception as ex:
             exception(
                 self.windowIcon(),
-                msg='\n'.join([str(arg) for arg in ex.args])
+                msg='\n'.join([str(arg) for arg in ex.args]),
+                stylesheet=self.styleSheet()
             )
 
     def _set_filter_type(self, filter_type: FilterType):

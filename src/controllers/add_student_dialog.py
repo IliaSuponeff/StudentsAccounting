@@ -53,5 +53,6 @@ class AddStudentDialog(QDialog):
         except AssertionError as ex:
             exception(
                 icon=self.windowIcon(),
-                msg='\n'.join(ex.args).strip()
+                msg='\n'.join(ex.args).strip(),
+                stylesheet=self.styleSheet()
             )
