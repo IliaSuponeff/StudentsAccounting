@@ -51,10 +51,12 @@ class EditStudentDialog(QDialog):
         currency = self._ui.currency_box.currentText()
         try:
             student: Student = Student.create_new_student(name, hour_cost, currency)
+            print(student, self._old_student, student == self._old_student)
             if student == self._old_student:
                 self.close()
                 return
 
+            print(student in self.db.students)
             if student in self.db.students:  # and student != self._old_student
                 raise AssertionError(f"Студент {student.name()} уже существует")
 

@@ -24,9 +24,9 @@ class Ui_CreaterStudent(object):
     def setupUi(self, CreaterStudent):
         if not CreaterStudent.objectName():
             CreaterStudent.setObjectName(u"CreaterStudent")
-        CreaterStudent.resize(500, 200)
-        CreaterStudent.setMinimumSize(QSize(500, 200))
-        CreaterStudent.setMaximumSize(QSize(500, 200))
+        CreaterStudent.resize(500, 300)
+        CreaterStudent.setMinimumSize(QSize(500, 300))
+        CreaterStudent.setMaximumSize(QSize(500, 300))
         CreaterStudent.setModal(True)
         self.verticalLayout = QVBoxLayout(CreaterStudent)
         self.verticalLayout.setObjectName(u"verticalLayout")

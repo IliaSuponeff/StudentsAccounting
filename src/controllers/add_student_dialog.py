@@ -48,7 +48,7 @@ class AddStudentDialog(QDialog):
         try:
             student: Student = Student.create_new_student(name, hour_cost, currency)
 
-            if student.name() in [_student.name() for _student in self.db.students]:
+            if student.name().lower() in [_student.name().lower() for _student in self.db.students]:
                 raise AssertionError(f"Студент {student.name()} уже существует")
 
             self.db.add_student(student)
