@@ -363,7 +363,7 @@ class MainWindowHandler(QMainWindow):
     def _load_filter_period_now(self):
         period = self._filter_manager.get_period_now()
         if len(period) == 0:
-            self._ui.period_info_lbl.setText("Все дни")
+            self._ui.period_info_lbl.setText("01.01.2001 - 31.12.9999")
             return
 
         from_date = period[0].strftime('%d.%m.%Y')

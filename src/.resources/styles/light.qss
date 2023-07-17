@@ -9,8 +9,9 @@ QWidget {
 }
 
 
-QFrame {
-	background-color: transparent;
+QFrame#student_info_frame, QFrame#filter_frame, QFrame#table_all_results_frame {
+    border: 2px solid #63CFE9;
+    border-radius: 32px;
 }
 
 QRadioButton {

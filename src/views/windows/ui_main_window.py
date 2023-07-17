@@ -39,13 +39,6 @@ class Ui_MainWindow(object):
         self.centralwidget.setStyleSheet(u"")
         self.horizontalLayout_4 = QHBoxLayout(self.centralwidget)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.vLine_2 = QFrame(self.centralwidget)
-        self.vLine_2.setObjectName(u"vLine_2")
-        self.vLine_2.setFrameShape(QFrame.VLine)
-        self.vLine_2.setFrameShadow(QFrame.Sunken)
-
-        self.horizontalLayout_4.addWidget(self.vLine_2)
-
         self.tools_frame = QFrame(self.centralwidget)
         self.tools_frame.setObjectName(u"tools_frame")
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -148,12 +141,15 @@ class Ui_MainWindow(object):
         self.student_info_frame.setMidLineWidth(1)
         self.horizontalLayout_2 = QHBoxLayout(self.student_info_frame)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.MinimumExpanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer_4)
 
         self.img_lbl_2 = QLabel(self.student_info_frame)
         self.img_lbl_2.setObjectName(u"img_lbl_2")
+        sizePolicy4.setHeightForWidth(self.img_lbl_2.sizePolicy().hasHeightForWidth())
+        self.img_lbl_2.setSizePolicy(sizePolicy4)
+        self.img_lbl_2.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_2.addWidget(self.img_lbl_2)
 
@@ -233,13 +229,6 @@ class Ui_MainWindow(object):
 
         self.vLayout_1.addWidget(self.student_info_frame)
 
-        self.hLine_2 = QFrame(self.tools_frame)
-        self.hLine_2.setObjectName(u"hLine_2")
-        self.hLine_2.setFrameShape(QFrame.HLine)
-        self.hLine_2.setFrameShadow(QFrame.Sunken)
-
-        self.vLayout_1.addWidget(self.hLine_2)
-
         self.filter_frame = QFrame(self.tools_frame)
         self.filter_frame.setObjectName(u"filter_frame")
         sizePolicy8 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -259,13 +248,10 @@ class Ui_MainWindow(object):
 
         self.img_lbl_1 = QLabel(self.filter_frame)
         self.img_lbl_1.setObjectName(u"img_lbl_1")
-        sizePolicy9 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
-        sizePolicy9.setHorizontalStretch(0)
-        sizePolicy9.setVerticalStretch(0)
-        sizePolicy9.setHeightForWidth(self.img_lbl_1.sizePolicy().hasHeightForWidth())
-        self.img_lbl_1.setSizePolicy(sizePolicy9)
+        sizePolicy4.setHeightForWidth(self.img_lbl_1.sizePolicy().hasHeightForWidth())
+        self.img_lbl_1.setSizePolicy(sizePolicy4)
         self.img_lbl_1.setLayoutDirection(Qt.LeftToRight)
-        self.img_lbl_1.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.img_lbl_1.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout.addWidget(self.img_lbl_1)
 
@@ -275,11 +261,11 @@ class Ui_MainWindow(object):
 
         self.filter_sub_frame = QFrame(self.filter_frame)
         self.filter_sub_frame.setObjectName(u"filter_sub_frame")
-        sizePolicy10 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-        sizePolicy10.setHorizontalStretch(0)
-        sizePolicy10.setVerticalStretch(0)
-        sizePolicy10.setHeightForWidth(self.filter_sub_frame.sizePolicy().hasHeightForWidth())
-        self.filter_sub_frame.setSizePolicy(sizePolicy10)
+        sizePolicy9 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        sizePolicy9.setHorizontalStretch(0)
+        sizePolicy9.setVerticalStretch(0)
+        sizePolicy9.setHeightForWidth(self.filter_sub_frame.sizePolicy().hasHeightForWidth())
+        self.filter_sub_frame.setSizePolicy(sizePolicy9)
         self.verticalLayout = QVBoxLayout(self.filter_sub_frame)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.info_lbl_2 = QLabel(self.filter_sub_frame)
@@ -317,19 +303,19 @@ class Ui_MainWindow(object):
 
         self.label = QLabel(self.filter_sub_frame)
         self.label.setObjectName(u"label")
-        sizePolicy11 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
-        sizePolicy11.setHorizontalStretch(0)
-        sizePolicy11.setVerticalStretch(0)
-        sizePolicy11.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy11)
+        sizePolicy10 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
+        sizePolicy10.setHorizontalStretch(0)
+        sizePolicy10.setVerticalStretch(0)
+        sizePolicy10.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy10)
         self.label.setMinimumSize(QSize(40, 0))
 
         self.gLayout_2.addWidget(self.label, 0, 1, 1, 1)
 
         self.label_2 = QLabel(self.filter_sub_frame)
         self.label_2.setObjectName(u"label_2")
-        sizePolicy11.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy11)
+        sizePolicy10.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+        self.label_2.setSizePolicy(sizePolicy10)
         self.label_2.setMinimumSize(QSize(40, 0))
 
         self.gLayout_2.addWidget(self.label_2, 1, 1, 1, 1)
@@ -347,41 +333,41 @@ class Ui_MainWindow(object):
         self.gLayout_1.setObjectName(u"gLayout_1")
         self.choose_from_date_btn = QPushButton(self.filter_sub_frame)
         self.choose_from_date_btn.setObjectName(u"choose_from_date_btn")
-        sizePolicy12 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy12.setHorizontalStretch(0)
-        sizePolicy12.setVerticalStretch(0)
-        sizePolicy12.setHeightForWidth(self.choose_from_date_btn.sizePolicy().hasHeightForWidth())
-        self.choose_from_date_btn.setSizePolicy(sizePolicy12)
+        sizePolicy11 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy11.setHorizontalStretch(0)
+        sizePolicy11.setVerticalStretch(0)
+        sizePolicy11.setHeightForWidth(self.choose_from_date_btn.sizePolicy().hasHeightForWidth())
+        self.choose_from_date_btn.setSizePolicy(sizePolicy11)
         self.choose_from_date_btn.setFlat(False)
 
         self.gLayout_1.addWidget(self.choose_from_date_btn, 0, 1, 1, 1)
 
         self.to_date_lbl = QLabel(self.filter_sub_frame)
         self.to_date_lbl.setObjectName(u"to_date_lbl")
-        sizePolicy13 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
-        sizePolicy13.setHorizontalStretch(0)
-        sizePolicy13.setVerticalStretch(0)
-        sizePolicy13.setHeightForWidth(self.to_date_lbl.sizePolicy().hasHeightForWidth())
-        self.to_date_lbl.setSizePolicy(sizePolicy13)
+        sizePolicy12 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy12.setHorizontalStretch(0)
+        sizePolicy12.setVerticalStretch(0)
+        sizePolicy12.setHeightForWidth(self.to_date_lbl.sizePolicy().hasHeightForWidth())
+        self.to_date_lbl.setSizePolicy(sizePolicy12)
         self.to_date_lbl.setAlignment(Qt.AlignCenter)
 
         self.gLayout_1.addWidget(self.to_date_lbl, 1, 0, 1, 1)
 
         self.choose_to_date_btn = QPushButton(self.filter_sub_frame)
         self.choose_to_date_btn.setObjectName(u"choose_to_date_btn")
-        sizePolicy12.setHeightForWidth(self.choose_to_date_btn.sizePolicy().hasHeightForWidth())
-        self.choose_to_date_btn.setSizePolicy(sizePolicy12)
+        sizePolicy11.setHeightForWidth(self.choose_to_date_btn.sizePolicy().hasHeightForWidth())
+        self.choose_to_date_btn.setSizePolicy(sizePolicy11)
         self.choose_to_date_btn.setFlat(False)
 
         self.gLayout_1.addWidget(self.choose_to_date_btn, 1, 1, 1, 1)
 
         self.from_date_lbl = QLabel(self.filter_sub_frame)
         self.from_date_lbl.setObjectName(u"from_date_lbl")
-        sizePolicy14 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Preferred)
-        sizePolicy14.setHorizontalStretch(0)
-        sizePolicy14.setVerticalStretch(0)
-        sizePolicy14.setHeightForWidth(self.from_date_lbl.sizePolicy().hasHeightForWidth())
-        self.from_date_lbl.setSizePolicy(sizePolicy14)
+        sizePolicy13 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Preferred)
+        sizePolicy13.setHorizontalStretch(0)
+        sizePolicy13.setVerticalStretch(0)
+        sizePolicy13.setHeightForWidth(self.from_date_lbl.sizePolicy().hasHeightForWidth())
+        self.from_date_lbl.setSizePolicy(sizePolicy13)
         self.from_date_lbl.setAlignment(Qt.AlignCenter)
 
         self.gLayout_1.addWidget(self.from_date_lbl, 0, 0, 1, 1)
@@ -411,6 +397,9 @@ class Ui_MainWindow(object):
 
         self.img_lbl_3 = QLabel(self.table_all_results_frame)
         self.img_lbl_3.setObjectName(u"img_lbl_3")
+        sizePolicy4.setHeightForWidth(self.img_lbl_3.sizePolicy().hasHeightForWidth())
+        self.img_lbl_3.setSizePolicy(sizePolicy4)
+        self.img_lbl_3.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_3.addWidget(self.img_lbl_3)
 
@@ -444,30 +433,16 @@ class Ui_MainWindow(object):
 
         self.vLayout_1.addWidget(self.table_all_results_frame)
 
-        self.hLine_1 = QFrame(self.tools_frame)
-        self.hLine_1.setObjectName(u"hLine_1")
-        self.hLine_1.setFrameShape(QFrame.HLine)
-        self.hLine_1.setFrameShadow(QFrame.Sunken)
-
-        self.vLayout_1.addWidget(self.hLine_1)
-
 
         self.horizontalLayout_4.addWidget(self.tools_frame)
 
-        self.vLine_1 = QFrame(self.centralwidget)
-        self.vLine_1.setObjectName(u"vLine_1")
-        self.vLine_1.setFrameShape(QFrame.VLine)
-        self.vLine_1.setFrameShadow(QFrame.Sunken)
-
-        self.horizontalLayout_4.addWidget(self.vLine_1)
-
         self.workspace_frame = QFrame(self.centralwidget)
         self.workspace_frame.setObjectName(u"workspace_frame")
-        sizePolicy15 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy15.setHorizontalStretch(1)
-        sizePolicy15.setVerticalStretch(0)
-        sizePolicy15.setHeightForWidth(self.workspace_frame.sizePolicy().hasHeightForWidth())
-        self.workspace_frame.setSizePolicy(sizePolicy15)
+        sizePolicy14 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy14.setHorizontalStretch(1)
+        sizePolicy14.setVerticalStretch(0)
+        sizePolicy14.setHeightForWidth(self.workspace_frame.sizePolicy().hasHeightForWidth())
+        self.workspace_frame.setSizePolicy(sizePolicy14)
         self.verticalLayout_3 = QVBoxLayout(self.workspace_frame)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.hLayout_3 = QHBoxLayout()
@@ -478,11 +453,11 @@ class Ui_MainWindow(object):
 
         self.theme_change_btn = QPushButton(self.workspace_frame)
         self.theme_change_btn.setObjectName(u"theme_change_btn")
-        sizePolicy16 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-        sizePolicy16.setHorizontalStretch(0)
-        sizePolicy16.setVerticalStretch(0)
-        sizePolicy16.setHeightForWidth(self.theme_change_btn.sizePolicy().hasHeightForWidth())
-        self.theme_change_btn.setSizePolicy(sizePolicy16)
+        sizePolicy15 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        sizePolicy15.setHorizontalStretch(0)
+        sizePolicy15.setVerticalStretch(0)
+        sizePolicy15.setHeightForWidth(self.theme_change_btn.sizePolicy().hasHeightForWidth())
+        self.theme_change_btn.setSizePolicy(sizePolicy15)
 
         self.hLayout_3.addWidget(self.theme_change_btn)
 
@@ -491,11 +466,11 @@ class Ui_MainWindow(object):
 
         self.visits_info_frame = QFrame(self.workspace_frame)
         self.visits_info_frame.setObjectName(u"visits_info_frame")
-        sizePolicy17 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy17.setHorizontalStretch(5)
-        sizePolicy17.setVerticalStretch(0)
-        sizePolicy17.setHeightForWidth(self.visits_info_frame.sizePolicy().hasHeightForWidth())
-        self.visits_info_frame.setSizePolicy(sizePolicy17)
+        sizePolicy16 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy16.setHorizontalStretch(5)
+        sizePolicy16.setVerticalStretch(0)
+        sizePolicy16.setHeightForWidth(self.visits_info_frame.sizePolicy().hasHeightForWidth())
+        self.visits_info_frame.setSizePolicy(sizePolicy16)
         self.verticalLayout_2 = QVBoxLayout(self.visits_info_frame)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.hLayout_5 = QHBoxLayout()
@@ -523,11 +498,11 @@ class Ui_MainWindow(object):
 
         self.student_visits_table_view = QTableView(self.visits_info_frame)
         self.student_visits_table_view.setObjectName(u"student_visits_table_view")
-        sizePolicy18 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy18.setHorizontalStretch(3)
-        sizePolicy18.setVerticalStretch(0)
-        sizePolicy18.setHeightForWidth(self.student_visits_table_view.sizePolicy().hasHeightForWidth())
-        self.student_visits_table_view.setSizePolicy(sizePolicy18)
+        sizePolicy17 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy17.setHorizontalStretch(3)
+        sizePolicy17.setVerticalStretch(0)
+        sizePolicy17.setHeightForWidth(self.student_visits_table_view.sizePolicy().hasHeightForWidth())
+        self.student_visits_table_view.setSizePolicy(sizePolicy17)
 
         self.verticalLayout_2.addWidget(self.student_visits_table_view)
 
