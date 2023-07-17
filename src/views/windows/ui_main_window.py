@@ -11,10 +11,11 @@
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
+    QCursor, QFont, QFontDatabase, QGradient,
+    QIcon, QImage, QKeySequence, QLinearGradient,
+    QPainter, QPalette, QPixmap, QRadialGradient,
+    QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QHBoxLayout, QHeaderView, QLabel, QMainWindow,
     QPushButton, QRadioButton, QSizePolicy, QSpacerItem,
@@ -27,17 +28,23 @@ class Ui_MainWindow(object):
         MainWindow.resize(1000, 740)
         MainWindow.setMinimumSize(QSize(1000, 740))
         MainWindow.setMaximumSize(QSize(16777215, 16777215))
+        self.help_action = QAction(MainWindow)
+        self.help_action.setObjectName(u"help_action")
+        self.about_authors_action = QAction(MainWindow)
+        self.about_authors_action.setObjectName(u"about_authors_action")
+        self.close_action = QAction(MainWindow)
+        self.close_action.setObjectName(u"close_action")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"")
-        self.horizontalLayout_2 = QHBoxLayout(self.centralwidget)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_3 = QHBoxLayout(self.centralwidget)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.vLine_2 = QFrame(self.centralwidget)
         self.vLine_2.setObjectName(u"vLine_2")
         self.vLine_2.setFrameShape(QFrame.VLine)
         self.vLine_2.setFrameShadow(QFrame.Sunken)
 
-        self.horizontalLayout_2.addWidget(self.vLine_2)
+        self.horizontalLayout_3.addWidget(self.vLine_2)
 
         self.tools_frame = QFrame(self.centralwidget)
         self.tools_frame.setObjectName(u"tools_frame")
@@ -193,9 +200,9 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.hSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.horizontalLayout.addItem(self.horizontalSpacer)
+        self.horizontalLayout.addItem(self.hSpacer_3)
 
         self.filter_frame = QFrame(self.tools_frame)
         self.filter_frame.setObjectName(u"filter_frame")
@@ -312,9 +319,9 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.filter_frame)
 
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.hSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.horizontalLayout.addItem(self.horizontalSpacer_2)
+        self.horizontalLayout.addItem(self.hSpacer_2)
 
 
         self.vLayout_1.addLayout(self.horizontalLayout)
@@ -344,16 +351,48 @@ class Ui_MainWindow(object):
         self.vLayout_1.addWidget(self.all_results_table_view)
 
 
-        self.horizontalLayout_2.addWidget(self.tools_frame)
+        self.horizontalLayout_3.addWidget(self.tools_frame)
 
         self.vLine_1 = QFrame(self.centralwidget)
         self.vLine_1.setObjectName(u"vLine_1")
         self.vLine_1.setFrameShape(QFrame.VLine)
         self.vLine_1.setFrameShadow(QFrame.Sunken)
 
-        self.horizontalLayout_2.addWidget(self.vLine_1)
+        self.horizontalLayout_3.addWidget(self.vLine_1)
 
-        self.visits_info_frame = QFrame(self.centralwidget)
+        self.workspace_frame = QFrame(self.centralwidget)
+        self.workspace_frame.setObjectName(u"workspace_frame")
+        sizePolicy11 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy11.setHorizontalStretch(5)
+        sizePolicy11.setVerticalStretch(0)
+        sizePolicy11.setHeightForWidth(self.workspace_frame.sizePolicy().hasHeightForWidth())
+        self.workspace_frame.setSizePolicy(sizePolicy11)
+        self.verticalLayout_3 = QVBoxLayout(self.workspace_frame)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.hLayout_3 = QHBoxLayout()
+        self.hLayout_3.setObjectName(u"hLayout_3")
+        self.hSpacer_1 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.hLayout_3.addItem(self.hSpacer_1)
+
+        self.theme_change_btn = QPushButton(self.workspace_frame)
+        self.theme_change_btn.setObjectName(u"theme_change_btn")
+        sizePolicy6.setHeightForWidth(self.theme_change_btn.sizePolicy().hasHeightForWidth())
+        self.theme_change_btn.setSizePolicy(sizePolicy6)
+
+        self.hLayout_3.addWidget(self.theme_change_btn)
+
+        self.lang_change_btn = QPushButton(self.workspace_frame)
+        self.lang_change_btn.setObjectName(u"lang_change_btn")
+        sizePolicy6.setHeightForWidth(self.lang_change_btn.sizePolicy().hasHeightForWidth())
+        self.lang_change_btn.setSizePolicy(sizePolicy6)
+
+        self.hLayout_3.addWidget(self.lang_change_btn)
+
+
+        self.verticalLayout_3.addLayout(self.hLayout_3)
+
+        self.visits_info_frame = QFrame(self.workspace_frame)
         self.visits_info_frame.setObjectName(u"visits_info_frame")
         sizePolicy.setHeightForWidth(self.visits_info_frame.sizePolicy().hasHeightForWidth())
         self.visits_info_frame.setSizePolicy(sizePolicy)
@@ -384,16 +423,19 @@ class Ui_MainWindow(object):
 
         self.student_visits_table_view = QTableView(self.visits_info_frame)
         self.student_visits_table_view.setObjectName(u"student_visits_table_view")
-        sizePolicy11 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy11.setHorizontalStretch(3)
-        sizePolicy11.setVerticalStretch(0)
-        sizePolicy11.setHeightForWidth(self.student_visits_table_view.sizePolicy().hasHeightForWidth())
-        self.student_visits_table_view.setSizePolicy(sizePolicy11)
+        sizePolicy12 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy12.setHorizontalStretch(3)
+        sizePolicy12.setVerticalStretch(0)
+        sizePolicy12.setHeightForWidth(self.student_visits_table_view.sizePolicy().hasHeightForWidth())
+        self.student_visits_table_view.setSizePolicy(sizePolicy12)
 
         self.verticalLayout_2.addWidget(self.student_visits_table_view)
 
 
-        self.horizontalLayout_2.addWidget(self.visits_info_frame)
+        self.verticalLayout_3.addWidget(self.visits_info_frame)
+
+
+        self.horizontalLayout_3.addWidget(self.workspace_frame)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -404,6 +446,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"StudentAccounting", None))
+        self.help_action.setText(QCoreApplication.translate("MainWindow", u"Help", None))
+        self.about_authors_action.setText(QCoreApplication.translate("MainWindow", u"Author", None))
+        self.close_action.setText(QCoreApplication.translate("MainWindow", u"Close", None))
         self.add_student_btn.setText("")
         self.edit_student_btn.setText("")
         self.del_student_btn.setText("")
@@ -430,6 +475,8 @@ class Ui_MainWindow(object):
         self.from_date_lbl.setText(QCoreApplication.translate("MainWindow", u"%d.%.m.Y", None))
         self.to_date_lbl.setText(QCoreApplication.translate("MainWindow", u"%d.%.m.Y", None))
         self.info_lbl_6.setText(QCoreApplication.translate("MainWindow", u"Results for all", None))
+        self.theme_change_btn.setText("")
+        self.lang_change_btn.setText("")
         self.add_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Add visit", None))
         self.edit_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Edit visit", None))
         self.del_visit_btn.setText(QCoreApplication.translate("MainWindow", u"Delete visit", None))

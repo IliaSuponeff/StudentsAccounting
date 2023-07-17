@@ -45,8 +45,6 @@ class _StandardSettings:
         self.TITLE = 'StudentAccounting'
         self.VERSION = '0.0.1'
         self.STYLESHEET = ''
-        if len(self._STYLESHEETS_DICT.keys()) > 0:
-            self.STYLESHEET = random.choice(tuple(self._STYLESHEETS_DICT.keys()))
 
     def debug(self) -> bool:
         return self.__DEBUG__
@@ -159,6 +157,7 @@ class RuntimeSettings(_StandardSettings):
             args = tuple(sys.argv[1:])
         self._load_from_local_settings_file()  # last runtime settings
         self._initialize_by_system_args(self._parse_system_args(*args))  # new runtime settings
+        self.__STYLESHEETS__ = tuple(self.get_stylesheet_names())
 
     def _parse_system_args(self, *args) -> argparse.Namespace:
         parser = argparse.ArgumentParser(

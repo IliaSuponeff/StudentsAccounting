@@ -6,7 +6,7 @@ version: 0.0.1
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
 import datetime
-import pprint
+import sys
 
 from PySide6.QtWidgets import QMainWindow, QHeaderView, QLabel, QDialog
 from PySide6.QtGui import QStandardItemModel, QStandardItem
@@ -54,12 +54,10 @@ class MainWindowHandler(QMainWindow):
             dialog: QDialog = self._dialogs[dialog_name]
             dialog.setWindowIcon(self.windowIcon())
 
-        self.setStyleSheet(self.settings.get_stylesheet(self.settings.STYLESHEET))
-
     def setUi(self):
         self._ui.setupUi(self)
         self.setIcons()
-        self.setStyleSheet(self.settings.get_stylesheet(self.settings.STYLESHEET))
+        self._set_theme(self.settings.STYLESHEET)
         self._ui.student_visits_table_view.setModel(self._visits_table_modal)
         self._ui.all_results_table_view.setModel(self._all_result_table_model)
         self._ui.student_choose_box.setEditable(True)
@@ -106,6 +104,7 @@ class MainWindowHandler(QMainWindow):
         self._ui.choose_to_date_btn.clicked.connect(
             lambda: self._change_date('to')
         )
+        self._ui.theme_change_btn.clicked.connect(lambda: self._change_theme())
 
     def setIcons(self):
         self._ui.add_student_btn.setIcon(
@@ -396,3 +395,32 @@ class MainWindowHandler(QMainWindow):
 
         visits = self._handler_manager.get_current_student_visits()
         return visits[selected_row[0]]
+
+    def _set_theme(self, theme_name):
+        if theme_name is None:
+            self.setStyleSheet('')
+            return
+
+        if not self.settings.is_have_stylesheet(theme_name):
+            print(f'Not found theme "{theme_name}" at local files', file=sys.stderr)
+            return
+
+        stylesheet = self.settings.get_stylesheet(theme_name)
+        if len(stylesheet) == 0:
+            print(f"Theme file '{theme_name}' is empty.", file=sys.stderr)
+            return
+
+        self.settings.STYLESHEET = theme_name
+        self.setStyleSheet(stylesheet)
+        self._ui.theme_change_btn.setIcon(
+            self.settings.load_image(f'{theme_name}.png')
+        )
+
+    def _change_theme(self):
+        if len(self.settings.STYLESHEET) == 0:
+            self._set_theme(None)
+
+        index = self.settings.__STYLESHEETS__.index(self.settings.STYLESHEET)
+        index = (index + 1) % len(self.settings.__STYLESHEETS__)
+        theme_name = self.settings.__STYLESHEETS__[index]
+        self._set_theme(theme_name)
