@@ -50,6 +50,7 @@ class EditStudentDialog(QDialog):
             student: Student = Student.create_new_student(name, hour_cost, currency)
             if student == self._old_student:
                 self.close()
+                return
 
             if student in self.db.students:  # and student != self._old_student
                 raise AssertionError(f"Студент {student.name()} уже существует")

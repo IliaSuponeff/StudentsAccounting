@@ -67,13 +67,15 @@ class EditStudentVisitDialog(QDialog):
         special_sum = self._ui.sp_sum_spinbox.value() if is_special else 0
         try:
             visit = Visit(date, timespan, is_special, special_sum)
+
             if visit == self._old_visit:
                 self.close()
+                return
 
             if visit in self.db.get_student_visits(self._student):
                 raise AssertionError(
                     f"Посещение на {visit.date().strftime('%d.%m.%Y')} длительностью {visit.timespan()} часом"
-                    f"{f' и специальная цена {visit.special_sum()}' if visit.is_special() else ''} is exists now."
+                    f"{f' и специальная цена {visit.special_sum()}' if visit.is_special() else ''} уже существует."
                 )
 
             self.db.edit_student_visit(self._student, self._old_visit, visit)
