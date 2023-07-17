@@ -4,6 +4,10 @@ QWidget#centralwidget, QDialog {
 	font: 12pt "Segoe UI";
 }
 
+QWidget {
+    font: 12pt "Segoe UI";
+}
+
 QFrame {
 	background-color: transparent;
 }
@@ -49,12 +53,12 @@ QTableView {
 
 QHeaderView::section {
     background-color: transparent;
-    border: 1px solid rgba(255,255,255,40);
+    border: 1px solid rgba(255,255,255);
 }
 
 QTableView::item {
     background-color: transparent;
-    border: 1px solid rgba(255,255,255,40);
+    border: 1px solid rgba(255,255,255);
 }
 
 QTableView::item:selected{

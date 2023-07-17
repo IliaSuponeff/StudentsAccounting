@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="dialog_title_lbl">
      <property name="text">
-      <string>Creating Student</string>
+      <string>Создать студента</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -44,7 +44,7 @@
      <item>
       <widget class="QLabel" name="info_lbl_1">
        <property name="text">
-        <string>Name</string>
+        <string>Имя</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -83,10 +83,13 @@
        <item>
         <widget class="QLabel" name="info_lbl_2">
          <property name="text">
-          <string>Hour cost</string>
+          <string>Стоимость часа занятия</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -135,7 +138,7 @@
        <item>
         <widget class="QLabel" name="info_lbl_3">
          <property name="text">
-          <string>Currency</string>
+          <string>Валюта</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -187,7 +190,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Create</string>
+        <string>Создать</string>
        </property>
       </widget>
      </item>

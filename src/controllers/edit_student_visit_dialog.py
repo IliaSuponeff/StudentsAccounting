@@ -29,7 +29,7 @@ class EditStudentVisitDialog(QDialog):
         self.setHandlers()
 
     def setUi(self):
-        self.setWindowTitle(f'Edit visit for {self._student.name()} student')
+        self.setWindowTitle(f'Изменить посещение студенту {self._student.name()}')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
         date_now = self._old_visit.date()
         self._ui.visit_date_edit.setDate(
@@ -50,8 +50,8 @@ class EditStudentVisitDialog(QDialog):
         self._ui.done_btn.clicked.connect(lambda: self._edit_visit())
 
     def call(self, student: Student, visit: Visit, *args):
-        assert student is not None, "Not have chosen student to edit him visit"
-        assert visit is not None, "Not have chosen visit to edit it"
+        assert student is not None, "Нет студента для изменения его посещения"
+        assert visit is not None, "Нет выбранного посещения"
         self._student = student
         self._old_visit = visit
         self.setUi()
@@ -72,8 +72,8 @@ class EditStudentVisitDialog(QDialog):
 
             if visit in self.db.get_student_visits(self._student):
                 raise AssertionError(
-                    f"Visit {visit.date().strftime('%d.%m.%Y')} with timespan {visit.timespan()}"
-                    f"{f' and sum={visit.special_sum()}' if visit.is_special() else ''} is exists now."
+                    f"Посещение на {visit.date().strftime('%d.%m.%Y')} длительностью {visit.timespan()} часом"
+                    f"{f' и специальная цена {visit.special_sum()}' if visit.is_special() else ''} is exists now."
                 )
 
             self.db.edit_student_visit(self._student, self._old_visit, visit)

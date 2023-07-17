@@ -24,9 +24,9 @@ class Ui_CreatorVisit(object):
     def setupUi(self, CreatorVisit):
         if not CreatorVisit.objectName():
             CreatorVisit.setObjectName(u"CreatorVisit")
-        CreatorVisit.resize(500, 240)
+        CreatorVisit.resize(500, 300)
         CreatorVisit.setMinimumSize(QSize(500, 240))
-        CreatorVisit.setMaximumSize(QSize(500, 240))
+        CreatorVisit.setMaximumSize(QSize(500, 300))
         CreatorVisit.setModal(True)
         self.verticalLayout = QVBoxLayout(CreatorVisit)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -85,6 +85,7 @@ class Ui_CreatorVisit(object):
         sizePolicy2.setHeightForWidth(self.info_lbl_2.sizePolicy().hasHeightForWidth())
         self.info_lbl_2.setSizePolicy(sizePolicy2)
         self.info_lbl_2.setAlignment(Qt.AlignCenter)
+        self.info_lbl_2.setWordWrap(True)
 
         self.hLayout_3.addWidget(self.info_lbl_2)
 
@@ -224,15 +225,15 @@ class Ui_CreatorVisit(object):
 
     def retranslateUi(self, CreatorVisit):
         CreatorVisit.setWindowTitle(QCoreApplication.translate("CreatorVisit", u"VisitCreator", None))
-        self.dialog_title_lbl.setText(QCoreApplication.translate("CreatorVisit", u"Creating Visit", None))
-        self.info_lbl_1.setText(QCoreApplication.translate("CreatorVisit", u"Date", None))
-        self.info_lbl_2.setText(QCoreApplication.translate("CreatorVisit", u"Timespan", None))
+        self.dialog_title_lbl.setText(QCoreApplication.translate("CreatorVisit", u"\u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u043f\u043e\u0441\u0435\u0449\u0435\u043d\u0438\u044f", None))
+        self.info_lbl_1.setText(QCoreApplication.translate("CreatorVisit", u"\u0414\u0430\u0442\u0430", None))
+        self.info_lbl_2.setText(QCoreApplication.translate("CreatorVisit", u"\u0414\u043b\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0442\u044c \u0437\u0430\u043d\u044f\u0442\u0438\u044f", None))
         self.info_lbl_4.setText(QCoreApplication.translate("CreatorVisit", u"hour", None))
-        self.info_lbl_5.setText(QCoreApplication.translate("CreatorVisit", u"Lesson cost", None))
-        self.unspecial_rbtn.setText(QCoreApplication.translate("CreatorVisit", u"Unspecial", None))
-        self.special_rbtn.setText(QCoreApplication.translate("CreatorVisit", u"Special", None))
-        self.info_lbl_3.setText(QCoreApplication.translate("CreatorVisit", u"Special Sum", None))
-        self.currency_lbl.setText(QCoreApplication.translate("CreatorVisit", u"Currency", None))
-        self.done_btn.setText(QCoreApplication.translate("CreatorVisit", u"Create", None))
+        self.info_lbl_5.setText(QCoreApplication.translate("CreatorVisit", u"\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c \u0437\u0430\u043d\u044f\u0442\u044f", None))
+        self.unspecial_rbtn.setText(QCoreApplication.translate("CreatorVisit", u"\u041d\u0435\u0434\u043e\u0433\u043e\u0432\u043e\u0440\u043d\u0430\u044f", None))
+        self.special_rbtn.setText(QCoreApplication.translate("CreatorVisit", u"\u0414\u043e\u0433\u043e\u0432\u043e\u0440\u043d\u0430\u044f", None))
+        self.info_lbl_3.setText(QCoreApplication.translate("CreatorVisit", u"\u0414\u043e\u0433\u043e\u0432\u043e\u0440\u043d\u0430\u044f \u0446\u0435\u043d\u0430 \u0437\u0430 \u0432\u0441\u0451 \u0437\u0430\u043d\u044f\u0442\u0438\u0435", None))
+        self.currency_lbl.setText(QCoreApplication.translate("CreatorVisit", u"\u0412\u0430\u043b\u044e\u0442\u0430", None))
+        self.done_btn.setText(QCoreApplication.translate("CreatorVisit", u"\u0421\u043e\u0437\u0434\u0430\u0442\u044c", None))
     # retranslateUi
 

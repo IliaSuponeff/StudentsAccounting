@@ -27,11 +27,11 @@ def _create_message_box(icon, inline_icon, title, msg, buttons):
 
 def exception(icon: QIcon, msg: str) -> QMessageBox:
     return _create_message_box(
-        icon, QMessageBox.Icon.Critical, 'Exception', msg, QMessageBox.StandardButton.Ok
+        icon, QMessageBox.Icon.Critical, 'Ошибка', msg, QMessageBox.StandardButton.Ok
     )
 
 
 def warning(icon: QIcon, msg: str) -> QMessageBox:
     return _create_message_box(
-        icon, QMessageBox.Icon.Warning, 'Warning', msg, QMessageBox.StandardButton.Ok
+        icon, QMessageBox.Icon.Warning, 'Предупреждение', msg, QMessageBox.StandardButton.Ok
     )

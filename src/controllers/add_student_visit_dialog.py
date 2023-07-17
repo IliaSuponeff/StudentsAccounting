@@ -28,7 +28,7 @@ class AddStudentVisitDialog(QDialog):
         self.setHandlers()
 
     def setUi(self):
-        self.setWindowTitle(f'Add visit for {self._student.name()} student')
+        self.setWindowTitle(f'Добавить посещения студенту {self._student.name()}')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
         date_now = datetime.date.today()
         self._ui.visit_date_edit.setDate(
@@ -47,7 +47,7 @@ class AddStudentVisitDialog(QDialog):
         self._ui.done_btn.clicked.connect(lambda: self._add_visit())
 
     def call(self, student, *args):
-        assert student is not None, "Not have chosen student to add him visit"
+        assert student is not None, "Нет студента для добавления его посещения"
         self._student = student
         self.setUi()
 
@@ -63,8 +63,8 @@ class AddStudentVisitDialog(QDialog):
             visit = Visit(date, timespan, is_special, special_sum)
             if visit in self.db.get_student_visits(self._student):
                 raise AssertionError(
-                    f"Visit {visit.date().strftime('%d.%m.%Y')} with timespan {visit.timespan()}"
-                    f"{f' and sum={visit.special_sum()}' if visit.is_special() else ''} is exists now."
+                    f"Посещение на {visit.date().strftime('%d.%m.%Y')} длительностью {visit.timespan()} часом"
+                    f"{f' и специальная цена {visit.special_sum()}' if visit.is_special() else ''} is exists now."
                 )
 
             self.db.add_student_visit(self._student, visit)

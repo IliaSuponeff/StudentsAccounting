@@ -49,7 +49,6 @@ class Visit:
         return False
 
     def set_date(self, date):
-        assert self._is_date(date), f"Invalid date value: {date}, with type {type(date)}"
         if isinstance(date, (datetime.datetime, datetime.date,)):
             self._DATE = date.date() if isinstance(date, datetime.datetime) else date
 
@@ -57,8 +56,7 @@ class Visit:
             self._DATE = datetime.datetime.strptime(date, '%d.%m.%Y').date()
 
     def set_timespan(self, timespan):
-        assert self._is_number(timespan), f"Invalid visit timespan: {timespan} with type {type(timespan)}"
-        assert timespan > 0, f'Invalid timespan, it must be more than zero'
+        assert timespan > 0, f'Неверная длительность занятия. Оно должно быть больше 0'
         self._TIMESPAN = float(timespan)
 
     @staticmethod
@@ -76,11 +74,8 @@ class Visit:
         self._IS_SPECIAL = 1 if is_special else 0
 
     def set_special_sum(self, special_sum):
-        assert self._is_number(special_sum), \
-            f"Invalid visit special sum value: {special_sum} with type {type(special_sum)}"
-
         if bool(self._IS_SPECIAL) and special_sum <= 0:
-            raise AttributeError(f'Invalid special sum, it must be more than zero')
+            raise AttributeError(f'Так, как цена договорная, то и стоимость урока должна быть больше 0')
 
         self._SPECIAL_SUM = float(special_sum) if self._IS_SPECIAL else 0
 

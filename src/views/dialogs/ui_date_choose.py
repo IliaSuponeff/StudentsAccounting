@@ -67,7 +67,7 @@ class Ui_DateChoose(object):
 
     def retranslateUi(self, DateChoose):
         DateChoose.setWindowTitle(QCoreApplication.translate("DateChoose", u"Choose Date", None))
-        self.info_lbl_1.setText(QCoreApplication.translate("DateChoose", u"Choose Date", None))
-        self.done_btn.setText(QCoreApplication.translate("DateChoose", u"Choose", None))
+        self.info_lbl_1.setText(QCoreApplication.translate("DateChoose", u"\u0412\u044b\u0431\u043e\u0440 \u0434\u0430\u0442\u044b", None))
+        self.done_btn.setText(QCoreApplication.translate("DateChoose", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c", None))
     # retranslateUi
 

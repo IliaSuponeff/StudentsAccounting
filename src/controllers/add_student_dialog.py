@@ -26,9 +26,9 @@ class AddStudentDialog(QDialog):
         self.setUi()
 
     def setUi(self):
-        self.setWindowTitle('Add student')
+        self.setWindowTitle('Добавление студента')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
-        self._ui.done_btn.setText('Add')
+        self._ui.done_btn.setText('Добавить')
         self._ui.name_le.setText('')
         self._ui.hour_cost_spin_box.setValue(1.0)
         self._ui.currency_box.clear()
@@ -45,7 +45,7 @@ class AddStudentDialog(QDialog):
         try:
             student: Student = Student.create_new_student(name, hour_cost, currency)
             if student in self.db.students:
-                raise AssertionError(f"Student {student.name()} is exists now")
+                raise AssertionError(f"Студент {student.name()} уже существует")
 
             self.db.add_student(student)
             self.close()

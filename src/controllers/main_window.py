@@ -8,7 +8,10 @@ author: Ilia Suponev GitHub: https://github.com/ProgKalm
 import datetime
 import sys
 
-from PySide6.QtWidgets import QMainWindow, QHeaderView, QLabel, QDialog
+from PySide6.QtWidgets import (
+    QMainWindow, QHeaderView,
+    QLabel, QDialog
+)
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtCore import Qt, QDate
 from views.windows.ui_main_window import Ui_MainWindow
@@ -156,7 +159,7 @@ class MainWindowHandler(QMainWindow):
         # visits table rebuild
         self._visits_table_modal.clear()
         self._visits_table_modal.setHorizontalHeaderLabels(
-            ['Date', 'Timespan', 'Summary']
+            ['Дата', 'Длительность', 'Сумма']
         )
         self._ui.student_visits_table_view.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self._ui.student_visits_table_view.verticalHeader().hide()
@@ -175,10 +178,10 @@ class MainWindowHandler(QMainWindow):
             )
 
         self._ui.student_name_lbl.setText(
-            student.name() if student is not None else 'Not found student'
+            student.name() if student is not None else 'Нет студентов'
         )
-        self._ui.student_summary_result_lbl.setText('No info')
-        self._ui.summary_timespan_result_lbl.setText('No info')
+        self._ui.student_summary_result_lbl.setText('Нет информации')
+        self._ui.summary_timespan_result_lbl.setText('Нет информации')
         if student is not None:
             self._load_current_student_visits()
 
@@ -222,7 +225,7 @@ class MainWindowHandler(QMainWindow):
             f'{summary} {student.currency().value}'
         )
         self._ui.summary_timespan_result_lbl.setText(
-            f'{round(sum_timespan, 1)} hour'
+            f'{round(sum_timespan, 1)} часов'
         )
 
     def _delete_student(self):
@@ -300,7 +303,7 @@ class MainWindowHandler(QMainWindow):
 
             row = [
                 QStandardItem(f'{row[0]} {currency}'),
-                QStandardItem(f'{round(row[1], 1)} hour')
+                QStandardItem(f'{round(row[1], 1)} часов')
             ]
             for item in row:
                 item.setTextAlignment(
@@ -347,7 +350,7 @@ class MainWindowHandler(QMainWindow):
     def _load_filter_period_now(self):
         period = self._filter_manager.get_period_now()
         if len(period) == 0:
-            self._ui.period_info_lbl.setText("All days")
+            self._ui.period_info_lbl.setText("Все дни")
             return
 
         from_date = period[0].strftime('%d.%m.%Y')

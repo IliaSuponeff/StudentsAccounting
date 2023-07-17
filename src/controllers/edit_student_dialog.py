@@ -24,14 +24,14 @@ class EditStudentDialog(QDialog):
         self.setHandlers()
 
     def call(self, student: Student, *args):
-        assert student is not None, "Not have chosen student to edit him."
+        assert student is not None, "Нет студента для добавления его посещения"
         self._old_student = student
         self.setUi()
 
     def setUi(self):
-        self.setWindowTitle(f'Edit student {self._old_student.name()}')
+        self.setWindowTitle(f'Изменить студента {self._old_student.name()}')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
-        self._ui.done_btn.setText('Edit')
+        self._ui.done_btn.setText('Изменить')
         self._ui.name_le.setText(f'{self._old_student.name()}')
         self._ui.hour_cost_spin_box.setValue(self._old_student.hour_cost())
         self._ui.currency_box.clear()
@@ -52,7 +52,7 @@ class EditStudentDialog(QDialog):
                 self.close()
 
             if student in self.db.students:  # and student != self._old_student
-                raise AssertionError(f"Student {student.name()} is exists now")
+                raise AssertionError(f"Студент {student.name()} уже существует")
 
             self.db.edit_student(self._old_student, student)
             self.close()

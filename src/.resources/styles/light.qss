@@ -1,8 +1,13 @@
-QWidget {
+QWidget#centralwidget, QDialog {
 	background-color: rgb(255, 255, 255);
 	color: rgb(0, 0, 0);
 	font: 12pt "Segoe UI";
 }
+
+QWidget {
+    font: 12pt "Segoe UI";
+}
+
 
 QFrame {
 	background-color: transparent;
@@ -49,12 +54,12 @@ QTableView {
 
 QHeaderView::section {
     background-color: transparent;
-    border: 1px solid rgba(0,0,0,40);
+    border: 1px solid rgba(0,0,0);
 }
 
 QTableView::item {
     background-color: transparent;
-    border: 1px solid rgba(0,0,0,40);
+    border: 1px solid rgba(0,0,0);
 }
 
 QTableView::item:selected{

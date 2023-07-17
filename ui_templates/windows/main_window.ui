@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1000</width>
-    <height>740</height>
-   </rect>
-  </property>
   <property name="minimumSize">
    <size>
     <width>1000</width>
@@ -212,7 +204,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>0 hour</string>
+            <string>0 часов</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -222,7 +214,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="info_lbl_7">
            <property name="text">
-            <string>Profit</string>
+            <string>Доход</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -232,7 +224,7 @@
          <item row="2" column="0">
           <widget class="QLabel" name="info_lbl_8">
            <property name="text">
-            <string>Summary Timespan</string>
+            <string>Длительность</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -242,7 +234,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="info_lbl_1">
            <property name="text">
-            <string>Info of period</string>
+            <string>Период</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -252,7 +244,7 @@
          <item row="0" column="1">
           <widget class="QLabel" name="period_info_lbl">
            <property name="text">
-            <string>All Days</string>
+            <string>Все дни</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -319,7 +311,7 @@
             <item>
              <widget class="QLabel" name="info_lbl_2">
               <property name="text">
-               <string>Filter</string>
+               <string>Фильтр</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -331,7 +323,7 @@
               <item row="0" column="0">
                <widget class="QRadioButton" name="this_year_filter_rbtn">
                 <property name="text">
-                 <string>This year</string>
+                 <string>Этот год</string>
                 </property>
                 <property name="checked">
                  <bool>false</bool>
@@ -341,14 +333,14 @@
               <item row="0" column="1">
                <widget class="QRadioButton" name="this_month_filter_rbtn">
                 <property name="text">
-                 <string>This month</string>
+                 <string>Этот месяц</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="0">
                <widget class="QRadioButton" name="all_days_filter_rbtn">
                 <property name="text">
-                 <string>All</string>
+                 <string>Все дни</string>
                 </property>
                 <property name="checked">
                  <bool>true</bool>
@@ -358,7 +350,7 @@
               <item row="1" column="1">
                <widget class="QRadioButton" name="custom_period_rbtn">
                 <property name="text">
-                 <string>Custom</string>
+                 <string>Свой период</string>
                 </property>
                </widget>
               </item>
@@ -367,7 +359,7 @@
             <item>
              <widget class="QLabel" name="info_lbl_3">
               <property name="text">
-               <string>Custom Period</string>
+               <string>Свой период</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -385,7 +377,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>From</string>
+                 <string>С </string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -395,7 +387,7 @@
               <item row="1" column="0">
                <widget class="QLabel" name="info_lbl_5">
                 <property name="text">
-                 <string>To</string>
+                 <string>До</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -411,7 +403,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>Choose</string>
+                 <string>Выбрать</string>
                 </property>
                 <property name="flat">
                  <bool>false</bool>
@@ -427,7 +419,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>Choose</string>
+                 <string>Выбрать</string>
                 </property>
                 <property name="flat">
                  <bool>false</bool>
@@ -502,7 +494,7 @@
           <enum>QFrame::Plain</enum>
          </property>
          <property name="text">
-          <string>Results for all</string>
+          <string>Итоговые результаты для всех студентов</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -566,19 +558,6 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="lang_change_btn">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
@@ -595,7 +574,7 @@
             <item>
              <widget class="QPushButton" name="add_visit_btn">
               <property name="text">
-               <string>Add visit</string>
+               <string>Добавить посещение</string>
               </property>
               <property name="flat">
                <bool>false</bool>
@@ -605,7 +584,7 @@
             <item>
              <widget class="QPushButton" name="edit_visit_btn">
               <property name="text">
-               <string>Edit visit</string>
+               <string>Изменить посещение</string>
               </property>
               <property name="flat">
                <bool>false</bool>
@@ -615,7 +594,7 @@
             <item>
              <widget class="QPushButton" name="del_visit_btn">
               <property name="text">
-               <string>Delete visit</string>
+               <string>Удалить посещение</string>
               </property>
               <property name="flat">
                <bool>false</bool>

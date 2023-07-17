@@ -73,6 +73,7 @@ class Ui_CreaterStudent(object):
         self.info_lbl_2 = QLabel(CreaterStudent)
         self.info_lbl_2.setObjectName(u"info_lbl_2")
         self.info_lbl_2.setAlignment(Qt.AlignCenter)
+        self.info_lbl_2.setWordWrap(True)
 
         self.hLayout_3.addWidget(self.info_lbl_2)
 
@@ -158,10 +159,10 @@ class Ui_CreaterStudent(object):
 
     def retranslateUi(self, CreaterStudent):
         CreaterStudent.setWindowTitle(QCoreApplication.translate("CreaterStudent", u"StudentCreater", None))
-        self.dialog_title_lbl.setText(QCoreApplication.translate("CreaterStudent", u"Creating Student", None))
-        self.info_lbl_1.setText(QCoreApplication.translate("CreaterStudent", u"Name", None))
-        self.info_lbl_2.setText(QCoreApplication.translate("CreaterStudent", u"Hour cost", None))
-        self.info_lbl_3.setText(QCoreApplication.translate("CreaterStudent", u"Currency", None))
-        self.done_btn.setText(QCoreApplication.translate("CreaterStudent", u"Create", None))
+        self.dialog_title_lbl.setText(QCoreApplication.translate("CreaterStudent", u"\u0421\u043e\u0437\u0434\u0430\u0442\u044c \u0441\u0442\u0443\u0434\u0435\u043d\u0442\u0430", None))
+        self.info_lbl_1.setText(QCoreApplication.translate("CreaterStudent", u"\u0418\u043c\u044f", None))
+        self.info_lbl_2.setText(QCoreApplication.translate("CreaterStudent", u"\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c \u0447\u0430\u0441\u0430 \u0437\u0430\u043d\u044f\u0442\u0438\u044f", None))
+        self.info_lbl_3.setText(QCoreApplication.translate("CreaterStudent", u"\u0412\u0430\u043b\u044e\u0442\u0430", None))
+        self.done_btn.setText(QCoreApplication.translate("CreaterStudent", u"\u0421\u043e\u0437\u0434\u0430\u0442\u044c", None))
     # retranslateUi
 

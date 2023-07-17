@@ -18,7 +18,6 @@ author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
 import argparse
 import os.path
-import random
 import sys
 import json
 from PySide6.QtCore import QSize
@@ -28,6 +27,7 @@ from PySide6.QtGui import QIcon, QPixmap, QColor
 class _StandardSettings:
 
     def __init__(self):
+
         self.__DEBUG__ = True
         self.__CHARSET__ = 'UTF-8'
 

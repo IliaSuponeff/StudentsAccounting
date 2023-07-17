@@ -24,31 +24,23 @@ class Student:
         self.set_hour_cost(hour_cost)
 
         # set unchanged attributes
-        assert Currency.is_currency(currency), \
-            f"Student currency is invalid. Find {currency} need one of {Currency.all()}"
         self._CURRENCY = Currency.get_currency(currency)
 
-        assert table is not None, "Student table name is None"
-        assert isinstance(table, str), f"Student table name is {type(name)}, not str"
-        assert len(table) > 0, 'Student table name is empty'
+        assert len(table) > 0, 'Название таблицы студента пустое'
         self._TABLE = str(table)
 
     def name(self) -> str:
         return self._NAME
 
     def set_name(self, name):
-        assert name is not None, "Student name is None"
-        assert isinstance(name, str), f"Student name is {type(name)}, not str"
-        assert len(name) > 0, 'Student name is empty'
+        assert len(name) > 0, 'Имя студента пустое'
         self._NAME = str(name)
 
     def hour_cost(self) -> float:
         return self._HOUR_COST
 
     def set_hour_cost(self, hour_cost):
-        assert isinstance(hour_cost, (int, float,)), \
-            f"Student {self._NAME} hour cost is {type(hour_cost)} not float or int"
-        assert hour_cost > 0, f"Student {self._NAME} hour cost must be more than zero"
+        assert hour_cost > 0, f"Стоимость часа для студента  {self._NAME} должно быть больше 0"
 
         self._HOUR_COST = float(hour_cost)
 

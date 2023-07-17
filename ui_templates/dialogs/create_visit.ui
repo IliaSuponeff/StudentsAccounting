@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>240</height>
+    <height>300</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>500</width>
-    <height>240</height>
+    <height>300</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Creating Visit</string>
+      <string>Создание посещения</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -56,7 +56,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Date</string>
+        <string>Дата</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -101,10 +101,13 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Timespan</string>
+          <string>Длительноть занятия</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -171,7 +174,7 @@
          <item>
           <widget class="QLabel" name="info_lbl_5">
            <property name="text">
-            <string>Lesson cost</string>
+            <string>Стоимость занятя</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -186,7 +189,7 @@
            <item>
             <widget class="QRadioButton" name="unspecial_rbtn">
              <property name="text">
-              <string>Unspecial</string>
+              <string>Недоговорная</string>
              </property>
              <property name="checked">
               <bool>true</bool>
@@ -196,7 +199,7 @@
            <item>
             <widget class="QRadioButton" name="special_rbtn">
              <property name="text">
-              <string>Special</string>
+              <string>Договорная</string>
              </property>
              <property name="iconSize">
               <size>
@@ -219,7 +222,7 @@
           <item>
            <widget class="QLabel" name="info_lbl_3">
             <property name="text">
-             <string>Special Sum</string>
+             <string>Договорная цена за всё занятие</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -248,7 +251,7 @@
           <item>
            <widget class="QLabel" name="currency_lbl">
             <property name="text">
-             <string>Currency</string>
+             <string>Валюта</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -293,7 +296,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Create</string>
+        <string>Создать</string>
        </property>
       </widget>
      </item>
