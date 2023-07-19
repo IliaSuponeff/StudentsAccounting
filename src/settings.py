@@ -80,6 +80,16 @@ class _StandardSettings:
         icon.addPixmap(self.load_pixmap(image_filename))
         return icon
 
+    def load_theme_image(self, image_filename) -> QIcon:
+        return self.load_image(
+            os.path.join(self.STYLESHEET, image_filename)
+        )
+
+    def load_theme_pixmap(self, pixmap_filename) -> QPixmap:
+        return self.load_pixmap(
+            os.path.join(self.STYLESHEET, pixmap_filename)
+        )
+
     def load_pixmap(self, pixmap_filename: str, default_size=QSize(50, 50), default_color=QColor(0, 0, 0, 255)):
         pixmap_filepath = self.get_image_filepath(pixmap_filename)
         if not os.path.exists(pixmap_filepath):

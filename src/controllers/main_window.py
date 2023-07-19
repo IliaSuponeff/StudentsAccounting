@@ -110,34 +110,7 @@ class MainWindowHandler(QMainWindow):
         self._ui.theme_change_btn.clicked.connect(lambda: self._change_theme())
 
     def setIcons(self):
-        self._ui.add_student_btn.setIcon(
-            self.settings.load_image('add_people.png')
-        )
-        self._ui.add_visit_btn.setIcon(
-            self.settings.load_image('add_visit.png')
-        )
-
-        self._ui.edit_student_btn.setIcon(
-            self.settings.load_image('edit.png')
-        )
-        self._ui.edit_visit_btn.setIcon(
-            self.settings.load_image('edit.png')
-        )
-        self._ui.next_student_btn.setIcon(
-            self.settings.load_image('next_student.png')
-        )
-        self._ui.prev_student_btn.setIcon(
-            self.settings.load_image('prev_student.png')
-        )
-        self._ui.reload_student_btn.setIcon(
-            self.settings.load_image('reload.png')
-        )
-        self._ui.del_student_btn.setIcon(
-            self.settings.load_image('remove_student.png')
-        )
-        self._ui.del_visit_btn.setIcon(
-            self.settings.load_image('remove_visit.png')
-        )
+        self._load_theme_icons()
         self._ui.img_lbl_1.setPixmap(
             self.settings.load_pixmap('filter.png')
         )
@@ -442,3 +415,34 @@ class MainWindowHandler(QMainWindow):
         index = (index + 1) % len(self.settings.__STYLESHEETS__)
         theme_name = self.settings.__STYLESHEETS__[index]
         self._set_theme(theme_name)
+        self._load_theme_icons()
+
+    def _load_theme_icons(self):
+        self._ui.add_student_btn.setIcon(
+            self.settings.load_theme_image('add_people.png')
+        )
+        self._ui.add_visit_btn.setIcon(
+            self.settings.load_theme_image('add_visit.png')
+        )
+
+        self._ui.edit_student_btn.setIcon(
+            self.settings.load_theme_image('edit.png')
+        )
+        self._ui.edit_visit_btn.setIcon(
+            self.settings.load_theme_image('edit.png')
+        )
+        self._ui.next_student_btn.setIcon(
+            self.settings.load_theme_image('next_student.png')
+        )
+        self._ui.prev_student_btn.setIcon(
+            self.settings.load_theme_image('prev_student.png')
+        )
+        self._ui.reload_student_btn.setIcon(
+            self.settings.load_theme_image('reload.png')
+        )
+        self._ui.del_student_btn.setIcon(
+            self.settings.load_theme_image('remove_student.png')
+        )
+        self._ui.del_visit_btn.setIcon(
+            self.settings.load_theme_image('remove_visit.png')
+        )

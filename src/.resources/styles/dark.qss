@@ -1,11 +1,11 @@
 QWidget#centralwidget, QDialog {
-	background-color: qlineargradient(spread:pad, x1:0, y1:0.801, x2:1, y2:0.108, stop:0 rgba(255, 0, 52, 255), stop:1 rgba(172, 119, 255, 255));
-	color: rgb(0, 0, 0);
-	font: 12pt "Segoe UI";
+	background-color: #404040;
 }
 
 QWidget {
+    background-color: #404040;
     font: 12pt "Segoe UI";
+    color: #fff;
 }
 
 QFrame#student_info_frame, QFrame#filter_frame, QFrame#table_all_results_frame {
@@ -13,38 +13,17 @@ QFrame#student_info_frame, QFrame#filter_frame, QFrame#table_all_results_frame {
     border-radius: 32px;
 }
 
-QRadioButton {
-	background-color: transparent;
-}
-
-QDoubleSpinBox {
+QPushButton {
     background-color: transparent;
 }
 
-QComboBox {
-    font: 12pt "Segoe UI";
+QPushButton:hover {
+    background-color: #606060;
 }
 
-QLineEdit {
-	background-color: transparent;
-}
-
-
-QLabel {
-	background-color: transparent;
-}
-
-QPushButton {
-	background-color: transparent;
-}
-
-QPushButton::hover {
-	background-color: #999;
-}
-
-QPushButton::pressed {
-	background-color: #666;
-	color: #fff;
+QPushButton:pressed {
+    background-color: #fff;
+    color: #000;
 }
 
 QTableView {
@@ -53,15 +32,20 @@ QTableView {
 }
 
 QHeaderView::section {
-    background-color: transparent;
-    border: 1px solid rgba(255,255,255);
+    background-color: #707070;
+    border: 1px solid #f0f0f0;
+}
+
+QHeaderView::section:checked {
+    background-color: #34569a;
+    border: 1px solid #f0f0f0;
 }
 
 QTableView::item {
     background-color: transparent;
-    border: 1px solid rgba(255,255,255);
+    border: 1px solid #f0f0f0;
 }
 
-QTableView::item:selected{
-    background-color: #666;
+QTableView::item:selected {
+    background-color: #1058CB;
 }

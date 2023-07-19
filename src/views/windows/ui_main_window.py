@@ -58,7 +58,7 @@ class Ui_MainWindow(object):
         sizePolicy1.setHeightForWidth(self.add_student_btn.sizePolicy().hasHeightForWidth())
         self.add_student_btn.setSizePolicy(sizePolicy1)
         self.add_student_btn.setIconSize(QSize(30, 30))
-        self.add_student_btn.setFlat(True)
+        self.add_student_btn.setFlat(False)
 
         self.hLayout_2.addWidget(self.add_student_btn)
 
@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
         sizePolicy1.setHeightForWidth(self.edit_student_btn.sizePolicy().hasHeightForWidth())
         self.edit_student_btn.setSizePolicy(sizePolicy1)
         self.edit_student_btn.setIconSize(QSize(30, 30))
-        self.edit_student_btn.setFlat(True)
+        self.edit_student_btn.setFlat(False)
 
         self.hLayout_2.addWidget(self.edit_student_btn)
 
@@ -76,7 +76,7 @@ class Ui_MainWindow(object):
         sizePolicy1.setHeightForWidth(self.del_student_btn.sizePolicy().hasHeightForWidth())
         self.del_student_btn.setSizePolicy(sizePolicy1)
         self.del_student_btn.setIconSize(QSize(30, 30))
-        self.del_student_btn.setFlat(True)
+        self.del_student_btn.setFlat(False)
 
         self.hLayout_2.addWidget(self.del_student_btn)
 
@@ -460,6 +460,7 @@ class Ui_MainWindow(object):
         sizePolicy15.setVerticalStretch(0)
         sizePolicy15.setHeightForWidth(self.theme_change_btn.sizePolicy().hasHeightForWidth())
         self.theme_change_btn.setSizePolicy(sizePolicy15)
+        self.theme_change_btn.setFlat(False)
 
         self.hLayout_3.addWidget(self.theme_change_btn)
 
