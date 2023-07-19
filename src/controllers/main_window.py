@@ -148,9 +148,6 @@ class MainWindowHandler(QMainWindow):
             self.settings.load_pixmap('all_results.png')
         )
 
-
-
-
     def _reload_students(self):
         self._ui.student_choose_box.clear()
         self._ui.student_choose_box.addItems(
@@ -208,7 +205,11 @@ class MainWindowHandler(QMainWindow):
         sum_timespan = 0
         for visit in visits:
             row = [
-                QStandardItem(str(visit.date().strftime('%d.%m.%Y'))),
+                QStandardItem(str(
+                    visit.date().strftime('%A')[:3]
+                ) + '  ' + str(
+                    visit.date().strftime('%d.%m.%Y')
+                )),
                 QStandardItem(str(visit.timespan())),
                 QStandardItem(
                     str(

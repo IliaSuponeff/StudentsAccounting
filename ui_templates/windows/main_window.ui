@@ -265,6 +265,12 @@
              <layout class="QGridLayout" name="gLayout_3">
               <item row="0" column="1">
                <widget class="QLabel" name="period_info_lbl">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Все дни</string>
                 </property>
