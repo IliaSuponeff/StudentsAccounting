@@ -49,3 +49,22 @@ QTableView::item {
 QTableView::item:selected {
     background-color: #1058CB;
 }
+
+
+QCalendarWidget {
+    border: 1px solid black;
+    color: white;
+    background-color: transparent;
+}
+
+QCalendarWidget QToolButton {
+  	color: #fff;
+  	background-color: transparent;
+  	icon-size: 25px, 25px;
+}
+
+QCalendarWidget QAbstractItemView:enabled,
+QCalendarWidget QTableWidget:enabled {
+    selection-background-color: #4d90fe;
+    selection-color: white;
+}

@@ -65,3 +65,19 @@ QTableView::item {
 QTableView::item:selected{
     background-color: #666;
 }
+
+QCalendarWidget QToolButton {
+  	color: #000;
+  	icon-size: 25px, 25px;
+}
+
+QCalendarWidget QAbstractItemView:enabled {
+    color: #000;
+    selection-background-color: #303030;
+    selection-color: #f0f0f0;
+}
+
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+    background-color: #c0c0c0;
+    border: 1px solid black;
+}
