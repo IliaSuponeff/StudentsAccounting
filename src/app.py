@@ -28,6 +28,7 @@ class Application(QApplication):
     def exec(self) -> int:
         self.run()
         exit_code = super().exec()
+        self.main_window.close()
         self.settings.close()
         self.db.close()
         return exit_code

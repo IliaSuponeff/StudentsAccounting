@@ -14,6 +14,12 @@ QFrame#student_info_frame, QFrame#filter_frame, QFrame#table_all_results_frame {
     border-radius: 32px;
 }
 
+
+QFrame#vLine_1 {
+    border: 2px solid #000;
+    border-radius: 32px;
+}
+
 QRadioButton {
 	background-color: transparent;
 }
@@ -30,8 +36,22 @@ QLineEdit {
 	background-color: transparent;
 }
 
+QLineEdit {
+	background-color: transparent;
+}
+
 QLabel {
 	background-color: transparent;
+}
+
+QLineEdit {
+	border: 2px solid #63CFE9;
+    border-radius: 8px;
+}
+
+QTextEdit {
+	border: 2px solid #63CFE9;
+    border-radius: 4px;
 }
 
 QPushButton {
@@ -39,12 +59,13 @@ QPushButton {
 }
 
 QPushButton::hover {
-	background-color: #999;
+	border: 2px solid #63CFE9;
+	border-radius: 10px;
 }
 
 QPushButton::pressed {
-	background-color: #666;
-	color: #fff;
+    background-color: #000;
+    color: #fff;
 }
 
 QTableView {

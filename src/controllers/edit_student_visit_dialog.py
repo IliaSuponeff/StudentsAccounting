@@ -34,6 +34,7 @@ class EditStudentVisitDialog(QDialog):
         self._ui.img_lbl.setPixmap(
             self.settings.load_pixmap('create_visit.png')
         )
+        self._ui.done_btn.setText('Сохранить')
         date_now = self._old_visit.date()
         self._ui.visit_date_edit.setDate(
             QDate(date_now.year, date_now.month, date_now.day)

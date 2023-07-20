@@ -166,7 +166,7 @@ class Ui_MainWindow(object):
         sizePolicy6.setVerticalStretch(0)
         sizePolicy6.setHeightForWidth(self.student_name_lbl.sizePolicy().hasHeightForWidth())
         self.student_name_lbl.setSizePolicy(sizePolicy6)
-        self.student_name_lbl.setStyleSheet(u"font: 75 12pt \"Segoe UI\";")
+        self.student_name_lbl.setStyleSheet(u"font: 75 12pt  bold \"Segoe UI\";")
         self.student_name_lbl.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_4.addWidget(self.student_name_lbl)
@@ -272,7 +272,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.info_lbl_2 = QLabel(self.filter_sub_frame)
         self.info_lbl_2.setObjectName(u"info_lbl_2")
-        self.info_lbl_2.setStyleSheet(u"font: 75 12pt \"Segoe UI\";")
+        self.info_lbl_2.setStyleSheet(u"font: 75 12pt  bold \"Segoe UI\";")
         self.info_lbl_2.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.info_lbl_2)
@@ -438,6 +438,13 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_4.addWidget(self.tools_frame)
 
+        self.vLine_1 = QFrame(self.centralwidget)
+        self.vLine_1.setObjectName(u"vLine_1")
+        self.vLine_1.setFrameShape(QFrame.VLine)
+        self.vLine_1.setFrameShadow(QFrame.Sunken)
+
+        self.horizontalLayout_4.addWidget(self.vLine_1)
+
         self.workspace_frame = QFrame(self.centralwidget)
         self.workspace_frame.setObjectName(u"workspace_frame")
         sizePolicy14 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -464,8 +471,23 @@ class Ui_MainWindow(object):
 
         self.hLayout_3.addWidget(self.theme_change_btn)
 
+        self.help_btn = QPushButton(self.workspace_frame)
+        self.help_btn.setObjectName(u"help_btn")
+        sizePolicy15.setHeightForWidth(self.help_btn.sizePolicy().hasHeightForWidth())
+        self.help_btn.setSizePolicy(sizePolicy15)
+        self.help_btn.setFlat(False)
+
+        self.hLayout_3.addWidget(self.help_btn)
+
 
         self.verticalLayout_3.addLayout(self.hLayout_3)
+
+        self.hLine_1 = QFrame(self.workspace_frame)
+        self.hLine_1.setObjectName(u"hLine_1")
+        self.hLine_1.setFrameShape(QFrame.HLine)
+        self.hLine_1.setFrameShadow(QFrame.Sunken)
+
+        self.verticalLayout_3.addWidget(self.hLine_1)
 
         self.visits_info_frame = QFrame(self.workspace_frame)
         self.visits_info_frame.setObjectName(u"visits_info_frame")
@@ -527,9 +549,12 @@ class Ui_MainWindow(object):
         self.help_action.setText(QCoreApplication.translate("MainWindow", u"Help", None))
         self.about_authors_action.setText(QCoreApplication.translate("MainWindow", u"Author", None))
         self.close_action.setText(QCoreApplication.translate("MainWindow", u"Close", None))
-        self.add_student_btn.setText("")
-        self.edit_student_btn.setText("")
-        self.del_student_btn.setText("")
+        self.add_student_btn.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c\n"
+"\u0443\u0447\u0435\u043d\u0438\u043a\u0430", None))
+        self.edit_student_btn.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c\n"
+"\u0443\u0447\u0435\u043d\u0438\u043a\u0430", None))
+        self.del_student_btn.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c\n"
+"\u0443\u0447\u0435\u043d\u0438\u043a\u0430", None))
         self.prev_student_btn.setText("")
         self.reload_student_btn.setText("")
         self.next_student_btn.setText("")
@@ -557,6 +582,7 @@ class Ui_MainWindow(object):
         self.img_lbl_3.setText("")
         self.info_lbl_6.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0442\u043e\u0433\u043e\u0432\u044b\u0435 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u044b \u0434\u043b\u044f \u0432\u0441\u0435\u0445 \u0441\u0442\u0443\u0434\u0435\u043d\u0442\u043e\u0432", None))
         self.theme_change_btn.setText("")
+        self.help_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043c\u043e\u0449\u044c", None))
         self.add_visit_btn.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u043f\u043e\u0441\u0435\u0449\u0435\u043d\u0438\u0435", None))
         self.edit_visit_btn.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043f\u043e\u0441\u0435\u0449\u0435\u043d\u0438\u0435", None))
         self.del_visit_btn.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u043f\u043e\u0441\u0435\u0449\u0435\u043d\u0438\u0435", None))

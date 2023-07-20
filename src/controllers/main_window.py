@@ -23,6 +23,7 @@ from controllers.user_exception_mgs_dialogs import exception
 from controllers.datechoose_dialog import DateChooseDialog
 from controllers.edit_student_dialog import EditStudentDialog
 from controllers.edit_student_visit_dialog import EditStudentVisitDialog
+from controllers.help_dialog import HelpDialog
 from models.student_visit import Visit
 
 
@@ -38,7 +39,8 @@ class MainWindowHandler(QMainWindow):
             "AddStudentDialog": AddStudentDialog(self.settings, self.db),
             "EditStudentDialog": EditStudentDialog(self.settings, self.db),
             "EditStudentVisitDialog": EditStudentVisitDialog(self.settings, self.db),
-            "DateChooseDialog": DateChooseDialog(self.settings, self.db)
+            "DateChooseDialog": DateChooseDialog(self.settings, self.db),
+            "HelpDialog": HelpDialog(self.settings)
         }
         self._handler_manager = HandlerManager(settings, database)
         self._visits_table_modal = QStandardItemModel()
@@ -87,6 +89,9 @@ class MainWindowHandler(QMainWindow):
                 self._handler_manager.get_current_student(),
                 self._get_selected_visit()
             )
+        )
+        self._ui.help_btn.clicked.connect(
+            lambda: self._call_dialog('HelpDialog')
         )
         self._ui.del_visit_btn.clicked.connect(lambda: self._delete_student_visit())
         self._ui.all_days_filter_rbtn.clicked.connect(
@@ -446,3 +451,11 @@ class MainWindowHandler(QMainWindow):
         self._ui.del_visit_btn.setIcon(
             self.settings.load_theme_image('remove_visit.png')
         )
+
+    def close(self) -> bool:
+        for _dialog_name in self._dialogs:
+            _dialog: QDialog = self._dialogs[_dialog_name]
+            _dialog.close()
+
+
+        return super().close()
