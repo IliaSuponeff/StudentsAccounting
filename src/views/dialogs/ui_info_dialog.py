@@ -68,6 +68,6 @@ class Ui_InfoDialog(object):
     def retranslateUi(self, InfoDialog):
         InfoDialog.setWindowTitle(QCoreApplication.translate("InfoDialog", u"Info", None))
         self.info_lbl_1.setText(QCoreApplication.translate("InfoDialog", u"\u041f\u043e\u043c\u043e\u0449\u044c", None))
-        self.close_btn.setText(QCoreApplication.translate("InfoDialog", u"Close", None))
+        self.close_btn.setText(QCoreApplication.translate("InfoDialog", u"\u0417\u0430\u043a\u0440\u044b\u0442\u044c", None))
     # retranslateUi
 

@@ -27,11 +27,11 @@ class AboutDialog(QDialog):
         self.setUi()
 
     def setUi(self):
-        self.setWindowTitle('Помощь')
+        self.setWindowTitle('О разработчике')
         self._ui.info_lbl_1.setText(self.windowTitle())
 
         help_data = '# Ошибка\n' \
-                    'Информация о приложении не найдена, утерян файл.'
+                    'Информация о разработчике не найдена, утерян файл.'
         if os.path.exists(self._settings.get_resource_filepath('about.md')):
             data = self._settings.get_resources_filedata('about.md')
             if len(data) != 0:
