@@ -89,3 +89,15 @@ QCalendarWidget QTableWidget:enabled {
     selection-background-color: #4d90fe;
     selection-color: white;
 }
+
+QScrollBar {
+    background : #FFF875;
+}
+
+QScrollBar::handle {
+    background : #404040;
+}
+
+QScrollBar::handle::pressed {
+    background : #909090;
+}
