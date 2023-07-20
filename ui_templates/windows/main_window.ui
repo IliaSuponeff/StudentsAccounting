@@ -254,7 +254,7 @@
                </sizepolicy>
               </property>
               <property name="styleSheet">
-               <string notr="true">font: 75 12pt  bold &quot;Segoe UI&quot;;</string>
+               <string notr="true">font: 75 18pt  bold &quot;Segoe UI&quot;;</string>
               </property>
               <property name="text">
                <string>StudentName</string>
@@ -451,7 +451,7 @@
              <item>
               <widget class="QLabel" name="info_lbl_2">
                <property name="styleSheet">
-                <string notr="true">font: 75 12pt  bold &quot;Segoe UI&quot;;</string>
+                <string notr="true">font: 75 18pt  bold &quot;Segoe UI&quot;;</string>
                </property>
                <property name="text">
                 <string>Фильтр</string>

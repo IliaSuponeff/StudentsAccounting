@@ -36,10 +36,6 @@ QLineEdit {
 	background-color: transparent;
 }
 
-QLineEdit {
-	background-color: transparent;
-}
-
 QLabel {
 	background-color: transparent;
 }

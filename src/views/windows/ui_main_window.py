@@ -166,7 +166,7 @@ class Ui_MainWindow(object):
         sizePolicy6.setVerticalStretch(0)
         sizePolicy6.setHeightForWidth(self.student_name_lbl.sizePolicy().hasHeightForWidth())
         self.student_name_lbl.setSizePolicy(sizePolicy6)
-        self.student_name_lbl.setStyleSheet(u"font: 75 12pt  bold \"Segoe UI\";")
+        self.student_name_lbl.setStyleSheet(u"font: 75 18pt  bold \"Segoe UI\";")
         self.student_name_lbl.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_4.addWidget(self.student_name_lbl)
@@ -272,7 +272,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.info_lbl_2 = QLabel(self.filter_sub_frame)
         self.info_lbl_2.setObjectName(u"info_lbl_2")
-        self.info_lbl_2.setStyleSheet(u"font: 75 12pt  bold \"Segoe UI\";")
+        self.info_lbl_2.setStyleSheet(u"font: 75 18pt  bold \"Segoe UI\";")
         self.info_lbl_2.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.info_lbl_2)
