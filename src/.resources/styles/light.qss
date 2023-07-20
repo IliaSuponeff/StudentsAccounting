@@ -102,3 +102,15 @@ QCalendarWidget QWidget#qt_calendar_navigationbar {
     background-color: #c0c0c0;
     border: 1px solid black;
 }
+
+QScrollBar {
+    background : #FFF875;
+}
+
+QScrollBar::handle {
+    background : #808080;
+}
+
+QScrollBar::handle::pressed {
+    background : #c0c0c0;
+}
