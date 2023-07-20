@@ -464,6 +464,14 @@ class Ui_MainWindow(object):
 
         self.hLayout_3.addWidget(self.theme_change_btn)
 
+        self.help_btn = QPushButton(self.workspace_frame)
+        self.help_btn.setObjectName(u"help_btn")
+        sizePolicy15.setHeightForWidth(self.help_btn.sizePolicy().hasHeightForWidth())
+        self.help_btn.setSizePolicy(sizePolicy15)
+        self.help_btn.setFlat(False)
+
+        self.hLayout_3.addWidget(self.help_btn)
+
 
         self.verticalLayout_3.addLayout(self.hLayout_3)
 
@@ -527,9 +535,12 @@ class Ui_MainWindow(object):
         self.help_action.setText(QCoreApplication.translate("MainWindow", u"Help", None))
         self.about_authors_action.setText(QCoreApplication.translate("MainWindow", u"Author", None))
         self.close_action.setText(QCoreApplication.translate("MainWindow", u"Close", None))
-        self.add_student_btn.setText("")
-        self.edit_student_btn.setText("")
-        self.del_student_btn.setText("")
+        self.add_student_btn.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c\n"
+"\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f", None))
+        self.edit_student_btn.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c\n"
+"\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f", None))
+        self.del_student_btn.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c\n"
+"\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f", None))
         self.prev_student_btn.setText("")
         self.reload_student_btn.setText("")
         self.next_student_btn.setText("")
@@ -557,6 +568,7 @@ class Ui_MainWindow(object):
         self.img_lbl_3.setText("")
         self.info_lbl_6.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0442\u043e\u0433\u043e\u0432\u044b\u0435 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u044b \u0434\u043b\u044f \u0432\u0441\u0435\u0445 \u0441\u0442\u0443\u0434\u0435\u043d\u0442\u043e\u0432", None))
         self.theme_change_btn.setText("")
+        self.help_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043c\u043e\u0449\u044c", None))
         self.add_visit_btn.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u043f\u043e\u0441\u0435\u0449\u0435\u043d\u0438\u0435", None))
         self.edit_visit_btn.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043f\u043e\u0441\u0435\u0449\u0435\u043d\u0438\u0435", None))
         self.del_visit_btn.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u043f\u043e\u0441\u0435\u0449\u0435\u043d\u0438\u0435", None))

@@ -50,7 +50,8 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string/>
+            <string>Добавить
+пользователя</string>
            </property>
            <property name="iconSize">
             <size>
@@ -72,7 +73,8 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string/>
+            <string>Изменить
+пользователя</string>
            </property>
            <property name="iconSize">
             <size>
@@ -94,7 +96,8 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string/>
+            <string>Удалить
+пользователя</string>
            </property>
            <property name="iconSize">
             <size>
@@ -780,6 +783,22 @@
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="help_btn">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Помощь</string>
            </property>
            <property name="flat">
             <bool>false</bool>

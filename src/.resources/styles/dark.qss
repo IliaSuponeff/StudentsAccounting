@@ -13,12 +13,25 @@ QFrame#student_info_frame, QFrame#filter_frame, QFrame#table_all_results_frame {
     border-radius: 32px;
 }
 
+QLineEdit {
+	border: 2px solid #63CFE9;
+    border-radius: 8px;
+}
+
+QTextEdit {
+	border: 2px solid #63CFE9;
+    border-radius: 16px;
+}
+
 QPushButton {
     background-color: transparent;
+
 }
 
 QPushButton:hover {
     background-color: #606060;
+    border: 2px solid #63CFE9;
+	border-radius: 10px;
 }
 
 QPushButton:pressed {

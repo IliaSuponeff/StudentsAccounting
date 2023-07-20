@@ -30,8 +30,22 @@ QLineEdit {
 	background-color: transparent;
 }
 
+QLineEdit {
+	background-color: transparent;
+}
+
 QLabel {
 	background-color: transparent;
+}
+
+QLineEdit {
+	border: 2px solid #63CFE9;
+    border-radius: 8px;
+}
+
+QTextEdit {
+	border: 2px solid #63CFE9;
+    border-radius: 16px;
 }
 
 QPushButton {
@@ -39,12 +53,13 @@ QPushButton {
 }
 
 QPushButton::hover {
-	background-color: #999;
+	border: 2px solid #63CFE9;
+	border-radius: 10px;
 }
 
 QPushButton::pressed {
-	background-color: #666;
-	color: #fff;
+    background-color: #000;
+    color: #fff;
 }
 
 QTableView {
