@@ -14,7 +14,7 @@ from settings import RuntimeSettings
 from views.dialogs.ui_info_dialog import Ui_InfoDialog
 
 
-class HelpDialog(QDialog):
+class AboutDialog(QDialog):
 
     def __init__(self, settings: RuntimeSettings, *args):
         super().__init__()
@@ -30,10 +30,10 @@ class HelpDialog(QDialog):
         self.setWindowTitle('Помощь')
         self._ui.info_lbl_1.setText(self.windowTitle())
 
-        help_data = '## Ошибка\n' \
-                    'Информация о том, как пользоваться приложением утеряна среди локальных файлов.'
-        if os.path.exists(self._settings.get_resource_filepath('help.md')):
-            data = self._settings.get_resources_filedata('help.md')
+        help_data = '# Ошибка\n' \
+                    'Информация о приложении не найдена, утерян файл.'
+        if os.path.exists(self._settings.get_resource_filepath('about.md')):
+            data = self._settings.get_resources_filedata('about.md')
             if len(data) != 0:
                 help_data = data
 

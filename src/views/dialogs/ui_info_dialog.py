@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'help_dialog.ui'
+## Form generated from reading UI file 'info_dialog.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.1
 ##
@@ -19,16 +19,16 @@ from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QHBoxLayout,
     QLabel, QPushButton, QSizePolicy, QSpacerItem,
     QTextBrowser, QVBoxLayout, QWidget)
 
-class Ui_HelpDialog(object):
-    def setupUi(self, HelpDialog):
-        if not HelpDialog.objectName():
-            HelpDialog.setObjectName(u"HelpDialog")
-        HelpDialog.resize(800, 700)
-        HelpDialog.setMinimumSize(QSize(800, 700))
-        HelpDialog.setModal(True)
-        self.verticalLayout = QVBoxLayout(HelpDialog)
+class Ui_InfoDialog(object):
+    def setupUi(self, InfoDialog):
+        if not InfoDialog.objectName():
+            InfoDialog.setObjectName(u"InfoDialog")
+        InfoDialog.resize(800, 700)
+        InfoDialog.setMinimumSize(QSize(800, 700))
+        InfoDialog.setModal(True)
+        self.verticalLayout = QVBoxLayout(InfoDialog)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.info_lbl_1 = QLabel(HelpDialog)
+        self.info_lbl_1 = QLabel(InfoDialog)
         self.info_lbl_1.setObjectName(u"info_lbl_1")
         self.info_lbl_1.setFrameShape(QFrame.NoFrame)
         self.info_lbl_1.setFrameShadow(QFrame.Plain)
@@ -38,7 +38,7 @@ class Ui_HelpDialog(object):
 
         self.verticalLayout.addWidget(self.info_lbl_1)
 
-        self.help_info_tb = QTextBrowser(HelpDialog)
+        self.help_info_tb = QTextBrowser(InfoDialog)
         self.help_info_tb.setObjectName(u"help_info_tb")
         self.help_info_tb.setReadOnly(True)
         self.help_info_tb.setOpenExternalLinks(True)
@@ -51,7 +51,7 @@ class Ui_HelpDialog(object):
 
         self.hLayout_1.addItem(self.hSpacer_1)
 
-        self.close_btn = QPushButton(HelpDialog)
+        self.close_btn = QPushButton(InfoDialog)
         self.close_btn.setObjectName(u"close_btn")
 
         self.hLayout_1.addWidget(self.close_btn)
@@ -60,14 +60,14 @@ class Ui_HelpDialog(object):
         self.verticalLayout.addLayout(self.hLayout_1)
 
 
-        self.retranslateUi(HelpDialog)
+        self.retranslateUi(InfoDialog)
 
-        QMetaObject.connectSlotsByName(HelpDialog)
+        QMetaObject.connectSlotsByName(InfoDialog)
     # setupUi
 
-    def retranslateUi(self, HelpDialog):
-        HelpDialog.setWindowTitle(QCoreApplication.translate("HelpDialog", u"Help", None))
-        self.info_lbl_1.setText(QCoreApplication.translate("HelpDialog", u"\u041f\u043e\u043c\u043e\u0449\u044c", None))
-        self.close_btn.setText(QCoreApplication.translate("HelpDialog", u"Close", None))
+    def retranslateUi(self, InfoDialog):
+        InfoDialog.setWindowTitle(QCoreApplication.translate("InfoDialog", u"Info", None))
+        self.info_lbl_1.setText(QCoreApplication.translate("InfoDialog", u"\u041f\u043e\u043c\u043e\u0449\u044c", None))
+        self.close_btn.setText(QCoreApplication.translate("InfoDialog", u"Close", None))
     # retranslateUi
 
