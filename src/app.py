@@ -34,7 +34,7 @@ class Application(QApplication):
         return exit_code
 
     def run(self):
-        self.main_window.show()
+        self.main_window.showMaximized()
 
 
 if __name__ == '__main__':
