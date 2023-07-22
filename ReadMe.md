@@ -33,4 +33,47 @@
 - [ ] MacOS
 
 #### Версия приложения 1.0.0-beta
+
 #### Open Source License - Apache License Version 2.0
+
+***
+
+### Установка `Для разработчиков`
+
+#### Провести клонирование репозитория
+
+`git clone https://github.com/ProgKalm/StudentsAccounting.git`
+
+#### Создайте виртуальное окружение
+
+Windows `python -m venv venv`
+
+Linux `python3 -m venv venv`
+
+MacOS `python3 -m venv venv`
+
+#### Активируйте виртуальное окружение
+
+Windows `.\venv\Scripts\activate.bat`
+
+Linux `source ./venv/bin/activate`
+
+MacOS `source ./venv/bin/activate`
+
+#### Установите пакеты из `requirements.txt`
+
+`pip install -r requirements.txt`
+
+#### Запуск приложения
+
+Windows `python .\src\app.py`
+
+Linux `python3 ./src/app.py`
+
+MacOS `python3 ./src/app.py`
+
+***
+
+### Установка `Для пользователей`
+
+* [Window](https://drive.google.com/file/d/1Uws98GR4m9xaY5C27e1td1tOjUG3kPu_/view?usp=sharing)
