@@ -805,7 +805,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Help</string>
+            <string>Помощь</string>
            </property>
            <property name="flat">
             <bool>false</bool>
@@ -821,7 +821,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>About</string>
+            <string>О программе</string>
            </property>
            <property name="flat">
             <bool>false</bool>

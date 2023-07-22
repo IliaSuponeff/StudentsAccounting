@@ -245,7 +245,7 @@ class Ui_CreatorVisit(object):
         self.dialog_title_lbl.setText(QCoreApplication.translate("CreatorVisit", u"\u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u043f\u043e\u0441\u0435\u0449\u0435\u043d\u0438\u044f", None))
         self.info_lbl_1.setText(QCoreApplication.translate("CreatorVisit", u"\u0414\u0430\u0442\u0430", None))
         self.info_lbl_2.setText(QCoreApplication.translate("CreatorVisit", u"\u0414\u043b\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0442\u044c \u0437\u0430\u043d\u044f\u0442\u0438\u044f", None))
-        self.info_lbl_4.setText(QCoreApplication.translate("CreatorVisit", u"hour", None))
+        self.info_lbl_4.setText(QCoreApplication.translate("CreatorVisit", u"\u0447\u0430\u0441\u043e\u0432", None))
         self.info_lbl_5.setText(QCoreApplication.translate("CreatorVisit", u"\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c \u0437\u0430\u043d\u044f\u0442\u0438\u044f", None))
         self.unspecial_rbtn.setText(QCoreApplication.translate("CreatorVisit", u"\u0421\u0442\u0430\u043d\u0434\u0430\u0440\u0442\u043d\u0430\u044f", None))
         self.special_rbtn.setText(QCoreApplication.translate("CreatorVisit", u"\u041e\u0441\u043e\u0431\u0430\u044f", None))

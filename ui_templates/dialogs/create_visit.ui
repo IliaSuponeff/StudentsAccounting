@@ -171,7 +171,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>hour</string>
+          <string>часов</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
