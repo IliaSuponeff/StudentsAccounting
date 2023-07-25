@@ -20,6 +20,7 @@ class DateChooseDialog(QDialog):
         self.db = database
         self._ui = Ui_DateChoose()
         self._ui.setupUi(self)
+        self.setUI()
         self.setHandlers()
 
     def call(self, date: QDate, *args):
@@ -31,3 +32,7 @@ class DateChooseDialog(QDialog):
 
     def get_date(self) -> QDate:
         return self._ui.calendar.selectedDate()
+
+    def setUI(self):
+        self.setWindowTitle("Выбрать дату")
+        self._ui.info_lbl_1.setText(self.windowTitle())
