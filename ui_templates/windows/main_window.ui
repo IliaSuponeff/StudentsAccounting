@@ -725,6 +725,13 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QPushButton" name="more_info_btn">
+              <property name="text">
+               <string>Подробнее...</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
