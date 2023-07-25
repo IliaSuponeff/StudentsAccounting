@@ -14,7 +14,7 @@ QFrame#student_info_frame, QFrame#filter_frame, QFrame#table_all_results_frame {
     border-radius: 32px;
 }
 
-QFrame#vLine_1, QFrame#hLine_1 {
+QFrame#vLine_1, QFrame#hLine_1, QFrame#hLine_2 {
     border: 2px solid #000;
     border-radius: 32px;
 }

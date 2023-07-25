@@ -28,7 +28,7 @@ class AddStudentVisitDialog(QDialog):
         self.setHandlers()
 
     def setUi(self):
-        self.setWindowTitle(f'Добавить посещения студенту {self._student.name()}')
+        self.setWindowTitle(f'Добавить посещения ученику {self._student.name()}')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
         self._ui.img_lbl.setPixmap(
             self.settings.load_pixmap('create_visit.png')
@@ -50,7 +50,7 @@ class AddStudentVisitDialog(QDialog):
         self._ui.done_btn.clicked.connect(lambda: self._add_visit())
 
     def call(self, student, *args):
-        assert student is not None, "Нет студента для добавления его посещения"
+        assert student is not None, "Нет ученика для добавления ему посещения"
         self._student = student
         self.setUi()
 

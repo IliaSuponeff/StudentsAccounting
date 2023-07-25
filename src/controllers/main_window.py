@@ -64,6 +64,7 @@ class MainWindowHandler(QMainWindow):
     def setUi(self):
         self._ui.setupUi(self)
         self.setIcons()
+        self._ui.status_bar.showMessage(self.settings.get_app_status())
         self._set_theme(self.settings.STYLESHEET)
         self._ui.student_visits_table_view.setModel(self._visits_table_modal)
         self._ui.all_results_table_view.setModel(self._all_result_table_model)
@@ -170,7 +171,7 @@ class MainWindowHandler(QMainWindow):
             )
 
         self._ui.student_name_lbl.setText(
-            student.name() if student is not None else 'Нет студентов'
+            student.name() if student is not None else 'Нет учеников'
         )
         self._ui.student_summary_result_lbl.setText('Нет информации')
         self._ui.summary_timespan_result_lbl.setText('Нет информации')

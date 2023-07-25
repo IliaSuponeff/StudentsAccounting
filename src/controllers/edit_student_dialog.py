@@ -24,12 +24,12 @@ class EditStudentDialog(QDialog):
         self.setHandlers()
 
     def call(self, student: Student, *args):
-        assert student is not None, "Нет студента для добавления его посещения"
+        assert student is not None, "Нет ученика для редактирования"
         self._old_student = student
         self.setUi()
 
     def setUi(self):
-        self.setWindowTitle(f'Изменить студента {self._old_student.name()}')
+        self.setWindowTitle(f'Изменить ученика {self._old_student.name()}')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
         self._ui.img_lbl.setPixmap(
             self.settings.load_pixmap('edit_student.png')

@@ -29,7 +29,7 @@ class EditStudentVisitDialog(QDialog):
         self.setHandlers()
 
     def setUi(self):
-        self.setWindowTitle(f'Изменить посещение студенту {self._student.name()}')
+        self.setWindowTitle(f'Изменить посещение ученику {self._student.name()}')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
         self._ui.img_lbl.setPixmap(
             self.settings.load_pixmap('create_visit.png')
@@ -54,7 +54,7 @@ class EditStudentVisitDialog(QDialog):
         self._ui.done_btn.clicked.connect(lambda: self._edit_visit())
 
     def call(self, student: Student, visit: Visit, *args):
-        assert student is not None, "Нет студента для изменения его посещения"
+        assert student is not None, "Нет ученика для изменения его посещений"
         assert visit is not None, "Нет выбранного посещения"
         self._student = student
         self._old_visit = visit

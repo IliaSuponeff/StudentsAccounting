@@ -26,7 +26,7 @@ class AddStudentDialog(QDialog):
         self.setUi()
 
     def setUi(self):
-        self.setWindowTitle('Добавление студента')
+        self.setWindowTitle('Добавление ученика')
         self._ui.dialog_title_lbl.setText(self.windowTitle())
         self._ui.img_lbl.setPixmap(
             self.settings.load_pixmap('add_student.png')

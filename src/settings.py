@@ -28,7 +28,7 @@ class _StandardSettings:
 
     def __init__(self):
 
-        self.__DEBUG__ = True
+        self.__DEBUG__ = False
         self.__CHARSET__ = 'UTF-8'
 
         # Directory workspace
@@ -43,7 +43,7 @@ class _StandardSettings:
         self._load_stylesheets_dict()
 
         self.TITLE = 'StudentAccounting'
-        self.VERSION = '0.0.1'
+        self.VERSION = '1.0'
         self.STYLESHEET = ''
 
     def debug(self) -> bool:
@@ -280,6 +280,13 @@ class RuntimeSettings(_StandardSettings):
             json_object[item.lower()] = self.__getattribute__(item)
 
         return json_object
+
+    def get_app_status(self) -> str:
+        app_status = f"Version: {self.VERSION}"
+        if self.debug():
+            app_status = app_status + " " + "DEBUG"
+
+        return app_status
 
 
 if __name__ == '__main__':

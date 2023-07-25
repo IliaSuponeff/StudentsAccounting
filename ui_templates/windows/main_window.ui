@@ -708,7 +708,7 @@
                <enum>QFrame::Plain</enum>
               </property>
               <property name="text">
-               <string>Итоговые результаты для всех студентов</string>
+               <string>Итоговые результаты для всех учеников</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -898,6 +898,7 @@
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="status_bar"/>
   <action name="help_action">
    <property name="text">
     <string>Help</string>
