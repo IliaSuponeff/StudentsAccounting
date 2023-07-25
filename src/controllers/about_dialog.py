@@ -9,7 +9,6 @@ import os.path
 import pprint
 
 from PySide6.QtWidgets import QDialog
-from PySide6.QtCore import Qt
 from settings import RuntimeSettings
 from views.dialogs.ui_info_dialog import Ui_InfoDialog
 

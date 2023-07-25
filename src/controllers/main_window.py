@@ -25,6 +25,7 @@ from controllers.edit_student_dialog import EditStudentDialog
 from controllers.edit_student_visit_dialog import EditStudentVisitDialog
 from controllers.help_dialog import HelpDialog
 from controllers.about_dialog import AboutDialog
+from controllers.more_info_dialog import MoreInfoDialog
 from models.student_visit import Visit
 
 
@@ -35,6 +36,7 @@ class MainWindowHandler(QMainWindow):
 
         self.settings = settings
         self.db = database
+        self._handler_manager = HandlerManager(settings, database)
         self._dialogs = {
             "AddStudentVisitDialog": AddStudentVisitDialog(self.settings, self.db),
             "AddStudentDialog": AddStudentDialog(self.settings, self.db),
@@ -42,9 +44,9 @@ class MainWindowHandler(QMainWindow):
             "EditStudentVisitDialog": EditStudentVisitDialog(self.settings, self.db),
             "DateChooseDialog": DateChooseDialog(self.settings, self.db),
             "HelpDialog": HelpDialog(self.settings),
-            "AboutDialog": AboutDialog(self.settings)
+            "AboutDialog": AboutDialog(self.settings),
+            "MoreInfoDialog": MoreInfoDialog(self.settings, self.db, self._handler_manager)
         }
-        self._handler_manager = HandlerManager(settings, database)
         self._visits_table_modal = QStandardItemModel()
         self._all_result_table_model = QStandardItemModel()
         self._filter_manager = FilterManager()
@@ -98,6 +100,9 @@ class MainWindowHandler(QMainWindow):
         )
         self._ui.about_btn.clicked.connect(
             lambda: self._call_dialog('AboutDialog')
+        )
+        self._ui.more_info_btn.clicked.connect(
+            lambda: self._call_dialog('MoreInfoDialog')
         )
         self._ui.del_visit_btn.clicked.connect(lambda: self._delete_student_visit())
         self._ui.all_days_filter_rbtn.clicked.connect(
