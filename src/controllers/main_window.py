@@ -37,6 +37,7 @@ class MainWindowHandler(QMainWindow):
         self.settings = settings
         self.db = database
         self._handler_manager = HandlerManager(settings, database)
+        self._filter_manager = FilterManager()
         self._dialogs = {
             "AddStudentVisitDialog": AddStudentVisitDialog(self.settings, self.db),
             "AddStudentDialog": AddStudentDialog(self.settings, self.db),
@@ -45,11 +46,13 @@ class MainWindowHandler(QMainWindow):
             "DateChooseDialog": DateChooseDialog(self.settings, self.db),
             "HelpDialog": HelpDialog(self.settings),
             "AboutDialog": AboutDialog(self.settings),
-            "MoreInfoDialog": MoreInfoDialog(self.settings, self.db, self._handler_manager)
+            "MoreInfoDialog": MoreInfoDialog(
+                self.settings, self.db, self._handler_manager, self._filter_manager
+            )
         }
         self._visits_table_modal = QStandardItemModel()
         self._all_result_table_model = QStandardItemModel()
-        self._filter_manager = FilterManager()
+
         self._ui = Ui_MainWindow()
         self._setWindowSettings()
         self.setUi()

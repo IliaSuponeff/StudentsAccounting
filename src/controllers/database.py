@@ -9,7 +9,6 @@ versions-list:  0.0.1 - setup standard db functions(execution sql scripts and ge
 
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
-import pprint
 import sqlite3
 import sys
 
@@ -83,7 +82,6 @@ class DataBase:
         for visit in visits:
             self.add_student_visit(new_student, visit)
 
-        print("New students list: ", self.students)
 
     def remove_student(self, student: Student):
         if not (student in self.students):

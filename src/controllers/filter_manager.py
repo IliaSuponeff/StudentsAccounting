@@ -62,7 +62,7 @@ class FilterManager:
         return (
             datetime.datetime.strptime(f'01.{date.month}.{date.year}', '%d.%m.%Y').date(),
             datetime.datetime.strptime(
-                f'{self._get_max_day(date.year, date.month)}.{date.month}.{date.year}', '%d.%m.%Y'
+                f'{self.get_max_day(date.year, date.month)}.{date.month}.{date.year}', '%d.%m.%Y'
             ).date()
         )
 
@@ -71,12 +71,12 @@ class FilterManager:
         return (
             datetime.datetime.strptime(f'01.01.{date.year}', '%d.%m.%Y').date(),
             datetime.datetime.strptime(
-                f'{self._get_max_day(date.year, 12)}.12.{date.year}', '%d.%m.%Y'
+                f'{self.get_max_day(date.year, 12)}.12.{date.year}', '%d.%m.%Y'
             ).date()
         )
 
     @staticmethod
-    def _get_max_day(year: int, month: int):
+    def get_max_day(year: int, month: int):
         return calendar.monthrange(year, month)[1]
 
     def _is_valid_date(self, date: datetime.date):

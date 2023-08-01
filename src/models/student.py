@@ -60,7 +60,6 @@ class Student:
         if not isinstance(o, self.__class__):
             return False
 
-        print(self.name().lower(), o.name().lower(), self.name().lower() == o.name().lower())
         if self.name().lower() != o.name().lower():
             return False
         # if db tables for students visits is eq or student's names is eq than students eq

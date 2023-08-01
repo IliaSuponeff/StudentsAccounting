@@ -21,3 +21,4 @@ env/
 out/
 *.rar
 *.zip
+*__test.*

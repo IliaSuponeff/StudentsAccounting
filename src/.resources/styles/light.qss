@@ -27,10 +27,6 @@ QDoubleSpinBox {
     background-color: transparent;
 }
 
-QComboBox {
-    font: 12pt "Segoe UI";
-}
-
 QLineEdit {
 	background-color: transparent;
 }
