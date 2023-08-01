@@ -23,9 +23,9 @@ class Ui_MoreInfoDialog(object):
     def setupUi(self, MoreInfoDialog):
         if not MoreInfoDialog.objectName():
             MoreInfoDialog.setObjectName(u"MoreInfoDialog")
-        MoreInfoDialog.resize(1280, 640)
-        MoreInfoDialog.setMinimumSize(QSize(1280, 640))
-        MoreInfoDialog.setMaximumSize(QSize(1280, 720))
+        MoreInfoDialog.resize(1400, 640)
+        MoreInfoDialog.setMinimumSize(QSize(1400, 640))
+        MoreInfoDialog.setMaximumSize(QSize(1400, 640))
         MoreInfoDialog.setModal(True)
         self.verticalLayout = QVBoxLayout(MoreInfoDialog)
         self.verticalLayout.setObjectName(u"verticalLayout")

@@ -14,7 +14,7 @@ from PySide6.QtWidgets import QDialog
 
 from controllers.database import DataBase
 from controllers.filter_manager import FilterManager
-from controllers.graph_plotter import LinearGraphPlotter
+from controllers.graph_plotter import LinearGraphPlotter, BarGraphPlotter
 from controllers.handler_manager import HandlerManager
 from models.currency import Currency
 from models.graph_data import GraphData
@@ -45,7 +45,8 @@ class MoreInfoDialog(QDialog):
 
         # init UI components
         self._ui = Ui_MoreInfoDialog()
-        self._plotter = LinearGraphPlotter("SummaryPlotter", self._filter)
+        # self._plotter = LinearGraphPlotter("SummaryPlotter", self._settings, self._filter)
+        self._plotter = BarGraphPlotter("SummaryPlotter",self._settings, self._filter)
         self._chart_view = QChartView(self._plotter)
 
         # init UI and handlers

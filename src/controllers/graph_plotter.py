@@ -6,42 +6,51 @@ version: 0.0.1
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
 import abc
+import pprint
+import random
 
 import PySide6.QtCharts
-from PySide6.QtCore import Qt, QDate, QDateTime, QTime, QPointF, QMargins
-from PySide6.QtCharts import QChart, QLineSeries, QValueAxis, QDateTimeAxis
-from PySide6.QtGui import QColor, QPen
+from PySide6.QtCore import Qt, QPointF, QMargins
+from PySide6.QtCharts import QChart, QLineSeries, QValueAxis, QBarSeries, QBarSet, QBarCategoryAxis, QAbstractSeries
+from PySide6.QtGui import QColor, QPen, QFont
 
 from controllers.filter_manager import FilterManager, FilterType
 from models.currency import Currency
 from models.graph_data import GraphData
+from settings import RuntimeSettings
 
 
 class GraphPlotter(QChart):
 
-    def __init__(self, name, _filter: FilterManager):
+    def __init__(self, name, settings: RuntimeSettings, _filter: FilterManager):
         super().__init__()
         self.setObjectName(name)
         self.filter_manager = _filter
+        self.settings = settings
         self.legend().hide()
         self.setMargins(QMargins(10, 10, 10, 10))
 
     def updateData(self, title: str, data: list[GraphData]):
+        self.clear()
         if len(data) == 0:
-            self.clear()
             return
 
         data = self._prebuild_data(data)
-        self.updateSeries(data)
+        series: QAbstractSeries = self.updateSeries(data)
+        self.addSeries(series)
+        self.createAxes()
         self.updateAllAxis(title, data)
 
     @abc.abstractmethod
-    def updateSeries(self, data: dict):
+    def updateSeries(self, data: dict) -> QAbstractSeries:
         pass
 
     @abc.abstractmethod
     def updateAllAxis(self, y_axis_title: str, data: dict):
         pass
+
+    def createAxes(self):
+        self.createDefaultAxes()
 
     def _prebuild_data(self, input_data: list[GraphData]):
         fiter_type: FilterType = self.filter_manager.fiter_type()
@@ -192,11 +201,13 @@ class GraphPlotter(QChart):
 
 class LinearGraphPlotter(GraphPlotter):
 
-    def __init__(self, name, _filter: FilterManager):
-        super().__init__(name, _filter)
+    def __init__(self, name, settings: RuntimeSettings, _filter: FilterManager):
+        super().__init__(name, settings, _filter)
 
-    def updateSeries(self, data: dict):
-        _series = QLineSeries()
+    def updateSeries(self, data: dict) -> QAbstractSeries:
+        series = QLineSeries()
+        series.setPointLabelsFormat("@yPoint")
+        series.setPointLabelsVisible(True)
         pen = QPen(
             QColor('blue'),
             5,
@@ -204,15 +215,13 @@ class LinearGraphPlotter(GraphPlotter):
             Qt.PenCapStyle.RoundCap,
             Qt.PenJoinStyle.RoundJoin
         )
-        _series.setPen(pen)
+        series.setPen(pen)
 
         points: tuple[QPointF] = data['points']
         for point in points:
-            _series.append(point)
+            series.append(point)
 
-        self.clear()
-        self.addSeries(_series)
-        self.createDefaultAxes()
+        return series
 
     def updateAllAxis(self, y_axis_title: str, data: dict):
         x_axis: QValueAxis = self.axisX()
@@ -227,17 +236,48 @@ class LinearGraphPlotter(GraphPlotter):
         y_axis.setTickCount(10 + 1)
         y_axis.setRange(
             data['y-axis']['min'],
-            data['y-axis']['max']
+            data['y-axis']['max'] + 0.05 * abs(data['y-axis']['min'] - data['y-axis']['max'])
         )
 
 
 class BarGraphPlotter(GraphPlotter):
 
-    def __init__(self, name, _filter: FilterManager):
-        super().__init__(name, _filter)
+    def __init__(self, name, settings: RuntimeSettings, _filter: FilterManager):
+        super().__init__(name, settings, _filter)
 
-    def updateSeries(self, data: dict):
-        pass
+    def updateSeries(self, data: dict) -> QAbstractSeries:
+        series = QBarSeries()
+        series.setLabelsVisible(True)
+        series.setBarWidth(0.95)
+
+        bar_set = QBarSet('Значения')
+        points: tuple[QPointF] = data['points']
+        for point in points:
+            bar_set.append(point.y())
+            bar_set.setLabelFont(QFont('Segoe UI', 12))
+            bar_set.setLabelBrush(Qt.GlobalColor.black)
+
+        series.append(bar_set)
+        return series
 
     def updateAllAxis(self, y_axis_title: str, data: dict):
-        pass
+        x_axis: QBarCategoryAxis = self.axisX()
+        x_axis.append([str(int(point.x())) for point in data['points']])
+        x_axis.setTitleText(data['date-title'])
+
+        y_axis: QValueAxis = self.axisY()
+        y_axis.setLabelFormat("%.1f")
+        y_axis.setTitleText(y_axis_title)
+        y_axis.setTickCount(10 + 1)
+        y_axis.setRange(
+            data['y-axis']['min'],
+            data['y-axis']['max'] + 0.05 * abs(data['y-axis']['min'] - data['y-axis']['max'])
+        )
+
+    def createAxes(self):
+        axis_x = QBarCategoryAxis()
+        self.addAxis(axis_x, Qt.AlignBottom)
+
+        axis_y = QValueAxis()
+        self.addAxis(axis_y, Qt.AlignLeft)
+
