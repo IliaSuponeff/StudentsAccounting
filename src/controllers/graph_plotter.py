@@ -5,6 +5,8 @@ version: 0.0.1
 
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
+import abc
+
 import PySide6.QtCharts
 from PySide6.QtCore import Qt, QDate, QDateTime, QTime, QPointF, QMargins
 from PySide6.QtCharts import QChart, QLineSeries, QValueAxis, QDateTimeAxis
@@ -15,7 +17,7 @@ from models.currency import Currency
 from models.graph_data import GraphData
 
 
-class LinearGraphPlotter(QChart):
+class GraphPlotter(QChart):
 
     def __init__(self, name, _filter: FilterManager):
         super().__init__()
@@ -26,45 +28,20 @@ class LinearGraphPlotter(QChart):
 
     def updateData(self, title: str, data: list[GraphData]):
         if len(data) == 0:
-            self._clear()
+            self.clear()
             return
 
-        _series = QLineSeries()
-        pen = QPen(
-            QColor('blue'),
-            5,
-            Qt.PenStyle.SolidLine,
-            Qt.PenCapStyle.RoundCap,
-            Qt.PenJoinStyle.RoundJoin
-        )
-        _series.setPen(pen)
-
         data = self._prebuild_data(data)
-        points: tuple[QPointF] = data['points']
+        self.updateSeries(data)
+        self.updateAllAxis(title, data)
 
-        for point in points:
-            _series.append(point)
+    @abc.abstractmethod
+    def updateSeries(self, data: dict):
+        pass
 
-        self._clear()
-        self.addSeries(_series)
-        self.createDefaultAxes()
-        self._update_axis(title, data)
-
-    def _update_axis(self, y_axis_title: str, data: dict):
-        x_axis: QValueAxis = self.axisX()
-        x_axis.setLabelFormat("%d")
-        x_axis.setTitleText(data['date-title'])
-        x_axis.setTickCount(data['length'] if data['length'] > 0 else int(10 + 1))
-        x_axis.setRange(data['x-axis']['min'], data['x-axis']['max'])
-
-        y_axis: QValueAxis = self.axisY()
-        y_axis.setLabelFormat("%.1f")
-        y_axis.setTitleText(y_axis_title)
-        y_axis.setTickCount(10 + 1)
-        y_axis.setRange(
-            data['y-axis']['min'],
-            data['y-axis']['max']
-        )
+    @abc.abstractmethod
+    def updateAllAxis(self, y_axis_title: str, data: dict):
+        pass
 
     def _prebuild_data(self, input_data: list[GraphData]):
         fiter_type: FilterType = self.filter_manager.fiter_type()
@@ -200,7 +177,7 @@ class LinearGraphPlotter(QChart):
             input_data
         ), f"Дни {max_date.month} месяца {max_date.year} года"
 
-    def _clear(self):
+    def clear(self):
         self.removeAllSeries()
         self.removeAxis(self.axisX())
         self.removeAxis(self.axisY())
@@ -211,3 +188,56 @@ class LinearGraphPlotter(QChart):
             axis.hide()
 
         super().removeAxis(axis)
+
+
+class LinearGraphPlotter(GraphPlotter):
+
+    def __init__(self, name, _filter: FilterManager):
+        super().__init__(name, _filter)
+
+    def updateSeries(self, data: dict):
+        _series = QLineSeries()
+        pen = QPen(
+            QColor('blue'),
+            5,
+            Qt.PenStyle.SolidLine,
+            Qt.PenCapStyle.RoundCap,
+            Qt.PenJoinStyle.RoundJoin
+        )
+        _series.setPen(pen)
+
+        points: tuple[QPointF] = data['points']
+        for point in points:
+            _series.append(point)
+
+        self.clear()
+        self.addSeries(_series)
+        self.createDefaultAxes()
+
+    def updateAllAxis(self, y_axis_title: str, data: dict):
+        x_axis: QValueAxis = self.axisX()
+        x_axis.setLabelFormat("%d")
+        x_axis.setTitleText(data['date-title'])
+        x_axis.setTickCount(data['length'] if data['length'] > 0 else int(10 + 1))
+        x_axis.setRange(data['x-axis']['min'], data['x-axis']['max'])
+
+        y_axis: QValueAxis = self.axisY()
+        y_axis.setLabelFormat("%.1f")
+        y_axis.setTitleText(y_axis_title)
+        y_axis.setTickCount(10 + 1)
+        y_axis.setRange(
+            data['y-axis']['min'],
+            data['y-axis']['max']
+        )
+
+
+class BarGraphPlotter(GraphPlotter):
+
+    def __init__(self, name, _filter: FilterManager):
+        super().__init__(name, _filter)
+
+    def updateSeries(self, data: dict):
+        pass
+
+    def updateAllAxis(self, y_axis_title: str, data: dict):
+        pass
