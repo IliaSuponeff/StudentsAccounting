@@ -38,7 +38,7 @@
 - [ ] Linux
 - [ ] MacOS
 
-#### Версия приложения 1.0.0-beta
+#### Версия приложения 2.0-beta
 
 #### Open Source License - Apache License Version 2.0
 
