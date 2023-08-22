@@ -3,31 +3,21 @@ Contains settings classes
 1. Standard settings(_StandardSettings)
 2. Settings while the application is running(RuntimeSettings)
 
-version: 1.0.1 - valid version
-
-versions-list:  0.0.1 - create class _StandardSettings
-                0.0.2 - create class RuntimeSettings
-                0.0.3 - description of the _StandardSettings class
-                0.0.4 - description of the RuntimeSettings class
-                0.0.5 - enabling downloading local settings from files for the RuntimeSettings class
-                1.0.0 - first release version, can load images, resources files, stylesheet-files
-                1.0.1 - first release version, can load sql-scripts files
-
-
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
-import argparse
 import os.path
-import sys
 import json
 from PySide6.QtCore import QSize
 from PySide6.QtGui import QIcon, QPixmap, QColor
 
 
 class _StandardSettings:
+    """
+    The class '_StandardSettings' contains standard application startup parameters and
+    functions for interacting with parameters and local resources
+    """
 
     def __init__(self):
-
         self.__DEBUG__ = False
         self.__CHARSET__ = 'UTF-8'
 
@@ -43,7 +33,7 @@ class _StandardSettings:
         self._load_stylesheets_dict()
 
         self.TITLE = 'StudentAccounting'
-        self.VERSION = '1.0'
+        self.VERSION = '2.0'
         self.STYLESHEET = ''
 
     def debug(self) -> bool:
@@ -63,7 +53,6 @@ class _StandardSettings:
         if not os.path.exists(filepath):
             raise FileNotFoundError(f'File {filepath} not found at resources directory')
 
-        filedata = ''
         with open(filepath, 'r', encoding=self.charset()) as file:
             filedata = file.read()
 
@@ -110,7 +99,6 @@ class _StandardSettings:
         if not os.path.exists(filepath):
             return ''
 
-        data = ''
         with open(filepath, 'r', encoding=self.charset()) as stylesheet_file:
             data = stylesheet_file.read()
 
@@ -152,7 +140,6 @@ class _StandardSettings:
         if not os.path.exists(script_path) or not os.path.isfile(script_path):
             return ''
 
-        data = ''
         with open(script_path, 'r', encoding=self.charset()) as script_file:
             data = script_file.read()
 
@@ -161,55 +148,10 @@ class _StandardSettings:
 
 class RuntimeSettings(_StandardSettings):
 
-    def __init__(self, *args):
+    def __init__(self):
         super().__init__()
-        if len(args) == 0:
-            args = tuple(sys.argv[1:])
         self._load_from_local_settings_file()  # last runtime settings
-        self._initialize_by_system_args(self._parse_system_args(*args))  # new runtime settings
         self.__STYLESHEETS__ = tuple(self.get_stylesheet_names())
-
-    def _parse_system_args(self, *args) -> argparse.Namespace:
-        parser = argparse.ArgumentParser(
-            prog=self.TITLE,
-            description='-'
-        )
-        parser.add_argument(
-            '-d', '--debug',
-            default=self.debug(),
-            action=f'store_{str(not self.debug()).lower()}',
-            help=f'Set debug mode as {not self.debug()}'
-        )
-        parser.add_argument(
-            '-t', '--title',
-            default=self.TITLE, type=str,
-            help='Change application title'
-        )
-        parser.add_argument(
-            '-sv', '--set-version',
-            default=self.VERSION,
-            type=str,
-            help='Change application version at format \'<release>.<bugfix>.<beta>\''
-        )
-        parser.add_argument(
-            '-v', '--version',
-            action='version',
-            version=f'{self.TITLE} version: {self.VERSION}',
-            help='Print version information of application'
-        ),
-        parser.add_argument(
-            '-css', '--style-sheet',
-            default=self.STYLESHEET,
-            type=str,
-            help='Change application runtime stylesheet'
-        )
-        return parser.parse_args(args)
-
-    def _initialize_by_system_args(self, ns: argparse.Namespace):
-        self.__DEBUG__ = bool(ns.debug)
-        self.TITLE = str(ns.title)
-        self.VERSION = self._check_version(ns.set_version)
-        self.STYLESHEET = self._check_stylesheet(ns.style_sheet)
 
     def _load_from_local_settings_file(self):
         settings_filepath = self.get_resource_filepath('settings.json')
@@ -217,7 +159,6 @@ class RuntimeSettings(_StandardSettings):
             self._save_to_local_settings_file()
             return
 
-        data = {}
         try:
             with open(settings_filepath, 'r', encoding=self.charset()) as file:
                 data = json.load(file)

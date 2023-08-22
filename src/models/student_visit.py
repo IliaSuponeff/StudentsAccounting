@@ -11,7 +11,7 @@ import datetime
 class Visit:
     _DATE: datetime.date = datetime.date.today()
     _TIMESPAN: float = 1
-    _IS_SPECIAL: int = 0  # 0 is False, 1 is True
+    _IS_SPECIAL: int = 0
     _SPECIAL_SUM: float = 0
 
     def __init__(self, date, timespan, is_special, special_sum):

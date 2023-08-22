@@ -21,7 +21,7 @@ class Application(QApplication):
 
     def __init__(self):
         super().__init__()
-        self.settings = RuntimeSettings(*sys.argv[1:])
+        self.settings = RuntimeSettings()
         self.db = DataBase(self.settings)
         self.main_window = MainWindowHandler(self.settings, self.db)
 
