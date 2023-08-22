@@ -182,29 +182,6 @@ class Ui_MoreInfoDialog(object):
 
         self.verticalLayout.addWidget(self.currency_choose_frame)
 
-        self.hLayout_1 = QHBoxLayout()
-        self.hLayout_1.setObjectName(u"hLayout_1")
-        self.hSpacer_1 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.hLayout_1.addItem(self.hSpacer_1)
-
-        self.create_report_btn = QPushButton(MoreInfoDialog)
-        self.create_report_btn.setObjectName(u"create_report_btn")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.create_report_btn.sizePolicy().hasHeightForWidth())
-        self.create_report_btn.setSizePolicy(sizePolicy6)
-
-        self.hLayout_1.addWidget(self.create_report_btn)
-
-        self.hSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.hLayout_1.addItem(self.hSpacer_2)
-
-
-        self.verticalLayout.addLayout(self.hLayout_1)
-
 
         self.retranslateUi(MoreInfoDialog)
 
@@ -219,6 +196,5 @@ class Ui_MoreInfoDialog(object):
         self.prev_student_btn.setText("")
         self.reload_student_btn.setText("")
         self.next_student_btn.setText("")
-        self.create_report_btn.setText(QCoreApplication.translate("MoreInfoDialog", u"\u0421\u043e\u0437\u0434\u0430\u0442\u044c \u043e\u0442\u0447\u0451\u0442", None))
     # retranslateUi
 

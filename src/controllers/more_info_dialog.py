@@ -14,7 +14,7 @@ from PySide6.QtWidgets import QDialog
 
 from controllers.database import DataBase
 from controllers.filter_manager import FilterManager
-from controllers.graph_plotter import LinearGraphPlotter, BarGraphPlotter
+from controllers.graph_plotter import BarGraphPlotter
 from controllers.handler_manager import HandlerManager
 from models.currency import Currency
 from models.graph_data import GraphData
@@ -45,8 +45,7 @@ class MoreInfoDialog(QDialog):
 
         # init UI components
         self._ui = Ui_MoreInfoDialog()
-        # self._plotter = LinearGraphPlotter("SummaryPlotter", self._settings, self._filter)
-        self._plotter = BarGraphPlotter("SummaryPlotter",self._settings, self._filter)
+        self._plotter = BarGraphPlotter("SummaryPlotter", self._settings, self._filter)
         self._chart_view = QChartView(self._plotter)
 
         # init UI and handlers
@@ -56,7 +55,7 @@ class MoreInfoDialog(QDialog):
     def show(self) -> None:
         super().show()
 
-    def call(self, *args):
+    def call(self, *args: object):
         assert len(self._handler_manager.get_students()) > 0, \
             "Нет учеников для вывода подробной информации"
         self._updateUI()
@@ -218,7 +217,8 @@ class MoreInfoDialog(QDialog):
                 )
             )
 
-        vals_axis_title = f'{self._ui.plot_type_box.currentText()} ({need_currency if vals_type_index == 0 else "часы"})'
+        vals_axis_title = f'{self._ui.plot_type_box.currentText()} ' \
+                          f'({need_currency if vals_type_index == 0 else "часы"})'
         self._plotter.updateData(vals_axis_title, graph_datas)
 
     @staticmethod
