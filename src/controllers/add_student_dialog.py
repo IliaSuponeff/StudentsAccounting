@@ -8,8 +8,9 @@ author: Ilia Suponev GitHub: https://github.com/ProgKalm
 from PySide6.QtWidgets import QDialog
 from views.dialogs.ui_create_student import Ui_CreaterStudent
 from settings import RuntimeSettings
-from controllers.database import DataBase, Student, Currency
+from controllers.database import DataBase, Student
 from controllers.user_exception_mgs_dialogs import exception
+from models.currency import Currency
 
 
 class AddStudentDialog(QDialog):
