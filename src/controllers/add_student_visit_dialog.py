@@ -7,13 +7,12 @@ author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
 import datetime
 
-import PySide6.QtGui
 from PySide6.QtWidgets import QDialog
 from PySide6.QtCore import QDate
 from views.dialogs.ui_create_visit import Ui_CreatorVisit
 from settings import RuntimeSettings
-from controllers.database import DataBase, Student, Visit, Currency
-from controllers.user_exception_mgs_dialogs import exception, warning
+from controllers.database import DataBase, Visit
+from controllers.user_exception_mgs_dialogs import exception
 
 
 class AddStudentVisitDialog(QDialog):

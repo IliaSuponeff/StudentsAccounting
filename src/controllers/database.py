@@ -14,7 +14,7 @@ import sys
 
 from settings import RuntimeSettings
 from jinja2 import Template
-from models.student import Student, Currency
+from models.student import Student
 from models.student_visit import Visit
 
 
@@ -66,7 +66,7 @@ class DataBase:
         index = self.students.index(old_student)
         self.students[index] = new_student
 
-        # reload STUDETS DB table
+        # reload students DB table
         self._execute_script(
             'edit_student',
             name=new_student.name(),
@@ -81,7 +81,6 @@ class DataBase:
 
         for visit in visits:
             self.add_student_visit(new_student, visit)
-
 
     def remove_student(self, student: Student):
         if not (student in self.students):

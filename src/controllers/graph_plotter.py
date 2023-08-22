@@ -6,8 +6,6 @@ version: 0.0.1
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
 import abc
-import pprint
-import random
 
 import PySide6.QtCharts
 from PySide6.QtCore import Qt, QPointF, QMargins
@@ -15,7 +13,6 @@ from PySide6.QtCharts import QChart, QLineSeries, QValueAxis, QBarSeries, QBarSe
 from PySide6.QtGui import QColor, QPen, QFont
 
 from controllers.filter_manager import FilterManager, FilterType
-from models.currency import Currency
 from models.graph_data import GraphData
 from settings import RuntimeSettings
 
@@ -45,9 +42,9 @@ class GraphPlotter(QChart):
     def updateSeries(self, data: dict) -> QAbstractSeries:
         pass
 
-    @abc.abstractmethod
     def updateAllAxis(self, y_axis_title: str, data: dict):
-        pass
+        self.build_axis_x(data)
+        self.build_axis_y(y_axis_title, data)
 
     def createAxes(self):
         self.createDefaultAxes()
@@ -109,54 +106,43 @@ class GraphPlotter(QChart):
 
     @staticmethod
     def _get_all_years_points(_years_range, input_data: list[GraphData]) -> tuple[QPointF]:
-        points = []
-        years_data = {}
-        for year in _years_range:
-            years_data.setdefault(year, 0.0)
-
-        for graph_data in input_data:
-            years_data.setdefault(graph_data.date().year, 0.0)
-            years_data[graph_data.date().year] += graph_data.value()
-
-        for year in sorted(years_data.keys()):
-            points.append(
-                QPointF(year, years_data[year])
-            )
-
-        return tuple(points)
+        return GraphPlotter._get_points(
+            _range=_years_range,
+            sort_data_attribute='year',
+            input_data=input_data
+        )
 
     @staticmethod
     def _get_year_points(_months_range, input_data: list[GraphData]) -> tuple[QPointF]:
-        points = []
-        moths_data = {}
-        for month in _months_range:
-            moths_data.setdefault(month, 0.0)
-
-        for graph_data in input_data:
-            moths_data.setdefault(graph_data.date().month, 0.0)
-            moths_data[graph_data.date().month] += graph_data.value()
-
-        for month in sorted(moths_data.keys()):
-            points.append(
-                QPointF(month, moths_data[month])
-            )
-
-        return tuple(points)
+        return GraphPlotter._get_points(
+            _range=_months_range,
+            sort_data_attribute='month',
+            input_data=input_data
+        )
 
     @staticmethod
     def _get_moths_points(_days_range, input_data: list[GraphData]) -> tuple[QPointF]:
+        return GraphPlotter._get_points(
+            _range=_days_range,
+            sort_data_attribute='day',
+            input_data=input_data
+        )
+
+    @staticmethod
+    def _get_points(_range, sort_data_attribute: str, input_data: list[GraphData]) -> tuple[QPointF]:
         points = []
-        days_data = {}
-        for day in _days_range:
-            days_data.setdefault(day, 0.0)
+        data = {}
+        for value in _range:
+            data.setdefault(value, 0.0)
 
         for graph_data in input_data:
-            days_data.setdefault(graph_data.date().day, 0.0)
-            days_data[graph_data.date().day] += graph_data.value()
+            attribute = graph_data.date().__getattribute__(sort_data_attribute)
+            data.setdefault(attribute, 0.0)
+            data[attribute] += graph_data.value()
 
-        for day in sorted(days_data.keys()):
+        for value in sorted(data.keys()):
             points.append(
-                QPointF(day, days_data[day])
+                QPointF(value, data[value])
             )
 
         return tuple(points)
@@ -198,6 +184,20 @@ class GraphPlotter(QChart):
 
         super().removeAxis(axis)
 
+    @abc.abstractmethod
+    def build_axis_x(self, data):
+        pass
+
+    def build_axis_y(self, title, data):
+        y_axis: QValueAxis = self.axisY()
+        y_axis.setLabelFormat("%.1f")
+        y_axis.setTitleText(title)
+        y_axis.setTickCount(10 + 1)
+        y_axis.setRange(
+            data['y-axis']['min'],
+            data['y-axis']['max'] + 0.05 * abs(data['y-axis']['min'] - data['y-axis']['max'])
+        )
+
 
 class LinearGraphPlotter(GraphPlotter):
 
@@ -223,21 +223,12 @@ class LinearGraphPlotter(GraphPlotter):
 
         return series
 
-    def updateAllAxis(self, y_axis_title: str, data: dict):
+    def build_axis_x(self, data: dict):
         x_axis: QValueAxis = self.axisX()
         x_axis.setLabelFormat("%d")
         x_axis.setTitleText(data['date-title'])
         x_axis.setTickCount(data['length'] if data['length'] > 0 else int(10 + 1))
         x_axis.setRange(data['x-axis']['min'], data['x-axis']['max'])
-
-        y_axis: QValueAxis = self.axisY()
-        y_axis.setLabelFormat("%.1f")
-        y_axis.setTitleText(y_axis_title)
-        y_axis.setTickCount(10 + 1)
-        y_axis.setRange(
-            data['y-axis']['min'],
-            data['y-axis']['max'] + 0.05 * abs(data['y-axis']['min'] - data['y-axis']['max'])
-        )
 
 
 class BarGraphPlotter(GraphPlotter):
@@ -260,19 +251,10 @@ class BarGraphPlotter(GraphPlotter):
         series.append(bar_set)
         return series
 
-    def updateAllAxis(self, y_axis_title: str, data: dict):
+    def build_axis_x(self, data: dict):
         x_axis: QBarCategoryAxis = self.axisX()
         x_axis.append([str(int(point.x())) for point in data['points']])
         x_axis.setTitleText(data['date-title'])
-
-        y_axis: QValueAxis = self.axisY()
-        y_axis.setLabelFormat("%.1f")
-        y_axis.setTitleText(y_axis_title)
-        y_axis.setTickCount(10 + 1)
-        y_axis.setRange(
-            data['y-axis']['min'],
-            data['y-axis']['max'] + 0.05 * abs(data['y-axis']['min'] - data['y-axis']['max'])
-        )
 
     def createAxes(self):
         axis_x = QBarCategoryAxis()
@@ -280,4 +262,3 @@ class BarGraphPlotter(GraphPlotter):
 
         axis_y = QValueAxis()
         self.addAxis(axis_y, Qt.AlignLeft)
-

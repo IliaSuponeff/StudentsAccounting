@@ -5,11 +5,9 @@ version: 0.0.1
 
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
-import os.path
-import pprint
+import os
 
 from PySide6.QtWidgets import QDialog
-from PySide6.QtCore import Qt
 from settings import RuntimeSettings
 from views.dialogs.ui_info_dialog import Ui_InfoDialog
 

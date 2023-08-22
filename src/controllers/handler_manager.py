@@ -1,5 +1,6 @@
 """
-Contains the main control functions for working with the database and models: a set of students and a list of visits by students
+Contains the main control functions for working with the database and models:
+a set of students and a list of visits by students
 
 version: 0.0.1
 
@@ -8,7 +9,7 @@ author: Ilia Suponev GitHub: https://github.com/ProgKalm
 import typing
 
 from settings import RuntimeSettings
-from controllers.database import DataBase, Student, Visit, Currency
+from controllers.database import DataBase, Student, Visit
 
 
 class HandlerManager:
@@ -17,7 +18,6 @@ class HandlerManager:
         self._settings = settings
         self._db = database
         self._current_student_index = 0
-
 
     def get_current_student(self) -> typing.Optional[Student]:
         if self._is_valid_index():
