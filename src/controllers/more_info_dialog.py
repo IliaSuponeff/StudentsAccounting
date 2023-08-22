@@ -88,6 +88,7 @@ class MoreInfoDialog(QDialog):
         self._ui.student_choose_box.setCurrentText(
             self._handler_manager.get_current_student().name()
         )
+        self._ui.student_choose_box.show()
 
         self._load_theme_icons()
         self.setStyleSheet(self._settings.get_stylesheet(
