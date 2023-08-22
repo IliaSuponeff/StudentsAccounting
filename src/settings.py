@@ -5,6 +5,7 @@ Contains settings classes
 
 author: Ilia Suponev GitHub: https://github.com/ProgKalm
 """
+import datetime
 import os.path
 import json
 from PySide6.QtCore import QSize
@@ -34,6 +35,7 @@ class _StandardSettings:
 
         self.TITLE = 'StudentAccounting'
         self.VERSION = '2.0'
+        self._START_DATE = datetime.datetime.strptime("01.07.2023", "%d.%m.%Y").date()
         self.STYLESHEET = ''
 
     def debug(self) -> bool:
@@ -41,6 +43,9 @@ class _StandardSettings:
 
     def charset(self) -> str:
         return self.__CHARSET__
+
+    def start_date(self) -> datetime.date:
+        return self._START_DATE
 
     def get_resource_filepath(self, filename: str) -> str | os.PathLike:
         if filename is None:
