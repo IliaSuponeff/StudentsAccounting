@@ -74,7 +74,7 @@ class Visit:
         self._IS_SPECIAL = 1 if is_special else 0
 
     def set_special_sum(self, special_sum):
-        if bool(self._IS_SPECIAL) and special_sum <= 0:
+        if bool(self._IS_SPECIAL) and special_sum < 0:
             raise AttributeError(f'Так, как цена договорная, то и стоимость урока должна быть больше 0')
 
         self._SPECIAL_SUM = float(special_sum) if self._IS_SPECIAL else 0

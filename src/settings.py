@@ -34,7 +34,7 @@ class _StandardSettings:
         self._load_stylesheets_dict()
 
         self.TITLE = 'StudentAccounting'
-        self.VERSION = '2.0'
+        self._VERSION = '2.1'
         self._START_DATE = datetime.datetime.strptime("01.07.2023", "%d.%m.%Y").date()
         self.STYLESHEET = ''
 
@@ -188,20 +188,6 @@ class RuntimeSettings(_StandardSettings):
     def close(self):
         self._save_to_local_settings_file()
 
-    def _check_version(self, version: str):
-        v_data = version.split('.')
-        if len(v_data) != 3:
-            return self.VERSION
-
-        for p in v_data:
-            if not p.isdigit():
-                return self.VERSION
-
-        if self.VERSION < version:
-            return version
-
-        return self.VERSION
-
     def _check_stylesheet(self, style_sheet: str):
         if style_sheet is None:
             return self.STYLESHEET
@@ -228,7 +214,7 @@ class RuntimeSettings(_StandardSettings):
         return json_object
 
     def get_app_status(self) -> str:
-        app_status = f"Version: {self.VERSION}"
+        app_status = f"Version: {self._VERSION}"
         if self.debug():
             app_status = app_status + " " + "DEBUG"
 
