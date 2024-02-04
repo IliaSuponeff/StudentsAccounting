@@ -34,7 +34,7 @@ class _StandardSettings:
         self._load_stylesheets_dict()
 
         self.TITLE = 'StudentAccounting'
-        self._VERSION = '2.1'
+        self._VERSION = '3.1'
         self._START_DATE = datetime.datetime.strptime("01.07.2023", "%d.%m.%Y").date()
         self.STYLESHEET = ''
 

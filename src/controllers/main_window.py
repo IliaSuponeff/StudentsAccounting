@@ -516,4 +516,5 @@ class MainWindowHandler(QMainWindow):
         self._ui.add_visit_btn.setDisabled(is_archive_mode)
         self._ui.edit_visit_btn.setDisabled(is_archive_mode)
         self._ui.del_visit_btn.setDisabled(is_archive_mode)
+        self._handler_manager.set_current_index(0)
         self._reload_students()
