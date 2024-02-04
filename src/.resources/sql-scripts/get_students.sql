@@ -1,1 +1,1 @@
-SELECT * FROM "STUDENTS"
+SELECT * FROM "{{table}}"

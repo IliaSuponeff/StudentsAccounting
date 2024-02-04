@@ -1,1 +1,1 @@
-DELETE FROM "STUDENTS" WHERE "table"="{{ table }}"
+DELETE FROM "{{main_table}}" WHERE "table"="{{ table }}"

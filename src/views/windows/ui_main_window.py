@@ -80,6 +80,15 @@ class Ui_MainWindow(object):
 
         self.hLayout_2.addWidget(self.del_student_btn)
 
+        self.archivate_student_btn = QPushButton(self.tools_frame)
+        self.archivate_student_btn.setObjectName(u"archivate_student_btn")
+        sizePolicy1.setHeightForWidth(self.archivate_student_btn.sizePolicy().hasHeightForWidth())
+        self.archivate_student_btn.setSizePolicy(sizePolicy1)
+        self.archivate_student_btn.setIconSize(QSize(30, 30))
+        self.archivate_student_btn.setFlat(False)
+
+        self.hLayout_2.addWidget(self.archivate_student_btn)
+
 
         self.vLayout_1.addLayout(self.hLayout_2)
 
@@ -476,6 +485,14 @@ class Ui_MainWindow(object):
 
         self.hLayout_3.addWidget(self.theme_change_btn)
 
+        self.archive_mode_switch_btn = QPushButton(self.workspace_frame)
+        self.archive_mode_switch_btn.setObjectName(u"archive_mode_switch_btn")
+        sizePolicy4.setHeightForWidth(self.archive_mode_switch_btn.sizePolicy().hasHeightForWidth())
+        self.archive_mode_switch_btn.setSizePolicy(sizePolicy4)
+        self.archive_mode_switch_btn.setFlat(False)
+
+        self.hLayout_3.addWidget(self.archive_mode_switch_btn)
+
         self.help_btn = QPushButton(self.workspace_frame)
         self.help_btn.setObjectName(u"help_btn")
         sizePolicy15.setHeightForWidth(self.help_btn.sizePolicy().hasHeightForWidth())
@@ -571,6 +588,8 @@ class Ui_MainWindow(object):
 "\u0443\u0447\u0435\u043d\u0438\u043a\u0430", None))
         self.del_student_btn.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c\n"
 "\u0443\u0447\u0435\u043d\u0438\u043a\u0430", None))
+        self.archivate_student_btn.setText(QCoreApplication.translate("MainWindow", u"\u0410\u0440\u0445\u0438\u0432\u0438\u0440\u043e\u0432\u0430\u0442\u044c\n"
+"\u0443\u0447\u0435\u043d\u0438\u043a\u0430", None))
         self.prev_student_btn.setText("")
         self.reload_student_btn.setText("")
         self.next_student_btn.setText("")
@@ -599,6 +618,7 @@ class Ui_MainWindow(object):
         self.info_lbl_6.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0442\u043e\u0433\u043e\u0432\u044b\u0435 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u044b \u0434\u043b\u044f \u0432\u0441\u0435\u0445 \u0443\u0447\u0435\u043d\u0438\u043a\u043e\u0432", None))
         self.more_info_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0435\u0435...", None))
         self.theme_change_btn.setText("")
+        self.archive_mode_switch_btn.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0430\u0440\u0445\u0438\u0432", None))
         self.help_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043c\u043e\u0449\u044c", None))
         self.about_btn.setText(QCoreApplication.translate("MainWindow", u"\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435", None))
         self.add_visit_btn.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u043f\u043e\u0441\u0435\u0449\u0435\u043d\u0438\u0435", None))

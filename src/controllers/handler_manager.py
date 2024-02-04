@@ -18,6 +18,15 @@ class HandlerManager:
         self._settings = settings
         self._db = database
         self._current_student_index = 0
+        self._archive_mode = False
+
+    @property
+    def archive_mode(self) -> bool:
+        return self._archive_mode
+
+    @archive_mode.setter
+    def archive_mode(self, value: bool) -> None:
+        self._archive_mode = bool(value)
 
     def get_current_student(self) -> typing.Optional[Student]:
         if self._is_valid_index():
@@ -38,7 +47,7 @@ class HandlerManager:
     def delete_current_student(self):
         student = self.get_current_student()
         if student is not None:
-            self._db.remove_student(student)
+            self._db.remove_student(student, is_archive_mode=self.archive_mode)
 
         # normalised current student index
         if len(self._db.students) == 0:
@@ -81,10 +90,13 @@ class HandlerManager:
         self._db.remove_student_visit(student, visit)
 
     def get_students(self) -> tuple[Student]:
-        return tuple(self._db.get_students())
+        return tuple(self._db.get_students(is_archive_mode=self.archive_mode))
 
     def get_student_visits(self, student: Student) -> list[Visit]:
         if student is None or not isinstance(student, Student):
             return []
 
         return self._db.get_student_visits(student)
+
+    def archivate_student(self, student: Student):
+        self._db.archive_student(student, is_archive_mode=self.archive_mode)

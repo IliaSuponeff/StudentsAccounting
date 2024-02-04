@@ -32,7 +32,7 @@ class DataBase:
 
         # try to initialize db
         self._execute_script('.init_db')
-        self.students = self.get_students()
+        self.students = self.get_students()  # TODO: Change mode of getting students by mode ARCHIVE or NOT_ARCHIVE
 
         if self.settings.debug():
             print(f"Students: {self.students}", file=sys.stderr)
@@ -82,14 +82,36 @@ class DataBase:
         for visit in visits:
             self.add_student_visit(new_student, visit)
 
-    def remove_student(self, student: Student):
+    def remove_student(self, student: Student, is_archive_mode: bool = False):
         if not (student in self.students):
-            # nothing to do
             return
 
         self.students.remove(student)
-        self._execute_script('remove_student', table=student.table())
+        self._execute_script(
+            'remove_student',
+            main_table="ARCHIVE" if is_archive_mode else "STUDENTS",
+            table=student.table()
+        )
         self._execute_script('remove_student_table', table=student.table())
+
+    def archive_student(self, student: Student, is_archive_mode: bool = False):
+        if not (student in self.students):
+            return
+        print(student, is_archive_mode)
+        self.students.remove(student)
+        self._execute_script(
+            'remove_student',
+            main_table="ARCHIVE" if is_archive_mode else "STUDENTS",
+            table=student.table()
+        )
+        self._execute_script(
+            'archivate_student',
+            main_table="ARCHIVE" if not is_archive_mode else "STUDENTS",
+            name=student.name(),
+            hour_cost=student.hour_cost(),
+            currency=student.currency().value,
+            table=student.table()
+        )
 
     def add_student_visit(self, student: Student, visit: Visit):
         if visit in self.get_student_visits(student):
@@ -133,13 +155,6 @@ class DataBase:
             special_sum=visit.special_sum()
         )
 
-    def remove_student_visit_by_rowid(self, student: Student, rowid: int):
-        self._execute_script(
-            'remove_student_visit_by_rowid',
-            table=student.table(),
-            rowid=int(rowid)
-        )
-
     def _sort_student_visits(self, student: Student):
         visits = self.get_student_visits(student)
         visits.sort()
@@ -156,9 +171,10 @@ class DataBase:
                 special_sum=visit.special_sum()
             )
 
-    def get_students(self) -> list[Student]:
-        self._execute_script('get_students')
-        return [Student(*row) for row in self._get_results(self.ALL_RESULTS)]
+    def get_students(self, is_archive_mode: bool = False) -> list[Student]:
+        self._execute_script('get_students', table="ARCHIVE" if is_archive_mode else "STUDENTS")
+        self.students = [Student(*row) for row in self._get_results(self.ALL_RESULTS)]
+        return self.students
 
     def get_student_visits(self, student: Student) -> list[Visit]:
         self._execute_script(
@@ -170,12 +186,13 @@ class DataBase:
     def _execute_script(self, script_name: str, **kwargs):
         script_data = self.settings.get_sql_script_filedata(f'{script_name}.sql')
         script_template = Template(script_data)
-        script = script_template.render(kwargs)
+        sql_script_data = script_template.render(kwargs)
 
         if self.settings.debug():
-            print(script, file=sys.stderr)
+            print(sql_script_data, file=sys.stderr)
 
-        self._cursor.execute(script)
+        for script in sql_script_data.split(';'):
+            self._cursor.execute(script.strip())
 
     def _get_results(self, count: int = 0):
         if count == self.NONE_RESULT:

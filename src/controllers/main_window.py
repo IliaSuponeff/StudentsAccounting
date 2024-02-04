@@ -127,6 +127,8 @@ class MainWindowHandler(QMainWindow):
             lambda: self._change_date('to')
         )
         self._ui.theme_change_btn.clicked.connect(lambda: self._change_theme())
+        self._ui.archivate_student_btn.clicked.connect(lambda: self._archivate_student())
+        self._ui.archive_mode_switch_btn.clicked.connect(lambda: self._switch_mode())
 
     def setIcons(self):
         self._load_theme_icons()
@@ -143,10 +145,9 @@ class MainWindowHandler(QMainWindow):
     def _reload_students(self):
         self._ui.student_choose_box.clear()
         self._ui.student_choose_box.addItems(
-            [student.name() for student in self.db.students]
+            [student.name() for student in self._handler_manager.get_students()]
         )
         if self._ui.student_choose_box.lineEdit() is not None:
-            # self._ui.student_choose_box.lineEdit().setReadOnly(False)
             self._ui.student_choose_box.lineEdit().setAlignment(Qt.AlignmentFlag.AlignCenter)
             self._ui.student_choose_box.lineEdit().setReadOnly(True)
 
@@ -445,7 +446,9 @@ class MainWindowHandler(QMainWindow):
         self._ui.add_visit_btn.setIcon(
             self.settings.load_theme_image('add_visit.png')
         )
-
+        self._ui.archivate_student_btn.setIcon(
+            self.settings.load_theme_image('archive.png')
+        )
         self._ui.edit_student_btn.setIcon(
             self.settings.load_theme_image('edit.png')
         )
@@ -474,3 +477,25 @@ class MainWindowHandler(QMainWindow):
             _dialog.close()
 
         return super().close()
+
+    def _archivate_student(self):
+        student = self._handler_manager.get_current_student()
+        self._handler_manager.archivate_student(student)
+        self._reload_students()
+
+    def _switch_mode(self):
+        self._handler_manager.archive_mode = not self._handler_manager.archive_mode
+        is_archive_mode = self._handler_manager.archive_mode
+        self._ui.archive_mode_switch_btn.setText(
+            "Закрыть архив" if is_archive_mode else "Открыть архив"
+        )
+        self._ui.archivate_student_btn.setText(
+            "Разархивировать\nученика" if is_archive_mode else "Архивировать\nученика"
+        )
+
+        self._ui.add_student_btn.setDisabled(is_archive_mode)
+        self._ui.edit_student_btn.setDisabled(is_archive_mode)
+        self._ui.add_visit_btn.setDisabled(is_archive_mode)
+        self._ui.edit_visit_btn.setDisabled(is_archive_mode)
+        self._ui.del_visit_btn.setDisabled(is_archive_mode)
+        self._reload_students()
