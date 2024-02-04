@@ -147,6 +147,8 @@ class MainWindowHandler(QMainWindow):
         self._ui.student_choose_box.addItems(
             [student.name() for student in self._handler_manager.get_students()]
         )
+        self._ui.student_choose_box.setCurrentIndex(self._handler_manager.get_current_index())
+
         if self._ui.student_choose_box.lineEdit() is not None:
             self._ui.student_choose_box.lineEdit().setAlignment(Qt.AlignmentFlag.AlignCenter)
             self._ui.student_choose_box.lineEdit().setReadOnly(True)

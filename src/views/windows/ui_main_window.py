@@ -136,6 +136,14 @@ class Ui_MainWindow(object):
 
         self.hLayout_1.addWidget(self.next_student_btn)
 
+        self.search_student_btn = QPushButton(self.tools_frame)
+        self.search_student_btn.setObjectName(u"search_student_btn")
+        sizePolicy4.setHeightForWidth(self.search_student_btn.sizePolicy().hasHeightForWidth())
+        self.search_student_btn.setSizePolicy(sizePolicy4)
+        self.search_student_btn.setFlat(True)
+
+        self.hLayout_1.addWidget(self.search_student_btn)
+
 
         self.vLayout_1.addLayout(self.hLayout_1)
 
@@ -593,6 +601,7 @@ class Ui_MainWindow(object):
         self.prev_student_btn.setText("")
         self.reload_student_btn.setText("")
         self.next_student_btn.setText("")
+        self.search_student_btn.setText("")
         self.img_lbl_2.setText("")
         self.student_name_lbl.setText(QCoreApplication.translate("MainWindow", u"StudentName", None))
         self.period_info_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0441\u0435 \u0434\u043d\u0438", None))

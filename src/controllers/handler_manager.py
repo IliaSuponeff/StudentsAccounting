@@ -72,7 +72,7 @@ class HandlerManager:
     def set_current_index(self, index):
         if not (0 <= index < len(self._db.students)):
             return
-
+        print(index)
         self._current_student_index = index
 
     def delete_student_visit(self, visit: Visit):
@@ -93,3 +93,6 @@ class HandlerManager:
 
     def archivate_student(self, student: Student):
         self._db.archive_student(student, is_archive_mode=self.archive_mode)
+
+    def get_current_index(self):
+        return self._current_student_index

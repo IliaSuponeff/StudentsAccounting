@@ -19,7 +19,7 @@ class _StandardSettings:
     """
 
     def __init__(self):
-        self.__DEBUG__ = True
+        self.__DEBUG__ = False
         self.__CHARSET__ = 'UTF-8'
 
         # Directory workspace
