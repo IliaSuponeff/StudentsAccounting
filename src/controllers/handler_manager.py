@@ -75,18 +75,11 @@ class HandlerManager:
 
         self._current_student_index = index
 
-    def delete_current_student_visit(self, visit_index: int):
+    def delete_student_visit(self, visit: Visit):
         student = self.get_current_student()
         if student is None:
             return
 
-        visits = self._db.get_student_visits(student)
-        if not (0 <= visit_index < len(visits)):
-            raise AssertionError(
-                f"Invalid vist index to delete it. Index = {visit_index}, expected from {0} to {len(visits) - 1}"
-            )
-
-        visit = visits[visit_index]
         self._db.remove_student_visit(student, visit)
 
     def get_students(self) -> tuple[Student]:

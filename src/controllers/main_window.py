@@ -194,6 +194,7 @@ class MainWindowHandler(QMainWindow):
         visits = self._filter_manager.filtrate(
             self._handler_manager.get_current_student_visits()
         )
+        visits.reverse()
         summary = 0
         sum_timespan = 0
         for visit in visits:
@@ -270,8 +271,11 @@ class MainWindowHandler(QMainWindow):
         indexes = tuple(self._get_selected_rows())
         if len(indexes) == 0:
             return
-
-        self._handler_manager.delete_current_student_visit(indexes[0])
+        visits = self._filter_manager.filtrate(
+            self._handler_manager.get_current_student_visits()
+        )
+        visits.reverse()
+        self._handler_manager.delete_student_visit(visits[indexes[0]])
         self._reload_students()
 
     def _get_selected_rows(self) -> frozenset[int]:
@@ -406,7 +410,10 @@ class MainWindowHandler(QMainWindow):
         if len(selected_row) == 0:
             return None
 
-        visits = self._handler_manager.get_current_student_visits()
+        visits = visits = self._filter_manager.filtrate(
+            self._handler_manager.get_current_student_visits()
+        )
+        visits.reverse()
         return visits[selected_row[0]]
 
     def _set_theme(self, theme_name):

@@ -32,7 +32,7 @@ class DataBase:
 
         # try to initialize db
         self._execute_script('.init_db')
-        self.students = self.get_students()  # TODO: Change mode of getting students by mode ARCHIVE or NOT_ARCHIVE
+        self.students = self.get_students()
 
         if self.settings.debug():
             print(f"Students: {self.students}", file=sys.stderr)
