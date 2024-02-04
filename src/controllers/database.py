@@ -97,7 +97,7 @@ class DataBase:
     def archive_student(self, student: Student, is_archive_mode: bool = False):
         if not (student in self.students):
             return
-        print(student, is_archive_mode)
+
         self.students.remove(student)
         self._execute_script(
             'remove_student',

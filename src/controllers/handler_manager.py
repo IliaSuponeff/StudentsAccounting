@@ -72,7 +72,7 @@ class HandlerManager:
     def set_current_index(self, index):
         if not (0 <= index < len(self._db.students)):
             return
-        print(index)
+
         self._current_student_index = index
 
     def delete_student_visit(self, visit: Visit):
@@ -96,3 +96,21 @@ class HandlerManager:
 
     def get_current_index(self):
         return self._current_student_index
+
+    def set_current_student(self, current_student: Student):
+        index = -1
+        students = self.get_students()
+        for i in range(len(students)):
+            student: Student = students[i]
+            is_eq_name = student.name().lower() == current_student.name().lower()
+            is_eq_currency = student.currency() == current_student.currency()
+            if not is_eq_name or not is_eq_currency:
+                continue
+
+            index = i
+            break
+
+        if index == -1:
+            return
+
+        self.set_current_index(index)

@@ -26,6 +26,7 @@ from controllers.edit_student_visit_dialog import EditStudentVisitDialog
 from controllers.help_dialog import HelpDialog
 from controllers.about_dialog import AboutDialog
 from controllers.more_info_dialog import MoreInfoDialog
+from controllers.search_student_dialog import SearchStudentDialog
 from models.student_visit import Visit
 
 
@@ -48,7 +49,8 @@ class MainWindowHandler(QMainWindow):
             "AboutDialog": AboutDialog(self.settings),
             "MoreInfoDialog": MoreInfoDialog(
                 self.settings, self.db, self._handler_manager, self._filter_manager
-            )
+            ),
+            "SearchStudentDialog": SearchStudentDialog(self.settings, self._handler_manager)
         }
         self._visits_table_modal = QStandardItemModel()
         self._all_result_table_model = QStandardItemModel()
@@ -129,6 +131,7 @@ class MainWindowHandler(QMainWindow):
         self._ui.theme_change_btn.clicked.connect(lambda: self._change_theme())
         self._ui.archivate_student_btn.clicked.connect(lambda: self._archivate_student())
         self._ui.archive_mode_switch_btn.clicked.connect(lambda: self._switch_mode())
+        self._ui.search_student_btn.clicked.connect(lambda: self._call_dialog("SearchStudentDialog"))
 
     def setIcons(self):
         self._load_theme_icons()
@@ -437,6 +440,9 @@ class MainWindowHandler(QMainWindow):
         self._ui.theme_change_btn.setIcon(
             self.settings.load_image(f'{theme_name}.png')
         )
+        for _dialog_name in self._dialogs:
+            _dialog: QDialog = self._dialogs[_dialog_name]
+            _dialog.setStyleSheet(stylesheet)
 
     def _change_theme(self):
         if len(self.settings.STYLESHEET) == 0:
@@ -478,6 +484,9 @@ class MainWindowHandler(QMainWindow):
         )
         self._ui.del_visit_btn.setIcon(
             self.settings.load_theme_image('remove_visit.png')
+        )
+        self._ui.search_student_btn.setIcon(
+            self.settings.load_theme_image('search.png')
         )
 
     def close(self) -> bool:
